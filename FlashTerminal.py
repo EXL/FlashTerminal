@@ -4,7 +4,7 @@
 ## Information #########################################################################################################
 
 '''
-A Flash Terminal utility for various Motorola phones.
+A Flash Terminal utility for various Motorola phones using Motorola Flash Protocol.
 
 Python: 3.10+
 License: MIT
@@ -43,12 +43,13 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_addr(er, ew, 0x00100000)
-#	mfp_upload_binary_to_addr(er, ew, 'V9m_patched.ldr', 0x00100000, 0x00100000)
+#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
+	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_48bytes_Read.ldr', 0x00100000, 0x00100000)
 	# Wait for RAMDL start.
 	time.sleep(1.0)
-	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
-#	mfp_rqrc_dump_hack_one_byte(er, ew, 'V9m_64MB.bin', 0x00000000, 0x00080000)
-	mfp_dump_hack(er, ew, 'V9m_64MB.bin', 0x00000000, 0x00080000, 0x30)
+#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+#	mfp_rqrc_dump_hack_one_byte(er, ew, 'V9m_Dump_64MB.bin', 0x00000000, 0x00008000)
+	mfp_dump_hack(er, ew, 'V9m_Dump_64MB.bin', 0x00000000, 0x04000000, 0x30)
 
 ## Motorola Flash Protocol #############################################################################################
 
