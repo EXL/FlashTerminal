@@ -25,7 +25,7 @@ import usb.util
 usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'S Flash MSM6550'},
 ]
-verbose_flag = False
+verbose_flag = True
 delay_ack = 0.00
 timeout_read = 100
 timeout_write = 100
@@ -41,15 +41,25 @@ def worksheet(er, ew):
 	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQSN')
-#	mfp_cmd(er, ew, 'RQVN')
+	mfp_cmd(er, ew, 'RQVN')
 #	mfp_addr(er, ew, 0x00100000)
+
+	# Upload RAMDLD
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
+#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_1byte_Read.ldr', 0x00100000, 0x00100000)
 	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_48bytes_Read.ldr', 0x00100000, 0x00100000)
-	# Wait for RAMDL start.
+
+	# Wait for RAMDLD start.
 	time.sleep(1.0)
-#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
 #	mfp_rqrc_dump_hack_one_byte(er, ew, 'V9m_Dump_64MB.bin', 0x00000000, 0x00008000)
-	mfp_dump_hack(er, ew, 'V9m_Dump_64MB.bin', 0x00000000, 0x04000000, 0x30)
+
+	# Dump RAM.
+#	mfp_dump_hack(er, ew, 'V9m_Dump_64MB.bin', 0x00000000, 0x04000000, 0x30)
+#	mfp_dump_hack(er, ew, 'V9m_Dump_64MB.bin', 0x04000000, 0x08000000, 0x30)
+
+	# Dump IRAM
+#	mfp_dump_hack(er, ew, 'V9m_Dump_IRAM_3.bin', 0xFFFF0000, 0xFFFF0030, 0x30)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -68,9 +78,9 @@ def mfp_dump_hack(er, ew, file_path, start, end, step):
 		time_start = time.process_time()
 		while addr_e <= end + step:
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
-			if index > 0 and (index % (step * 0x20) == 0):
+			if index > 0 and (index % (step * 0x100) == 0):
 				time_end = time.process_time()
-				speed = (step * 0x20) / (time_end - time_start) / 1024
+				speed = (step * 0x100) / (time_end - time_start) / 1024
 				logging.info(
 					f'Dumped 0x{index:08X}/{index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s'
 				)
@@ -187,6 +197,7 @@ def mfp_send_recv(er, ew, data):
 		except usb.USBError as error:
 			# TODO: Proper USB errors handling.
 			logging.error(f'USB Error: {error}')
+			exit(1)
 		time.sleep(delay_ack)
 	return response
 
