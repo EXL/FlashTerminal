@@ -25,7 +25,7 @@ import usb.util
 usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'S Flash MSM6550'},
 ]
-verbose_flag = False
+verbose_flag = True
 delay_ack = 0.00
 timeout_read = 100
 timeout_write = 100
@@ -59,7 +59,7 @@ def worksheet(er, ew):
 #	mfp_dump_ram(er, ew, 'V9m_RAM_Dump_128MB.bin', 0x00000000, 0x08000000, 0x30)
 
 	# Dump NAND and spare area.
-	mfp_dump_nand(er, ew, '123.bin', '1234.bin', 0, 1)
+#	mfp_dump_nand(er, ew, '123.bin', '1234.bin', 0, 1)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -74,8 +74,8 @@ def log_dump_info(step, time_start, size, index, file_path, addr_s, nand):
 	speed = (step * size) / (time_end - time_start) / 1024
 	if nand:
 		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
-	else
-		pass
+	else:
+		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
 	return time.process_time()  # Reset time.
 
 def mfp_dump_nand(er, ew, file_path, file_path_spare_area, start, end):
@@ -118,6 +118,8 @@ def mfp_dump_ram(er, ew, file_path, start, end, step):
 		index = 0
 		time_start = time.process_time()
 		while addr_e <= end + step:
+			if addr_e > end:
+				addr_e = end
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
 				time_start = log_dump_info(step, time_start, 0x100, index, file_path, addr_s, False)
@@ -129,7 +131,6 @@ def mfp_dump_ram(er, ew, file_path, start, end, step):
 			addr_s = addr_s + step
 			addr_e = addr_s + step
 			index += step
-		time_start = log_dump_info(step, time_start, 0x100, index, file_path, addr_s - step, False)
 
 def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None):
 	address = start
@@ -280,7 +281,7 @@ def set_logging_configuration(verbose):
 def main():
 	set_logging_configuration(verbose_flag)
 	connected_device = find_usb_device(usb_devices)
-	if device:
+	if connected_device:
 		er, ew = get_endpoints(connected_device)
 		worksheet(er, ew)
 
