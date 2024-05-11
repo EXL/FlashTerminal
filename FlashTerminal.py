@@ -8,7 +8,7 @@ A Flash Terminal utility for various Motorola phones using Motorola Flash Protoc
 
 Python: 3.10+
 License: MIT
-Authors: EXL, usernameak, kraze1984, Vilko, motoprogger, b1er, MotoFan.Ru developers
+Authors: EXL, usernameak, kraze1984, dffn3, Vilko, motoprogger, b1er, MotoFan.Ru developers
 Date: 10-May-2024
 Version: 1.0
 '''
@@ -51,22 +51,21 @@ def worksheet(er, ew, restart_flag):
 
 	# Upload RAMDLD to phone.
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
-#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_RAM.ldr', 0x00100000, 0x00100000)
+#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
 	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
 
 	# Wait for RAMDLD start.
 	time.sleep(1.0)
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000020'.encode())
 
-	# Dump RAM (64 MiB and 128 MiB).
-#	mfp_dump_ram(er, ew, 'V9m_RAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
-#	mfp_dump_ram(er, ew, 'V9m_RAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
+	# Dump SRAM (64 MiB and 128 MiB).
+#	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
+#	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 
 	# Dump NAND data (64 MiB and 128 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
-	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x5000, 0x30)
 #	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x04000000 / 512, 0x30)
-#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x08000000 / 512, 0x30)
+	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x08000000 / 512, 0x30)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -87,7 +86,7 @@ def log_dump_info(step, time_start, size, index, file_path, addr_s, addr_e, page
 		logging.info(
 			f'Dumped {index:08}/{pages:08} page, 512 bytes to "{file_path}", '
 			f'16 bytes to "{insert_to_filename("_spare_area",file_path)}", '
-			f'addr=0x{addr_s:08X},0x{addr_h:08X}, speed={speed:.2f} Kb/s'
+			f'addr=0x{addr_s:08X},0x{addr_e:08X}, speed={speed:.2f} Kb/s'
 		)
 	else:
 		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
@@ -101,9 +100,9 @@ def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30):
 		index = 0
 		time_start = time.process_time()
 		for page in range(start, end):
-			logging.debug(f'Dumping NAND {page:08} page, 512 bytes to "{file_path}"...')
+			logging.debug(f'Dumping NAND {page:08} page, 512+16 bytes to "{file_path}" +spare_area...')
 			if index > 0 and (index % 100 == 0):
-				time_start = log_dump_info(step, time_start, 100, index, file_path, addr_s, addr_h, (end - start), True)
+				time_start = log_dump_info(528, time_start, 100, index, file_path, addr_s, addr_h, (end - start), True)
 			while addr_e <= addr_h:
 				result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X},{page:08X}'.encode())
 				result_data = result_data[6:]   # Drop start marker and command.
@@ -125,7 +124,7 @@ def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30):
 			addr_e = addr_s + step
 			addr_h = 0x60000210
 
-def mfp_dump_ram(er, ew, file_path, start, end, step = 0x30):
+def mfp_dump_sram(er, ew, file_path, start, end, step = 0x30):
 	addr_s = start
 	addr_e = start + step
 	with open(file_path, 'wb') as file:
@@ -153,7 +152,7 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None):
 			chunk = file.read(buffer_write_size)
 			if not chunk:
 				break
-			logging.info(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes to 0x{address:08X}...')
+			logging.info(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}" to 0x{address:08X}...')
 			mfp_addr(er, ew, address)
 			mfp_bin(er, ew, chunk)
 			address += len(chunk)
