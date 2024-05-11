@@ -156,7 +156,7 @@ def mfp_bin(er, ew, data):
 	packet.extend(len(data).to_bytes(2, "big"))
 	packet.extend(data)
 	packet.append(calculate_checksum(packet))
-	logging.info(f'size={len(data)}, chksum={calculate_checksum(packet)}')
+	logging.debug(f'BIN packet: size={len(data)}, chksum={calculate_checksum(packet)}')
 	result = mfp_cmd(er, ew, 'BIN', packet)
 	return result
 
@@ -246,7 +246,7 @@ def usb_init(usb_devices):
 	connected_device = find_usb_device(usb_devices)
 	if connected_device:
 		return get_endpoints(connected_device)
-	return None
+	return None, None
 
 ## Utils ###############################################################################################################
 
