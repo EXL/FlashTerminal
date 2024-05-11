@@ -48,14 +48,14 @@ def worksheet(er, ew, restart_flag):
 #	mfp_cmd(er, ew, 'POWER_DOWN')
 #	mfp_addr(er, ew, 0x00100000)
 
-	# Upload RAMDLD to phone.
+	# Upload RAMDLD to phone and wait for RAMDLD start.
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
-
-	# Wait for RAMDLD start.
 	time.sleep(1.0)
-#	mfp_cmd(er, ew, 'RQRC', '60000000,60000020'.encode())
+
+	# Commands with arguments.
+#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 
 	# Dump SRAM (64 MiB and 128 MiB).
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)

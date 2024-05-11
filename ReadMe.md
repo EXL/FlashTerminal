@@ -15,7 +15,7 @@ $ ./FlashTerminal.py -r # Reboot phone.
 ### Dumping 64 MB SRAM Memory from Motorola RAZR2 V9m and Motorola ROKR Z6m
 
 ```python
-mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
+mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
 time.sleep(1.0)
 mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 ```
