@@ -64,8 +64,8 @@ def worksheet(er, ew, restart_flag):
 
 	# Dump NAND data (64 MiB and 128 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
-#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x04000000 / 512, 0x30)
-#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x08000000 / 512, 0x30)
+#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30)
+#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
 
 ## Motorola Flash Protocol #############################################################################################
 
