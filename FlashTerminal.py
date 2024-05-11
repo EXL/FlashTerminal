@@ -26,7 +26,7 @@ import usb.util
 usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'S Flash MSM6550'},
 ]
-verbose_flag = False
+verbose_flag = True
 delay_ack = 0.00
 timeout_read = 100
 timeout_write = 100
@@ -52,7 +52,7 @@ def worksheet(er, ew, restart_flag):
 	# Upload RAMDLD to phone.
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
-	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
+#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
 
 	# Wait for RAMDLD start.
 	time.sleep(1.0)
@@ -65,7 +65,7 @@ def worksheet(er, ew, restart_flag):
 	# Dump NAND data (64 MiB and 128 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
 #	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x04000000 / 512, 0x30)
-	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x08000000 / 512, 0x30)
+#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x08000000 / 512, 0x30)
 
 ## Motorola Flash Protocol #############################################################################################
 
