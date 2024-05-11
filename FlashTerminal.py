@@ -35,10 +35,7 @@ buffer_read_size = 0x800
 ## Worksheet ###########################################################################################################
 
 def worksheet(er, ew, restart_flag):
-	if restart_flag:
-		mfp_cmd(er, ew, 'RESTART')
-		time.sleep(2.0)
-		er, ew = usb_init(usb_devices)
+	er, ew = usb_check_restart_phone(er, ew, restart_flag)
 
 	# Various single commands.
 	mfp_cmd(er, ew, 'RQHW')
@@ -73,23 +70,6 @@ def calculate_checksum(data):
 	for byte in data:
 		checksum = (checksum + byte) % 256
 	return checksum
-
-def insert_to_filename(insert, filename):
-	name_part, extension = filename.rsplit('.', 1)
-	return f'{name_part}{insert}.{extension}'
-
-def log_dump_info(step, time_start, size, index, file_path, addr_s, addr_e, pages = 0, nand = False):
-	time_end = time.process_time()
-	speed = (step * size) / (time_end - time_start) / 1024
-	if nand:
-		logging.info(
-			f'Dumped {index:08}/{pages:08} page, 512 bytes to "{file_path}", '
-			f'16 bytes to "{insert_to_filename("_spare_area",file_path)}", '
-			f'addr=0x{addr_s:08X},0x{addr_e:08X}, speed={speed:.2f} Kb/s'
-		)
-	else:
-		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
-	return time.process_time()  # Reset time.
 
 def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30):
 	addr_s = 0x60000000
@@ -146,16 +126,19 @@ def mfp_dump_sram(er, ew, file_path, start, end, step = 0x30):
 
 def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None):
 	address = start
+	logging.info(f'Uploading "{file_path}" to 0x{address:08X} with {buffer_write_size} bytes chunks...')
 	with open(file_path, 'rb') as file:
 		while True:
 			chunk = file.read(buffer_write_size)
 			if not chunk:
 				break
-			logging.info(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}" to 0x{address:08X}...')
+			logging.debug(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}" to 0x{address:08X}...')
 			mfp_addr(er, ew, address)
 			mfp_bin(er, ew, chunk)
 			address += len(chunk)
+	logging.info(f'Uploading "{file_path}" to 0x{address:08X} is done.')
 	if jump:
+		logging.info(f'Jumping to 0x{jump:08X} address.')
 		mfp_cmd(er, ew, 'JUMP', mfp_get_addr_with_chksum(jump))
 
 def mfp_get_addr_with_chksum(address):
@@ -212,6 +195,16 @@ def mfp_send_recv(er, ew, data):
 
 ## USB Routines ########################################################################################################
 
+def usb_check_restart_phone(er, ew, restart_flag):
+	if restart_flag:
+		mfp_cmd(er, ew, 'RESTART')
+		time.sleep(2.0)
+		er, ew = usb_init(usb_devices)
+		if not er or not ew:
+			logging.error(f'Cannot find USB device!')
+			exit(1)
+	return er, ew
+
 def get_usb_device_information(usb_device):
 	return f'{usb_device["desc"]}: usb_vid={usb_device["usb_vid"]:04X}, usb_pid={usb_device["usb_pid"]:04X}'
 
@@ -256,6 +249,23 @@ def usb_init(usb_devices):
 	return None
 
 ## Utils ###############################################################################################################
+
+def insert_to_filename(insert, filename):
+	name_part, extension = filename.rsplit('.', 1)
+	return f'{name_part}{insert}.{extension}'
+
+def log_dump_info(step, time_start, size, index, file_path, addr_s, addr_e, pages = 0, nand = False):
+	time_end = time.process_time()
+	speed = (step * size) / (time_end - time_start) / 1024
+	if nand:
+		logging.info(
+			f'Dumped {index:08}/{pages:08} pages, 512 bytes to "{file_path}", '
+			f'16 bytes to "{insert_to_filename("_spare_area",file_path)}", '
+			f'addr=0x{addr_s:08X},0x{addr_e:08X}, speed={speed:.2f} Kb/s'
+		)
+	else:
+		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
+	return time.process_time()  # Reset time.
 
 def hexdump(data, wide = 0x0F):
 	line = bytearray()
