@@ -15,6 +15,7 @@ Version: 1.0
 
 ## Imports #############################################################################################################
 
+import sys
 import time
 import logging
 import usb.core
@@ -25,7 +26,7 @@ import usb.util
 usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'S Flash MSM6550'},
 ]
-verbose_flag = True
+verbose_flag = False
 delay_ack = 0.00
 timeout_read = 100
 timeout_write = 100
@@ -34,15 +35,18 @@ buffer_read_size = 0x800
 
 ## Worksheet ###########################################################################################################
 
-def worksheet(er, ew):
-	# Various single commands.
-#	mfp_cmd(er, ew, 'RESTART')
-#	mfp_cmd(er, ew, 'POWER_DOWN')
+def worksheet(er, ew, restart_flag):
+	if restart_flag:
+		mfp_cmd(er, ew, 'RESTART')
+		time.sleep(2.0)
+		er, ew = usb_init(usb_devices)
 
+	# Various single commands.
 	mfp_cmd(er, ew, 'RQHW')
 	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQSN')
+#	mfp_cmd(er, ew, 'POWER_DOWN')
 #	mfp_addr(er, ew, 0x00100000)
 
 	# Upload RAMDLD to phone.
@@ -54,12 +58,15 @@ def worksheet(er, ew):
 	time.sleep(1.0)
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000020'.encode())
 
-	# Dump RAM.
-#	mfp_dump_ram(er, ew, 'V9m_RAM_Dump_64MB.bin', 0x00000000, 0x04000000, 0x30)
-#	mfp_dump_ram(er, ew, 'V9m_RAM_Dump_128MB.bin', 0x00000000, 0x08000000, 0x30)
+	# Dump RAM (64 MiB and 128 MiB).
+#	mfp_dump_ram(er, ew, 'V9m_RAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
+#	mfp_dump_ram(er, ew, 'V9m_RAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 
-	# Dump NAND and spare area.
-#	mfp_dump_nand(er, ew, '123.bin', '1234.bin', 0, 1)
+	# Dump NAND data (64 MiB and 128 MiB) and spare area.
+	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
+	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x5000, 0x30)
+#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x04000000 / 512, 0x30)
+#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, 0x08000000 / 512, 0x30)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -69,39 +76,46 @@ def calculate_checksum(data):
 		checksum = (checksum + byte) % 256
 	return checksum
 
-def log_dump_info(step, time_start, size, index, file_path, addr_s, nand):
+def insert_to_filename(insert, filename):
+	name_part, extension = filename.rsplit('.', 1)
+	return f'{name_part}{insert}.{extension}'
+
+def log_dump_info(step, time_start, size, index, file_path, addr_s, addr_e, pages = 0, nand = False):
 	time_end = time.process_time()
 	speed = (step * size) / (time_end - time_start) / 1024
 	if nand:
-		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
+		logging.info(
+			f'Dumped {index:08}/{pages:08} page, 512 bytes to "{file_path}", '
+			f'16 bytes to "{insert_to_filename("_spare_area",file_path)}", '
+			f'addr=0x{addr_s:08X},0x{addr_h:08X}, speed={speed:.2f} Kb/s'
+		)
 	else:
 		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
 	return time.process_time()  # Reset time.
 
-def mfp_dump_nand(er, ew, file_path, file_path_spare_area, start, end):
+def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30):
 	addr_s = 0x60000000
-	addr_e = addr_s + 0x20
-	addr_h = 0x60000200
-	with open(file_path, 'wb') as file:
+	addr_e = addr_s + step
+	addr_h = 0x60000210
+	with open(file_path, 'wb') as dump, open(insert_to_filename('_spare_area', file_path), 'wb') as spare:
 		index = 0
 		time_start = time.process_time()
 		for page in range(start, end):
-			logging.debug(f'Dumping NAND page {page}, 512 bytes to "{file_path}"...')
+			logging.debug(f'Dumping NAND {page:08} page, 512 bytes to "{file_path}"...')
 			if index > 0 and (index % 100 == 0):
-				time_end = time.process_time()
-				speed = (512 * 100) / (time_end - time_start) / 1024
-				logging.info(
-					f'Dumped {index} of {end - start} page(s), 512 bytes to "{file_path}", '
-					f'addr=0x{addr_s:08X},0x{addr_h:08X}, speed={speed:.2f} Kb/s'
-				)
-				time_start = time.process_time()
+				time_start = log_dump_info(step, time_start, 100, index, file_path, addr_s, addr_h, (end - start), True)
 			while addr_e <= addr_h:
 				result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X},{page:08X}'.encode())
-				# Drop start marker and command.
-				result_data = result_data[6:]
-				# Drop end marker.
-				result_data = result_data[:-1]
-				file.write(bytearray.fromhex(result_data.decode()))
+				result_data = result_data[6:]   # Drop start marker and command.
+				result_data = result_data[:-1]  # Drop end marker.
+
+				# Last chunk page. Will work only with 0x30 step!
+				if addr_e == addr_h:
+					spare_area  = result_data[-16 * 2:]  # 16 * 2 because in HEX byte length is 2.
+					result_data = result_data[:-16 * 2]  # Trim spare area from the last packet.
+					spare.write(bytearray.fromhex(spare_area.decode()))
+
+				dump.write(bytearray.fromhex(result_data.decode()))
 
 				addr_s = addr_s + step
 				addr_e = addr_s + step
@@ -109,9 +123,9 @@ def mfp_dump_nand(er, ew, file_path, file_path_spare_area, start, end):
 			index += 1
 			addr_s = 0x60000000
 			addr_e = addr_s + step
-			addr_h = 0x60000200
+			addr_h = 0x60000210
 
-def mfp_dump_ram(er, ew, file_path, start, end, step):
+def mfp_dump_ram(er, ew, file_path, start, end, step = 0x30):
 	addr_s = start
 	addr_e = start + step
 	with open(file_path, 'wb') as file:
@@ -122,7 +136,7 @@ def mfp_dump_ram(er, ew, file_path, start, end, step):
 				addr_e = end
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
-				time_start = log_dump_info(step, time_start, 0x100, index, file_path, addr_s, False)
+				time_start = log_dump_info(step, time_start, 0x100, index, file_path, addr_s, addr_e)
 			result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
 			result_data = result_data[6:]   # Drop start marker and command.
 			result_data = result_data[:-1]  # Drop end marker.
@@ -237,6 +251,12 @@ def find_usb_device(usb_devices):
 			logging.error(f'Not found: "{get_usb_device_information(usb_device)}"!')
 	return None
 
+def usb_init(usb_devices):
+	connected_device = find_usb_device(usb_devices)
+	if connected_device:
+		return get_endpoints(connected_device)
+	return None
+
 ## Utils ###############################################################################################################
 
 def hexdump(data, wide = 0x0F):
@@ -280,10 +300,9 @@ def set_logging_configuration(verbose):
 
 def main():
 	set_logging_configuration(verbose_flag)
-	connected_device = find_usb_device(usb_devices)
-	if connected_device:
-		er, ew = get_endpoints(connected_device)
-		worksheet(er, ew)
+	er, ew = usb_init(usb_devices)
+	if er and ew:
+		worksheet(er, ew, '-r' in sys.argv)
 
 if __name__ == '__main__':
 	main()
