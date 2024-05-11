@@ -1,8 +1,8 @@
-inject.o
-inject.elf
-inject.bin
-
 *.id0
 *.id1
 *.nam
 *.til
+*.bin
+*.elf
+*.o
+*.obj
