@@ -7,14 +7,12 @@ A set of utilities and loaders (RAM downloaders) for researching the Motorola Fl
 
 The workflow can be configured directly in the [FlashTerminal.py](FlashTerminal.py) file's `Settings` and `Worksheet` sections.
 
-### Activate verbose hexdump USB-packets logging
-
-```diff
--verbose_flag = False
-+verbose_flag = True
+```bash
+$ ./FlashTerminal.py -v # Activate verbose hexdump USB-packets logging.
+$ ./FlashTerminal.py -r # Reboot phone.
 ```
 
-### Dumping 64 MB SRAM from Motorola RAZR2 V9m and Motorola ROKR Z6m
+### Dumping 64 MB SRAM Memory from Motorola RAZR2 V9m and Motorola ROKR Z6m
 
 ```python
 mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
@@ -22,7 +20,7 @@ time.sleep(1.0)
 mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 ```
 
-### Dumping 128 MB NAND from Motorola RAZR2 V9m and Motorola ROKR Z6m
+### Dumping 128 MB NAND Memory from Motorola RAZR2 V9m and Motorola ROKR Z6m
 
 ```python
 mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)

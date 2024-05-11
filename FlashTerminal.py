@@ -26,7 +26,6 @@ import usb.util
 usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'S Flash MSM6550'},
 ]
-verbose_flag = True
 delay_ack = 0.00
 timeout_read = 100
 timeout_write = 100
@@ -298,7 +297,7 @@ def set_logging_configuration(verbose):
 ## Entry Point #########################################################################################################
 
 def main():
-	set_logging_configuration(verbose_flag)
+	set_logging_configuration('-v' in sys.argv)
 	er, ew = usb_init(usb_devices)
 	if er and ew:
 		worksheet(er, ew, '-r' in sys.argv)
