@@ -24,7 +24,8 @@ import usb.util
 ## Settings ############################################################################################################
 
 usb_devices = [
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'S Flash MSM6550'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'Motorola PCS Flash MSM6550'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'desc': 'Motorola PCS Flash MSM6575'},
 ]
 delay_ack = 0.00
 timeout_read = 100
@@ -49,6 +50,7 @@ def worksheet(er, ew, restart_flag):
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
 #	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
+#	mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
 	time.sleep(1.0)
 
 	# Commands with arguments.
