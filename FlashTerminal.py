@@ -49,15 +49,15 @@ def worksheet(er, ew):
 
 	if '-l' in sys.argv:
 		# Upload RAMDLD to phone and wait for RAMDLD start.
-	#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
-	#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
-	#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
-	#	mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
+#		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
 		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
 		time.sleep(1.0)
 
 	# Commands with arguments.
-#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000001'.encode())
 
 	# Dump SRAM (64 MiB and 128 MiB).
@@ -68,8 +68,8 @@ def worksheet(er, ew):
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
 #	mfp_dump_nand(er, ew, 'Z6m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30)
 #	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
-	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10)
-#	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
+#	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10)
+#	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -316,6 +316,24 @@ def set_logging_configuration(verbose):
 
 def main():
 	set_logging_configuration('-v' in sys.argv)
+	if '-h' in sys.argv:
+		logging.info('''
+			Motorola Flash Terminal Utility v1.0
+
+			Flags:
+				-v - Verbose USB packets
+				-r - Reboot device
+				-l - Upload RAMDLD to RAM
+				-h - Show help
+
+			Developers and Thanks:
+				- EXL, usernameak, kraze1984, dffn3, Vilko, motoprogger, b1er
+				- MotoFan.Ru developers
+				- ROMphonix developers
+
+			10-May-2024, Siberia
+		''')
+		exit(1)
 	er, ew = usb_init(usb_devices)
 	if er and ew:
 		worksheet(er, ew)
