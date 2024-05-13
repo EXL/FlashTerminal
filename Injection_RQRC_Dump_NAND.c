@@ -22,11 +22,16 @@ extern UINT8 rsrc_str[];
 extern BLOADER_SECTION_ADDR_TBL blvar_RAM_section_addr_tbl;
 
 extern void HAPI_WATCHDOG_service(void);
-extern INT32 watchdog_check_121A78(void);
-extern INT64 watchdog_delay_121ADC(void);
 extern void parser_send_packet(UINT8 *command_ptr, UINT8 *data_ptr);
 extern void util_ui8_to_hexasc(UINT8 val, UINT8 *str_ptr);
 extern UINT32 util_hexasc_to_ui32(UINT8 *str_ptr, UINT8 size);
+
+// MSM6550: V9m, Z6m
+extern INT32 watchdog_check_121A78(void);
+extern INT64 watchdog_delay_121ADC(void);
+
+// MSM6575,MSM6800: QA30, VE40
+int watchdog_check_delay_326EB8(void);
 
 void handle_command_RQRC(UINT8 *data_ptr) {
 	UINT8 response[MAX_RESPONSE_DATA_SIZE];
@@ -73,9 +78,9 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 //		0000003C:  45 41 38 42 30 30 30 30 45 41 33 34 30 32 39  |EA8B0000EA34029|
 //		0000004B:  46 45 35 30 30 44 30 41 30 45 31 38 30 30 34  |FE500D0A0E18004|
 //		0000005A:  41 30 45 33 30 30 32 30 41 30 45 33 03        |A0E30020A0E3.  |
-//
-//	See sub_107678 in the "V9m_RAMDLD_01B5.ldr" file.
 
+#if defined(FTR_V9M_MSM6550) /* Motorola PCS Flash MSM6550: V9m, Z6m, etc. */
+//	See sub_107678 in the "V9m_RAMDLD_01B5.ldr" file.
 	*((UINT32 *) 0x28000000) = 101;
 	*((UINT32 *) 0x800002B0) =   2;
 
@@ -90,6 +95,22 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 	watchdog_check_121A78();
 
 	*((UINT32 *) 0x60000300) = 7;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
+#elif defined(FTR_QA30_MSM6575) /* Motorola PCS Flash MSM6575/MSM6800: QA30, VE40, etc. */
+//	See sub_327F04 in the "QA30_RAMDLD_0206.ldr" file.
+	*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE | 1;
+
+	*((UINT32 *) 0x60000300) = page << 9; // 0x0304 / NAND_FLASH_ADDR, 31:9 bits - NAND_FLASH_PAGE_ADDRESS
+
+	watchdog_check_delay_326EB8();
+
+	*((UINT32 *) 0x60000304) = 1;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 001 - page_read
+
+	watchdog_check_delay_326EB8();
+
+	*((UINT32 *) 0x60000304) = 7;
+#else
+	#error "Unknown device or unknown MSM SoC!"
+#endif
 
 	while (data_start_ptr < data_end_ptr) {
 		util_ui8_to_hexasc(*data_start_ptr, response_ptr);

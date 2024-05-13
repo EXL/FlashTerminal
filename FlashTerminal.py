@@ -24,8 +24,9 @@ import usb.util
 ## Settings ############################################################################################################
 
 usb_devices = [
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'desc': 'Motorola PCS Flash MSM6500'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'Motorola PCS Flash MSM6550'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'desc': 'Motorola PCS Flash MSM6575'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
 ]
 delay_ack = 0.00
 timeout_read = 100
@@ -35,8 +36,8 @@ buffer_read_size = 0x800
 
 ## Worksheet ###########################################################################################################
 
-def worksheet(er, ew, restart_flag):
-	er, ew = usb_check_restart_phone(er, ew, restart_flag)
+def worksheet(er, ew):
+	er, ew = usb_check_restart_phone(er, ew, '-r' in sys.argv)
 
 	# Various single commands.
 	mfp_cmd(er, ew, 'RQHW')
@@ -46,24 +47,29 @@ def worksheet(er, ew, restart_flag):
 #	mfp_cmd(er, ew, 'POWER_DOWN')
 #	mfp_addr(er, ew, 0x00100000)
 
-	# Upload RAMDLD to phone and wait for RAMDLD start.
-#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
-#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
-#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
-#	mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
-	time.sleep(1.0)
+	if '-l' in sys.argv:
+		# Upload RAMDLD to phone and wait for RAMDLD start.
+	#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
+	#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
+	#	mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
+	#	mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
+		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
+		time.sleep(1.0)
 
 	# Commands with arguments.
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+#	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000001'.encode())
 
 	# Dump SRAM (64 MiB and 128 MiB).
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 
-	# Dump NAND data (64 MiB and 128 MiB) and spare area.
+	# Dump NAND data (64 MiB / 128 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
-#	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30)
+#	mfp_dump_nand(er, ew, 'Z6m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30)
 #	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
+	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10)
+#	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -89,7 +95,7 @@ def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30):
 				result_data = result_data[6:]   # Drop start marker and command.
 				result_data = result_data[:-1]  # Drop end marker.
 
-				# Last chunk page. Will work only with 0x30 step!
+				# Last chunk page. Be careful! Will work only with 0x10 and 0x30 step values!
 				if addr_e == addr_h:
 					spare_area  = result_data[-16 * 2:]  # 16 * 2 because in HEX byte length is 2.
 					result_data = result_data[:-16 * 2]  # Trim spare area from the last packet.
@@ -312,7 +318,7 @@ def main():
 	set_logging_configuration('-v' in sys.argv)
 	er, ew = usb_init(usb_devices)
 	if er and ew:
-		worksheet(er, ew, '-r' in sys.argv)
+		worksheet(er, ew)
 
 if __name__ == '__main__':
 	main()

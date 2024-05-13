@@ -7,3 +7,5 @@
 
 0x00337579 D rsrc_str
 0x013FDE44 D blvar_RAM_section_addr_tbl
+
+0x00326EB8 A watchdog_check_delay_326EB8
