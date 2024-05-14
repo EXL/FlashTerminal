@@ -24,7 +24,7 @@ import usb.util
 ## Settings ############################################################################################################
 
 usb_devices = [
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'desc': 'Motorola PCS Flash MSM6500'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'desc': 'Motorola PCS Flash MSM6500/ic902'},  # Wrong MSM SoC determining?
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'Motorola PCS Flash MSM6550'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
 ]
@@ -49,11 +49,14 @@ def worksheet(er, ew):
 
 	if '-l' in sys.argv:
 		# Upload RAMDLD to phone and wait for RAMDLD start.
+#		mfp_upload_binary_to_addr(er, ew, 'V3m_RAMDLD_010C.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'V3m_RAMDLD_010C_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
-		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
+#		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
 		time.sleep(1.0)
 
 	# Commands with arguments.
@@ -64,12 +67,13 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 
-	# Dump NAND data (64 MiB / 128 MiB) and spare area.
+	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
 #	mfp_dump_nand(er, ew, 'Z6m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30)
 #	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
-#	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
+#	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
+#	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 61008, 61009, 0x10, 1)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -79,7 +83,7 @@ def calculate_checksum(data):
 		checksum = (checksum + byte) % 256
 	return checksum
 
-def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30):
+def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30, wide_nand = 1):
 	addr_s = 0x60000000
 	addr_e = addr_s + step
 	addr_h = 0x60000210
@@ -87,29 +91,31 @@ def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30):
 		index = 0
 		time_start = time.process_time()
 		for page in range(start, end):
-			logging.debug(f'Dumping NAND {page:08} page, 512+16 bytes to "{file_path}" +spare_area...')
-			if index > 0 and (index % 100 == 0):
-				time_start = log_dump_info(528, time_start, 100, index, file_path, addr_s, addr_h, (end - start), True)
-			while addr_e <= addr_h:
-				result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X},{page:08X}'.encode())
-				result_data = result_data[6:]   # Drop start marker and command.
-				result_data = result_data[:-1]  # Drop end marker.
+			for wide in range(wide_nand):
+				logging.debug(f'Dumping NAND {page:08} page ({wide:02}), 512+16 bytes to "{file_path}" +spare_area...')
+				if index > 0 and (index % 100 == 0):
+					time_start = progess(
+						528 * (wide + 1), time_start, 100, index, file_path, addr_s, addr_h, (end - start), True
+					)
+				while addr_e <= addr_h:
+					result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X},{page:08X}'.encode())
+					result_data = result_data[6:]   # Drop start marker and command.
+					result_data = result_data[:-1]  # Drop end marker.
 
-				# Last chunk page. Be careful! Will work only with 0x10 and 0x30 step values!
-				if addr_e == addr_h:
-					spare_area  = result_data[-16 * 2:]  # 16 * 2 because in HEX byte length is 2.
-					result_data = result_data[:-16 * 2]  # Trim spare area from the last packet.
-					spare.write(bytearray.fromhex(spare_area.decode()))
+					# Last chunk page. Be careful! Will work only with 0x10 and 0x30 step values!
+					if addr_e == addr_h:
+						spare_area  = result_data[-16 * 2:]  # 16 * 2 because in HEX byte length is 2.
+						result_data = result_data[:-16 * 2]  # Trim spare area from the last packet.
+						spare.write(bytearray.fromhex(spare_area.decode()))
 
-				dump.write(bytearray.fromhex(result_data.decode()))
+					dump.write(bytearray.fromhex(result_data.decode()))
 
-				addr_s = addr_s + step
+					addr_s = addr_s + step
+					addr_e = addr_s + step
+
+				index += 1
+				addr_s = 0x60000000
 				addr_e = addr_s + step
-
-			index += 1
-			addr_s = 0x60000000
-			addr_e = addr_s + step
-			addr_h = 0x60000210
 
 def mfp_dump_sram(er, ew, file_path, start, end, step = 0x30):
 	addr_s = start
@@ -122,7 +128,7 @@ def mfp_dump_sram(er, ew, file_path, start, end, step = 0x30):
 				addr_e = end
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
-				time_start = log_dump_info(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
 			result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
 			result_data = result_data[6:]   # Drop start marker and command.
 			result_data = result_data[:-1]  # Drop end marker.
@@ -262,7 +268,7 @@ def insert_to_filename(insert, filename):
 	name_part, extension = filename.rsplit('.', 1)
 	return f'{name_part}{insert}.{extension}'
 
-def log_dump_info(step, time_start, size, index, file_path, addr_s, addr_e, pages = 0, nand = False):
+def progess(step, time_start, size, index, file_path, addr_s, addr_e, pages = 0, nand = False):
 	time_end = time.process_time()
 	speed = (step * size) / (time_end - time_start) / 1024
 	if nand:

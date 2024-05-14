@@ -30,8 +30,15 @@ extern UINT32 util_hexasc_to_ui32(UINT8 *str_ptr, UINT8 size);
 extern INT32 watchdog_check_121A78(void);
 extern INT64 watchdog_delay_121ADC(void);
 
-// MSM6575,MSM6800: QA30, VE40
-int watchdog_check_delay_326EB8(void);
+// MSM6575,MSM6800: QA30, VE40, ic902
+INT32 watchdog_check_delay_326EB8(void);
+
+// MSM6500: V3m
+// INT32 sub_110730(int a1, unsigned int a2);
+// INT32 sub_110622(int a1, unsigned int a2);
+// INT32 sub_11077C(int a1, unsigned int a2, int a3);
+// INT32 sub_1206A4(int a1, int a2, int a3, int a4);
+INT32 watchdog_check_delay_110344(void);
 
 void handle_command_RQRC(UINT8 *data_ptr) {
 	UINT8 response[MAX_RESPONSE_DATA_SIZE];
@@ -107,7 +114,18 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 
 	watchdog_check_delay_326EB8();
 
-	*((UINT32 *) 0x60000304) = 7;
+	*((UINT32 *) 0x60000304) = 7;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
+#elif defined(FTR_V3M_MSM6500)
+	*((UINT32 *) 0x80000904) = 0x2000;
+	*((UINT32 *) 0x01248170) = *((UINT32 *) 0x01248170) & 0xFFFFFFFE | 1;
+	*((UINT32 *) 0x6400031C) = *((UINT32 *) 0x01248170);
+
+	*((UINT32 *) 0x64000304) = page << 9; // 0x0304 / NAND_FLASH_ADDR, 31:9 bits - NAND_FLASH_PAGE_ADDRESS
+
+	*((UINT32 *) 0x80000904) = 0x2000;
+	*((UINT32 *) 0x64000300) = 1;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 001 - page_read
+
+	watchdog_check_delay_110344();
 #else
 	#error "Unknown device or unknown MSM SoC!"
 #endif
