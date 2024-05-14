@@ -57,11 +57,12 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
+#		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr', 0x002F0000, 0x002F0000)
 		time.sleep(1.0)
 
 	# Commands with arguments.
-	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
-#	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000001'.encode())
+#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+#	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 
 	# Dump SRAM (64 MiB and 128 MiB).
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
@@ -73,7 +74,7 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
 #	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
-#	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 61008, 61009, 0x10, 1)
+#	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 4)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -95,10 +96,15 @@ def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30, wide_nand = 1):
 				logging.debug(f'Dumping NAND {page:08} page ({wide:02}), 512+16 bytes to "{file_path}" +spare_area...')
 				if index > 0 and (index % 100 == 0):
 					time_start = progess(
-						528 * (wide + 1), time_start, 100, index, file_path, addr_s, addr_h, (end - start), True
+						528, time_start, 100, index, file_path,
+						addr_s, addr_h, (end - start) * wide_nand, True
 					)
 				while addr_e <= addr_h:
-					result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X},{page:08X}'.encode())
+					if wide_nand > 1:
+						result_data = mfp_cmd(er, ew, 'RQRC',
+							f'{addr_s:08X},{addr_e:08X},{page:08X},{wide:08X}'.encode())
+					else:
+						result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X},{page:08X}'.encode())
 					result_data = result_data[6:]   # Drop start marker and command.
 					result_data = result_data[:-1]  # Drop end marker.
 

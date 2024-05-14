@@ -45,10 +45,16 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 	UINT8 *response_ptr = &response[0];
 	UINT8 *data_start_ptr, *data_end_ptr;
 	UINT32 page;
+	UINT32 wide;
 
 	blvar_RAM_section_addr_tbl.start_addr = util_hexasc_to_ui32(&data_ptr[0], ADDR_CMD_ADDR_SIZE);
 	blvar_RAM_section_addr_tbl.end_addr = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
 	page = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1 + ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
+#if defined(NAND_WIDE_HACK)
+	wide = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE * 2 + 3], ADDR_CMD_ADDR_SIZE);
+#else
+	wide = 3;
+#endif
 
 	data_start_ptr = (UINT8 *) blvar_RAM_section_addr_tbl.start_addr;
 	data_end_ptr   = (UINT8 *) blvar_RAM_section_addr_tbl.end_addr;
@@ -104,17 +110,23 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 	*((UINT32 *) 0x60000300) = 7;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
 #elif defined(FTR_QA30_MSM6575) /* Motorola PCS Flash MSM6575/MSM6800: QA30, VE40, etc. */
 //	See sub_327F04 in the "QA30_RAMDLD_0206.ldr" file.
-	*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE | 1;
+	if (blvar_RAM_section_addr_tbl.start_addr == 0x60000000) {
+		*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE | 1;
 
-	*((UINT32 *) 0x60000300) = page << 9; // 0x0304 / NAND_FLASH_ADDR, 31:9 bits - NAND_FLASH_PAGE_ADDRESS
+		*((UINT32 *) 0x60000300) = page << 9; // 0x0304 / NAND_FLASH_ADDR, 31:9 bits - NAND_FLASH_PAGE_ADDRESS
 
-	watchdog_check_delay_326EB8();
+		watchdog_check_delay_326EB8();
 
-	*((UINT32 *) 0x60000304) = 1;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 001 - page_read
+		*((UINT32 *) 0x60000304) = 1;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 001 - page_read
 
-	watchdog_check_delay_326EB8();
+		watchdog_check_delay_326EB8();
 
-	*((UINT32 *) 0x60000304) = 7;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
+		*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE;
+
+		if (blvar_RAM_section_addr_tbl.start_addr == 0x60000200 && wide == 3) {
+			*((UINT32 *) 0x60000304) = 7;     // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
+		}
+	}
 #elif defined(FTR_V3M_MSM6500)
 	*((UINT32 *) 0x80000904) = 0x2000;
 	*((UINT32 *) 0x01248170) = *((UINT32 *) 0x01248170) & 0xFFFFFFFE | 1;

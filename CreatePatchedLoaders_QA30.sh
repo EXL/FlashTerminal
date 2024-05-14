@@ -14,6 +14,7 @@ cat QA30_RAMDLD_0206.ldr patch_sram.bin > QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr
 python3 -c "with open('QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr','r+b') as f: f.seek(0x1A234);f.write(b'\xC9\x0F\x01\xEB')"
 
 # Compile dump NAND patch.
+# Please add `-DNAND_WIDE_HACK` for QA30 wide NAND.
 ${ADS_TOOLCHAIN_BIN_DIR}/armcc -apcs /interwork -DFTR_QA30_MSM6575 -O2 Injection_RQRC_Dump_NAND.c -c -o patch_nand.o
 ${ADS_TOOLCHAIN_BIN_DIR}/armlink -ro-base 0x0034E160 patch_nand.o QA30_RAMDLD_0206.sym -o patch_nand.elf
 ${ADS_TOOLCHAIN_BIN_DIR}/fromelf patch_nand.elf -bin -output patch_nand.bin
