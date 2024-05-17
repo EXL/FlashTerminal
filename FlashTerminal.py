@@ -27,6 +27,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'desc': 'Motorola PCS Flash MSM6500/ic902'},  # Wrong MSM SoC determining?
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'Motorola PCS Flash MSM6550'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'desc': 'Motorola PCS Flash Rainbow'},
 ]
 delay_ack = 0.00
 timeout_read = 100
@@ -58,15 +59,19 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr', 0x002F0000, 0x002F0000)
+#		mfp_upload_binary_to_addr(er, ew, 'A830_RAMDLD_0520_Patched_1byte.ldr', 0x07800000, 0x07800010)
+#		mfp_upload_binary_to_addr(er, ew, 'A835_RAMDLD_Hacked_RSA_Read.ldr', 0x08000000, 0x08000010)
 		time.sleep(1.0)
 
 	# Commands with arguments.
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 
-	# Dump SRAM (64 MiB and 128 MiB).
+	# Dump SRAM and NOR flash (64 MiB and 128 MiB).
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
+#	mfp_dump_sram(er, ew, 'MSM_IRAM_Dump.bin', 0xFFFF0000, 0xFFFFFFFF, 0x10)
+#	mfp_dump_sram_1byte(er, ew, 'A830_ROM_Dump.bin', 0x10000000, 0x11000000)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
@@ -143,6 +148,26 @@ def mfp_dump_sram(er, ew, file_path, start, end, step = 0x30):
 			addr_s = addr_s + step
 			addr_e = addr_s + step
 			index += step
+
+def mfp_dump_sram_1byte(er, ew, file_path, start, end):
+	addr_s = start
+	addr_e = start
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.process_time()
+		while addr_e < end:
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (index % (0x01 * 0x100) == 0):
+				time_start = progess(0x01, time_start, 0x100, index, file_path, addr_s, addr_e)
+			result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
+			result_data = result_data[6:]   # Drop start marker and command.
+			result_data = result_data[:-1]  # Drop end marker.
+			result_data = result_data[2:]   # Drop leading zero byte.
+			file.write(bytearray.fromhex(result_data.decode()))
+
+			addr_s += 1
+			addr_e += 1
+			index += 1
 
 def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None):
 	address = start
