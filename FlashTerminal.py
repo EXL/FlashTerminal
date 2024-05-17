@@ -24,7 +24,7 @@ import usb.util
 ## Settings ############################################################################################################
 
 usb_devices = [
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'desc': 'Motorola PCS Flash MSM6500/ic902'},  # Wrong MSM SoC determining?
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'desc': 'Motorola PCS Flash MSM6500'},  # Wrong SoC, ic902 uses MSM6800.
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'Motorola PCS Flash MSM6550'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'desc': 'Motorola PCS Flash Rainbow'},
@@ -60,7 +60,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'A830_RAMDLD_0520_Patched_1byte.ldr', 0x07800000, 0x07800010)
-#		mfp_upload_binary_to_addr(er, ew, 'A835_RAMDLD_Hacked_RSA_Read.ldr', 0x08000000, 0x08000010)
+#		mfp_upload_binary_to_addr(er, ew, 'A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08000010)
 		time.sleep(1.0)
 
 	# Commands with arguments.
