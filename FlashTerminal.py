@@ -71,6 +71,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 #	mfp_dump_sram(er, ew, 'MSM_IRAM_Dump.bin', 0xFFFF0000, 0xFFFFFFFF, 0x10)
+#	mfp_dump_sram_1byte(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000)
 #	mfp_dump_sram_1byte(er, ew, 'A830_ROM_Dump.bin', 0x10000000, 0x11000000)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
