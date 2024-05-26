@@ -32,6 +32,8 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rainbow'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone (U10) AT'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1C01, 'mode': 'p2k', 'desc': 'Motorola PCS Siemens Phone (U10) P2K'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -303,13 +305,6 @@ def usb_init(usb_devices, mode):
 		return get_endpoints(connected_device)
 	return None, None
 
-def usb_init_control(usb_devices, mode):
-	connected_device = find_usb_device(usb_devices, mode)
-	if connected_device:
-		connected_device.set_configuration()
-		return connected_device
-	return None
-
 def write_read_at_command(serial_handle, at_command, read = True):
 	at_command = (at_command + '\r\n').encode()
 	logging.debug(f'>>> Send to device...\n{hexdump(at_command)}')
@@ -350,7 +345,7 @@ def reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices):
 	if switch_atmode_to_p2kmode(modem_device, modem_speed):
 		logging.info(f'Wait {delay_switch} sec for AT => P2K switching...')
 		time.sleep(delay_switch)
-		p2k_usb_device = usb_init_control(usb_devices, 'p2k')
+		p2k_usb_device = find_usb_device(usb_devices, 'p2k')
 		if p2k_usb_device:
 			switch_p2kmode_to_flashmode(p2k_usb_device)
 			logging.info(f'Wait {delay_switch} sec for P2K => Flash switching...')
