@@ -15,8 +15,10 @@ Version: 1.0
 
 ## Imports #############################################################################################################
 
+import os
 import sys
 import time
+import serial
 import logging
 import usb.core
 import usb.util
@@ -24,12 +26,19 @@ import usb.util
 ## Settings ############################################################################################################
 
 usb_devices = [
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'desc': 'Motorola PCS Flash MSM6500'},  # Wrong SoC, ic902 uses MSM6800.
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'desc': 'Motorola PCS Flash MSM6550'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'desc': 'Motorola PCS Flash Rainbow'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6500/MSM6800'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6550'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rainbow'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 ]
+modem_speed = 115200
+modem_device = '/dev/ttyACM0'
+at_command = 'AT'
+p2k_mode_command = 'AT+MODE=8'
 delay_ack = 0.00
+delay_switch = 8.0
 timeout_read = 100
 timeout_write = 100
 buffer_write_size = 0x800
@@ -245,7 +254,7 @@ def usb_check_restart_phone(er, ew, restart_flag):
 	if restart_flag:
 		mfp_cmd(er, ew, 'RESTART')
 		time.sleep(2.0)
-		er, ew = usb_init(usb_devices)
+		er, ew = usb_init(usb_devices, 'flash')
 		if not er or not ew:
 			logging.error(f'Cannot find USB device!')
 			exit(1)
@@ -277,22 +286,79 @@ def get_endpoints(device):
 
 	return (ep_read, ep_write)
 
-def find_usb_device(usb_devices):
+def find_usb_device(usb_devices, mode):
 	for usb_device in usb_devices:
-		logging.info(f'Trying to find "{get_usb_device_information(usb_device)}" USB device...')
-		connected_device = usb.core.find(idVendor=usb_device['usb_vid'], idProduct=usb_device['usb_pid'])
-		if connected_device:
-			logging.info(f'Found: "{get_usb_device_information(usb_device)}"!')
-			return connected_device
-		else:
-			logging.error(f'Not found: "{get_usb_device_information(usb_device)}"!')
+		if usb_device['mode'] == mode:
+			connected_device = usb.core.find(idVendor=usb_device['usb_vid'], idProduct=usb_device['usb_pid'])
+			if connected_device:
+				logging.info(f'Found: "{get_usb_device_information(usb_device)}"!')
+				return connected_device
+			else:
+				logging.error(f'Not found: "{get_usb_device_information(usb_device)}"!')
 	return None
 
-def usb_init(usb_devices):
-	connected_device = find_usb_device(usb_devices)
+def usb_init(usb_devices, mode):
+	connected_device = find_usb_device(usb_devices, mode)
 	if connected_device:
 		return get_endpoints(connected_device)
 	return None, None
+
+def usb_init_control(usb_devices, mode):
+	connected_device = find_usb_device(usb_devices, mode)
+	if connected_device:
+		connected_device.set_configuration()
+		return connected_device
+	return None
+
+def write_read_at_command(serial_handle, at_command, read = True):
+	at_command = (at_command + '\r\n').encode()
+	logging.debug(f'>>> Send to device...\n{hexdump(at_command)}')
+	serial_handle.write(at_command)
+	serial_handle.flush()
+
+	if read:
+		data_read = serial_handle.readall()
+		logging.debug(f'<<< Read from device...\n{hexdump(data_read)}')
+		return data_read
+
+	return None
+
+def switch_atmode_to_p2kmode(modem_device, modem_speed):
+	if os.path.exists(modem_device):
+		logging.info(f'USB modem device "{modem_device}" found, switch it to P2K mode!')
+		serial_handle = serial.Serial(modem_device, modem_speed, timeout = 1)
+		if serial_handle:
+			write_read_at_command(serial_handle, at_command, True)
+			time.sleep(1.0)
+			write_read_at_command(serial_handle, p2k_mode_command, False)
+			serial_handle.close()
+			return True
+		else:
+			logging.error(f'Cannot open "{modem_device}" device on "{modem_speed}" speed!')
+	else:
+		logging.error(f'Cannot find "{modem_device}" device!')
+	return False
+
+def switch_p2kmode_to_flashmode(p2k_usb_device):
+	logging.info(f'P2K device found, switch it to Flash mode!')
+	ctrl_packet = b'\x00\x01\x00\x0D\x00\x00\x00\x00'
+	p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
+	logging.debug(f'>>> Send USB control packet '
+		f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) to device...\n{hexdump(ctrl_packet)}')
+
+def reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices):
+	if switch_atmode_to_p2kmode(modem_device, modem_speed):
+		logging.info(f'Wait {delay_switch} sec for AT => P2K switching...')
+		time.sleep(delay_switch)
+		p2k_usb_device = usb_init_control(usb_devices, 'p2k')
+		if p2k_usb_device:
+			switch_p2kmode_to_flashmode(p2k_usb_device)
+			logging.info(f'Wait {delay_switch} sec for P2K => Flash switching...')
+			time.sleep(delay_switch)
+			return True
+		else:
+			logging.error('Cannot find P2K device!')
+			return False
 
 ## Utils ###############################################################################################################
 
@@ -362,6 +428,7 @@ def main():
 				-v - Verbose USB packets
 				-r - Reboot device
 				-l - Upload RAMDLD to RAM
+				-s - Switch to Flash Mode (Bootloader Mode)
 				-h - Show help
 
 			Developers and Thanks:
@@ -372,7 +439,9 @@ def main():
 			10-May-2024, Siberia
 		''')
 		exit(1)
-	er, ew = usb_init(usb_devices)
+	if '-s' in sys.argv:
+		reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices)
+	er, ew = usb_init(usb_devices, 'flash')
 	if er and ew:
 		worksheet(er, ew)
 
