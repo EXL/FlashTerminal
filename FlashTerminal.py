@@ -182,6 +182,8 @@ def mfp_dump_sram_1byte(er, ew, file_path, start, end):
 			index += 1
 
 def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None):
+	if jump:
+		file_path = os.path.join('loaders', file_path)
 	address = start
 	logging.info(f'Uploading "{file_path}" to 0x{address:08X} with {buffer_write_size} bytes chunks...')
 	with open(file_path, 'rb') as file:
