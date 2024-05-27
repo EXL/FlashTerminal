@@ -1,0 +1,138 @@
+NAME         WIN32
+
+CODE         PRELOAD MOVEABLE DISCARDABLE
+DATA         PRELOAD MOVEABLE MULTIPLE
+
+EXETYPE      WINDOWS
+
+
+IMPORTS
+  CreateThread                     =  KERNEL32.CreateThread
+  GetFileSize                      =  KERNEL32.GetFileSize
+  GlobalAlloc                      =  KERNEL32.GlobalAlloc
+  GlobalFree                       =  KERNEL32.GlobalFree
+  GetCurrentProcess                =  KERNEL32.GetCurrentProcess
+  DeleteFileA                      =  KERNEL32.DeleteFileA
+  GetTickCount                     =  KERNEL32.GetTickCount
+  SetEndOfFile                     =  KERNEL32.SetEndOfFile
+  GetProcAddress                   =  KERNEL32.GetProcAddress
+  ExitProcess                      =  KERNEL32.ExitProcess
+  GetStartupInfoA                  =  KERNEL32.GetStartupInfoA
+  SetUnhandledExceptionFilter      =  KERNEL32.SetUnhandledExceptionFilter
+  GetLastError                     =  KERNEL32.GetLastError
+  OpenProcess                      =  KERNEL32.OpenProcess
+  GetCommandLineA                  =  KERNEL32.GetCommandLineA
+  FindFirstFileA                   =  KERNEL32.FindFirstFileA
+  GetVersionExA                    =  KERNEL32.GetVersionExA
+  DeviceIoControl                  =  KERNEL32.DeviceIoControl
+  CreateEventA                     =  KERNEL32.CreateEventA
+  ResetEvent                       =  KERNEL32.ResetEvent
+  CancelIo                         =  KERNEL32.CancelIo
+  GetOverlappedResult              =  KERNEL32.GetOverlappedResult
+  GetSystemInfo                    =  KERNEL32.GetSystemInfo
+  CloseHandle                      =  KERNEL32.CloseHandle
+  WriteFile                        =  KERNEL32.WriteFile
+  GetModuleHandleA                 =  KERNEL32.GetModuleHandleA
+  TerminateProcess                 =  KERNEL32.TerminateProcess
+  CreateFileA                      =  KERNEL32.CreateFileA
+  GetCurrentDirectoryA             =  KERNEL32.GetCurrentDirectoryA
+  SetCurrentDirectoryA             =  KERNEL32.SetCurrentDirectoryA
+  ReadFile                         =  KERNEL32.ReadFile
+  CreateProcessA                   =  KERNEL32.CreateProcessA
+  LoadLibraryA                     =  KERNEL32.LoadLibraryA
+  GetWindowsDirectoryA             =  KERNEL32.GetWindowsDirectoryA
+  WaitForSingleObject              =  KERNEL32.WaitForSingleObject
+  SetCommTimeouts                  =  KERNEL32.SetCommTimeouts
+  Sleep                            =  KERNEL32.Sleep
+  GetPrivateProfileStringA         =  KERNEL32.GetPrivateProfileStringA
+  GetPrivateProfileIntA            =  KERNEL32.GetPrivateProfileIntA
+  GetModuleFileNameA               =  KERNEL32.GetModuleFileNameA
+  lstrcatA                         =  KERNEL32.lstrcatA
+  lstrlenA                         =  KERNEL32.lstrlenA
+  lstrcpyA                         =  KERNEL32.lstrcpyA
+  lstrcmpA                         =  KERNEL32.lstrcmpA
+
+  RegQueryValueA                   =  ADVAPI32.RegQueryValueA
+  RegQueryValueExA                 =  ADVAPI32.RegQueryValueExA
+  RegCloseKey                      =  ADVAPI32.RegCloseKey
+  RegOpenKeyExA                    =  ADVAPI32.RegOpenKeyExA
+  RegNotifyChangeKeyValue          =  ADVAPI32.RegNotifyChangeKeyValue
+
+  SendMessageA                     =  USER32.SendMessageA
+  ExitWindowsEx                    =  USER32.ExitWindowsEx
+  wvsprintfA                       =  USER32.wvsprintfA
+  wsprintfA                        =  USER32.wsprintfA
+  TrackPopupMenu                   =  USER32.TrackPopupMenu
+  SetForegroundWindow              =  USER32.SetForegroundWindow
+  RegisterClassA                   =  USER32.RegisterClassA
+  PostMessageA                     =  USER32.PostMessageA
+  MoveWindow                       =  USER32.MoveWindow
+  UpdateWindow                     =  USER32.UpdateWindow
+  ModifyMenuA                      =  USER32.ModifyMenuA
+  MessageBoxA                      =  USER32.MessageBoxA
+  MessageBeep                      =  USER32.MessageBeep
+  LoadMenuA                        =  USER32.LoadMenuA
+  LoadStringA                      =  USER32.LoadStringA
+  LoadIconA                        =  USER32.LoadIconA
+  SendDlgItemMessageA              =  USER32.SendDlgItemMessageA
+  GetSubMenu                       =  USER32.GetSubMenu
+  GetMessageA                      =  USER32.GetMessageA
+  GetMenuState                     =  USER32.GetMenuState
+  GetMenu                          =  USER32.GetMenu
+  GetSystemMetrics                 =  USER32.GetSystemMetrics
+  GetDlgItemTextA                  =  USER32.GetDlgItemTextA
+  SetDlgItemTextA                  =  USER32.SetDlgItemTextA
+  SetDlgItemInt                    =  USER32.SetDlgItemInt
+  GetDlgItemInt                    =  USER32.GetDlgItemInt
+  CheckDlgButton                   =  USER32.CheckDlgButton
+  GetCursorPos                     =  USER32.GetCursorPos
+  EndDialog                        =  USER32.EndDialog
+  EnableMenuItem                   =  USER32.EnableMenuItem
+  DispatchMessageA                 =  USER32.DispatchMessageA
+  DialogBoxParamA                  =  USER32.DialogBoxParamA
+  DestroyWindow                    =  USER32.DestroyWindow
+  PostQuitMessage                  =  USER32.PostQuitMessage
+  DefWindowProcA                   =  USER32.DefWindowProcA
+  CreateWindowExA                  =  USER32.CreateWindowExA
+  CheckMenuItem                    =  USER32.CheckMenuItem
+  TranslateMessage                 =  USER32.TranslateMessage
+  InsertMenuItemA                  =  USER32.InsertMenuItemA
+  InsertMenuA                      =  USER32.InsertMenuA
+  AppendMenuA                      =  USER32.AppendMenuA
+  DrawMenuBar                      =  USER32.DrawMenuBar
+  DeleteMenu                       =  USER32.DeleteMenu
+  GetDlgItem                       =  USER32.GetDlgItem
+  ShowWindow                       =  USER32.ShowWindow
+  HideCaret                        =  USER32.HideCaret
+  GetSysColor                      =  USER32.GetSysColor
+  LoadImageA                       =  USER32.LoadImageA
+
+  Shell_NotifyIconA                =  SHELL32.Shell_NotifyIconA
+
+  GetOpenFileNameA                 =  COMDLG32.GetOpenFileNameA
+  GetSaveFileNameA                 =  COMDLG32.GetSaveFileNameA
+  GetFileTitleA                    =  COMDLG32.GetFileTitleA
+
+  ImageList_Create                 =  COMCTL32.ImageList_Create
+  ImageList_SetBkColor             =  COMCTL32.ImageList_SetBkColor
+  ImageList_ReplaceIcon            =  COMCTL32.ImageList_ReplaceIcon
+  CreateStatusWindowA              =  COMCTL32.CreateStatusWindowA
+
+  accept                           =  WSOCK32.accept
+  connect                          =  WSOCK32.connect
+  bind                             =  WSOCK32.bind
+  socket                           =  WSOCK32.socket
+  closesocket                      =  WSOCK32.closesocket
+  recv                             =  WSOCK32.recv
+  send                             =  WSOCK32.send
+  listen                           =  WSOCK32.listen
+  WSAStartup                       =  WSOCK32.WSAStartup
+  WSACleanup                       =  WSOCK32.WSACleanup
+  WSAAsyncSelect                   =  WSOCK32.WSAAsyncSelect
+  WSAGetLastError                  =  WSOCK32.WSAGetLastError
+
+  SetupDiDestroyDeviceInfoList     =  SETUPAPI.SetupDiDestroyDeviceInfoList
+  SetupDiGetDeviceInterfaceDetailA =  SETUPAPI.SetupDiGetDeviceInterfaceDetailA
+  SetupDiEnumDeviceInterfaces      =  SETUPAPI.SetupDiEnumDeviceInterfaces
+  SetupDiGetClassDevsA             =  SETUPAPI.SetupDiGetClassDevsA
+
