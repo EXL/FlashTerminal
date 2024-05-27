@@ -425,7 +425,7 @@ def main():
 				-v - Verbose USB packets
 				-r - Reboot device
 				-l - Upload RAMDLD to RAM
-				-s - Switch to Flash Mode (Bootloader Mode)
+				-s - Switch device to Flash Mode (Bootloader Mode)
 				-h - Show help
 
 			Developers and Thanks:
