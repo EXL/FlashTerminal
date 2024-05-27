@@ -69,7 +69,7 @@ mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 4)
 
 ## Developers & Thanks
 
-- EXL, usernameak, kraze1984, dffn3, Vilko, motoprogger, b1er
+- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion
 - MotoFan.Ru developers
 - ROMphonix developers
 

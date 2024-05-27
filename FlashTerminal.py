@@ -70,7 +70,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr', 0x002F0000, 0x002F0000)
-#		mfp_upload_binary_to_addr(er, ew, 'A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
+		mfp_upload_binary_to_addr(er, ew, 'A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
 #		mfp_upload_binary_to_addr(er, ew, 'A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08000010)
 		time.sleep(1.0)
 
@@ -83,7 +83,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 #	mfp_dump_sram(er, ew, 'MSM_IRAM_Dump.bin', 0xFFFF0000, 0xFFFFFFFF, 0x10)
 #	mfp_dump_sram_1byte(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000)
-#	mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
+	mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
@@ -429,7 +429,7 @@ def main():
 				-h - Show help
 
 			Developers and Thanks:
-				- EXL, usernameak, kraze1984, dffn3, Vilko, motoprogger, b1er
+				- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion
 				- MotoFan.Ru developers
 				- ROMphonix developers
 
