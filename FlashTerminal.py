@@ -103,7 +103,8 @@ def worksheet(er, ew):
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
 	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
 	mfp_binary_cmd(er, ew, b'\x41')
-	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
+#	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
+	mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00006000, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
