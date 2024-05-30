@@ -295,7 +295,7 @@ def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None):
 				break
 			logging.debug(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}"...')
 			mfp_binary_cmd(er, ew, chunk, False)
-	logging.info(f'Uploading "{file_path}" to 0x{address:08X} is done.')
+	logging.info(f'Uploading "{file_path}" is done.')
 
 def mfp_get_addr_with_chksum(address):
 	addr_data = bytearray()
