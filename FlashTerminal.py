@@ -98,11 +98,11 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
-	mfp_binary_cmd(0x00000570.to_bytes(4, byteorder = 'big'))
+	mfp_binary_cmd(er, ew, 0x00000570.to_bytes(4, byteorder = 'big'))
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin')
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
-	mfp_binary_cmd(b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
-	mfp_binary_cmd(b'\x41')
+	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
+	mfp_binary_cmd(er, ew, b'\x41')
 	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x10000200, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
