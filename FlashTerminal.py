@@ -136,6 +136,7 @@ def mfp_dump_r(er, ew, file_path, start, end, step = 0x100):
 			binary_cmd.extend(addr_s.to_bytes(4, byteorder = 'big'))
 			binary_cmd.extend(step.to_bytes(4, byteorder = 'big'))
 			result_data = mfp_binary_cmd(er, ew, binary_cmd)
+			result_data = mfp_binary_cmd(er, ew, None)
 			file.write(result_data)
 
 			addr_s = addr_s + step
@@ -346,7 +347,8 @@ def mfp_send(ew, data):
 	return ew.write(data, timeout_write)
 
 def mfp_send_recv(er, ew, data, read_response = True):
-	mfp_send(ew, data)
+	if data:
+		mfp_send(ew, data)
 	response = None
 	if read_response:
 		while not response:
@@ -483,7 +485,7 @@ def progess(step, time_start, size, index, file_path, addr_s, addr_e, pages = 0,
 		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
 	return time.process_time()  # Reset time.
 
-def hexdump(data, wide = 0x0F):
+def hexdump(data, wide = 0x10):
 	line = bytearray()
 	result = ''
 	index = offset = 0
