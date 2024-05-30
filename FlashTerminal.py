@@ -97,6 +97,7 @@ def worksheet(er, ew):
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 
+	# Motorola A835/A845 dumping tricks.
 	mfp_binary_cmd(0x00000570.to_bytes(4, byteorder = 'big'))
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin')
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
