@@ -99,7 +99,7 @@ def worksheet(er, ew):
 
 	# Motorola A835/A845 dumping tricks.
 	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
-	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin')
+	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', False)
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
 	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
 	mfp_binary_cmd(er, ew, b'\x41')
@@ -283,7 +283,7 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None
 		logging.info(f'Jumping to 0x{jump:08X} address.')
 		mfp_cmd(er, ew, 'JUMP', mfp_get_addr_with_chksum(jump))
 
-def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None):
+def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None, read_response = True):
 	binary_file_size = os.path.getsize(file_path)
 	if not chunk_size:
 		chunk_size = binary_file_size
@@ -294,7 +294,7 @@ def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None):
 			if not chunk:
 				break
 			logging.debug(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}"...')
-			mfp_binary_cmd(er, ew, chunk, False)
+			mfp_binary_cmd(er, ew, chunk, read_response)
 	logging.info(f'Uploading "{file_path}" is done.')
 
 def mfp_get_addr_with_chksum(address):
