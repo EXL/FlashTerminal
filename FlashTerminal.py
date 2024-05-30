@@ -44,8 +44,8 @@ at_command = 'AT'
 p2k_mode_command = 'AT+MODE=8'
 delay_ack = 0.00
 delay_switch = 8.0
-timeout_read = 1000
-timeout_write = 1000
+timeout_read = 10000
+timeout_write = 10000
 buffer_write_size = 0x800
 buffer_read_size = 0x800
 
@@ -98,7 +98,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
-	mfp_binary_cmd(er, ew, 0x00000570.to_bytes(4, byteorder = 'big'))
+	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70')
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin')
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
 	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
