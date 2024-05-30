@@ -332,7 +332,8 @@ def mfp_cmd(er, ew, cmd, data = None):
 	return result
 
 def mfp_binary_cmd(er, ew, binary_cmd, read_response = True):
-	logging.debug(f'>>> Send to device...\n{hexdump(binary_cmd)}')
+	if binary_cmd:
+		logging.debug(f'>>> Send to device...\n{hexdump(binary_cmd)}')
 
 	result = mfp_send_recv(er, ew, binary_cmd, read_response)
 	if result:
