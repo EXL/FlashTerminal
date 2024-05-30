@@ -44,8 +44,8 @@ at_command = 'AT'
 p2k_mode_command = 'AT+MODE=8'
 delay_ack = 0.00
 delay_switch = 8.0
-timeout_read = 10000
-timeout_write = 10000
+timeout_read = 20000
+timeout_write = 20000
 buffer_write_size = 0x800
 buffer_read_size = 0x800
 
