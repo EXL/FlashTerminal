@@ -44,8 +44,8 @@ at_command = 'AT'
 p2k_mode_command = 'AT+MODE=8'
 delay_ack = 0.00
 delay_switch = 8.0
-timeout_read = 20000
-timeout_write = 20000
+timeout_read = 5000
+timeout_write = 5000
 buffer_write_size = 0x800
 buffer_read_size = 0x800
 
@@ -98,7 +98,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
-	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70')
+	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin')
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
 	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
@@ -294,7 +294,7 @@ def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None):
 			if not chunk:
 				break
 			logging.debug(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}"...')
-			mfp_binary_cmd(er, ew, chunk)
+			mfp_binary_cmd(er, ew, chunk, False)
 	logging.info(f'Uploading "{file_path}" to 0x{address:08X} is done.')
 
 def mfp_get_addr_with_chksum(address):
@@ -330,10 +330,10 @@ def mfp_cmd(er, ew, cmd, data = None):
 
 	return result
 
-def mfp_binary_cmd(er, ew, binary_cmd):
+def mfp_binary_cmd(er, ew, binary_cmd, read_response = True):
 	logging.debug(f'>>> Send to device...\n{hexdump(binary_cmd)}')
 
-	result = mfp_send_recv(er, ew, binary_cmd)
+	result = mfp_send_recv(er, ew, binary_cmd, read_response)
 	logging.debug(f'<<< Read from device...\n{hexdump(result)}')
 
 	return result
@@ -344,17 +344,18 @@ def mfp_recv(er):
 def mfp_send(ew, data):
 	return ew.write(data, timeout_write)
 
-def mfp_send_recv(er, ew, data):
+def mfp_send_recv(er, ew, data, read_response = True):
 	mfp_send(ew, data)
 	response = None
-	while not response:
-		try:
-			response = mfp_recv(er)
-		except usb.USBError as error:
-			# TODO: Proper USB errors handling.
-			logging.error(f'USB Error: {error}')
-			exit(1)
-		time.sleep(delay_ack)
+	if read_response:
+		while not response:
+			try:
+				response = mfp_recv(er)
+			except usb.USBError as error:
+				# TODO: Proper USB errors handling.
+				logging.error(f'USB Error: {error}')
+				exit(1)
+			time.sleep(delay_ack)
 	return response
 
 ## USB Routines ########################################################################################################
