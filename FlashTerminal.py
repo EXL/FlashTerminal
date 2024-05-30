@@ -44,8 +44,8 @@ at_command = 'AT'
 p2k_mode_command = 'AT+MODE=8'
 delay_ack = 0.00
 delay_switch = 8.0
-timeout_read = 100
-timeout_write = 100
+timeout_read = 1000
+timeout_write = 1000
 buffer_write_size = 0x800
 buffer_read_size = 0x800
 
@@ -64,21 +64,25 @@ def worksheet(er, ew):
 
 	if '-l' in sys.argv:
 		# Upload RAMDLD to phone and wait for RAMDLD start.
-#		mfp_upload_binary_to_addr(er, ew, 'V3m_RAMDLD_010C.ldr', 0x00100000, 0x00100000)
-#		mfp_upload_binary_to_addr(er, ew, 'V3m_RAMDLD_010C_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
-#		mfp_upload_binary_to_addr(er, ew, 'V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
-#		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
-#		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
-#		mfp_upload_binary_to_addr(er, ew, 'V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
-#		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
-#		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
-#		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr', 0x002F0000, 0x002F0000)
-#		mfp_upload_binary_to_addr(er, ew, 'A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
-#		mfp_upload_binary_to_addr(er, ew, 'A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08000010)
-#		mfp_upload_binary_to_addr(er, ew, 'E398_RAMLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/QA30_RAMDLD_0206_Patched_Dump_SRAM.ldr', 0x002F0000, 0x002F0000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr', 0x002F0000, 0x002F0000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08000010)
 		time.sleep(1.0)
 
-	# Commands with arguments.
+	# Commands executed on Bootloader or RAMDLD (if loaded) side.
+#	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQSN')
+#	mfp_cmd(er, ew, 'RQSF')
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
@@ -90,6 +94,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram_1byte(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000)
 #	mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
+#	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
@@ -106,6 +111,27 @@ def calculate_checksum(data):
 	for byte in data:
 		checksum = (checksum + byte) % 256
 	return checksum
+
+def mfp_dump_read(er, ew, file_path, start, end, step = 0x100):
+	addr_s = start
+	addr_e = start + step
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.process_time()
+		while addr_e <= end:
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (index % (step * 0x100) == 0):
+				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+			result_data = mfp_cmd(er, ew, 'READ', f'{addr_s:08X},{step:04X}'.encode())
+			result_data = result_data[6:]   # Drop start marker and command.
+			result_data = result_data[2:]   # Drop size step.
+			result_data = result_data[:-1]  # Drop checksum.
+			result_data = result_data[:-1]  # Drop end marker.
+			file.write(result_data)
+
+			addr_s = addr_s + step
+			addr_e = addr_s + step
+			index += step
 
 def mfp_dump_dump(er, ew, file_path, start, end, step = 0x100):
 	addr_s = start
@@ -205,9 +231,7 @@ def mfp_dump_sram_1byte(er, ew, file_path, start, end):
 			addr_e += 1
 			index += 1
 
-def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None):
-	if jump:
-		file_path = os.path.join('loaders', file_path)
+def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None):
 	address = start
 	logging.info(f'Uploading "{file_path}" to 0x{address:08X} with {buffer_write_size} bytes chunks...')
 	with open(file_path, 'rb') as file:
@@ -221,6 +245,11 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None):
 			address += len(chunk)
 	logging.info(f'Uploading "{file_path}" to 0x{address:08X} is done.')
 	if jump:
+		if rsrc:
+			loader_file_size = os.path.getsize(file_path)
+			end = start + loader_file_size - 1
+			logging.info(f'Calculate checksum of "{start:08X},{end:08X}" region.')
+			mfp_cmd(er, ew, 'RQRC', f'{start:08X},{end:08X}'.encode())
 		logging.info(f'Jumping to 0x{jump:08X} address.')
 		mfp_cmd(er, ew, 'JUMP', mfp_get_addr_with_chksum(jump))
 
