@@ -76,13 +76,14 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08000010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 		time.sleep(1.0)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
+	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
@@ -95,6 +96,13 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
+
+	mfp_binary_cmd(0x00000570.to_bytes(4, byteorder = 'big'))
+	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin')
+	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
+	mfp_binary_cmd(b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
+	mfp_binary_cmd(b'\x41')
+	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x10000200, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
@@ -111,6 +119,27 @@ def calculate_checksum(data):
 	for byte in data:
 		checksum = (checksum + byte) % 256
 	return checksum
+
+def mfp_dump_r(er, ew, file_path, start, end, step = 0x100):
+	addr_s = start
+	addr_e = start + step
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.process_time()
+		while addr_e <= end:
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (index % (step * 0x100) == 0):
+				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+			binary_cmd = bytearray()
+			binary_cmd.extend('R'.encode())
+			binary_cmd.extend(addr_s.to_bytes(4, byteorder = 'big'))
+			binary_cmd.extend(step.to_bytes(4, byteorder = 'big'))
+			result_data = mfp_binary_cmd(er, ew, binary_cmd)
+			file.write(result_data)
+
+			addr_s = addr_s + step
+			addr_e = addr_s + step
+			index += step
 
 def mfp_dump_read(er, ew, file_path, start, end, step = 0x100):
 	addr_s = start
@@ -253,6 +282,20 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None
 		logging.info(f'Jumping to 0x{jump:08X} address.')
 		mfp_cmd(er, ew, 'JUMP', mfp_get_addr_with_chksum(jump))
 
+def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None):
+	binary_file_size = os.path.getsize(file_path)
+	if not chunk_size:
+		chunk_size = binary_file_size
+	logging.info(f'Uploading "{file_path}" of {binary_file_size} bytes size...')
+	with open(file_path, 'rb') as file:
+		while True:
+			chunk = file.read(binary_file_size)
+			if not chunk:
+				break
+			logging.debug(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}"...')
+			mfp_binary_cmd(er, ew, chunk)
+	logging.info(f'Uploading "{file_path}" to 0x{address:08X} is done.')
+
 def mfp_get_addr_with_chksum(address):
 	addr_data = bytearray()
 	addr_data.extend(f'{address:08X}'.encode())
@@ -282,6 +325,14 @@ def mfp_cmd(er, ew, cmd, data = None):
 	logging.debug(f'>>> Send to device...\n{hexdump(packet)}')
 
 	result = mfp_send_recv(er, ew, packet)
+	logging.debug(f'<<< Read from device...\n{hexdump(result)}')
+
+	return result
+
+def mfp_binary_cmd(er, ew, binary_cmd):
+	logging.debug(f'>>> Send to device...\n{hexdump(binary_cmd)}')
+
+	result = mfp_send_recv(er, ew, binary_cmd)
 	logging.debug(f'<<< Read from device...\n{hexdump(result)}')
 
 	return result
