@@ -103,7 +103,7 @@ def worksheet(er, ew):
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
 	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
 	mfp_binary_cmd(er, ew, b'\x41')
-	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x10000200, 0x100)
+	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x10000400, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
@@ -283,7 +283,7 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None
 		logging.info(f'Jumping to 0x{jump:08X} address.')
 		mfp_cmd(er, ew, 'JUMP', mfp_get_addr_with_chksum(jump))
 
-def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None):
+def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None, read_response = True):
 	binary_file_size = os.path.getsize(file_path)
 	if not chunk_size:
 		chunk_size = binary_file_size
@@ -294,7 +294,7 @@ def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None):
 			if not chunk:
 				break
 			logging.debug(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}"...')
-			mfp_binary_cmd(er, ew, chunk, False)
+			mfp_binary_cmd(er, ew, chunk, read_response)
 	logging.info(f'Uploading "{file_path}" is done.')
 
 def mfp_get_addr_with_chksum(address):
@@ -333,7 +333,7 @@ def mfp_cmd(er, ew, cmd, data = None):
 def mfp_binary_cmd(er, ew, binary_cmd, read_response = True):
 	logging.debug(f'>>> Send to device...\n{hexdump(binary_cmd)}')
 
-	result = mfp_send_recv(er, ew, binary_cmd, read_response)
+	result = mfp_send_recv(er, ew, binary_cmd, read_response, False)
 	if result:
 		logging.debug(f'<<< Read from device...\n{hexdump(result)}')
 
@@ -345,7 +345,7 @@ def mfp_recv(er):
 def mfp_send(ew, data):
 	return ew.write(data, timeout_write)
 
-def mfp_send_recv(er, ew, data, read_response = True):
+def mfp_send_recv(er, ew, data, read_response = True, exit = True):
 	mfp_send(ew, data)
 	response = None
 	if read_response:
@@ -355,7 +355,8 @@ def mfp_send_recv(er, ew, data, read_response = True):
 			except usb.USBError as error:
 				# TODO: Proper USB errors handling.
 				logging.error(f'USB Error: {error}')
-				exit(1)
+				if exit:
+					exit(1)
 			time.sleep(delay_ack)
 	return response
 
