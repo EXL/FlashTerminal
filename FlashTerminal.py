@@ -30,10 +30,13 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6550'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rainbow'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4903, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTE'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone (U10) AT'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1C01, 'mode': 'p2k', 'desc': 'Motorola PCS Siemens Phone (U10) P2K'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1C01, 'mode': 'p2k', 'desc': 'Motorola PCS Siemens Phone U10 (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4902, 'mode': 'at', 'desc': 'Motorola PCS Triplet GSM Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4901, 'mode': 'p2k', 'desc': 'Motorola PCS Triplet GSM Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -72,11 +75,13 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
 #		mfp_upload_binary_to_addr(er, ew, 'A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08000010)
+#		mfp_upload_binary_to_addr(er, ew, 'E398_RAMLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 		time.sleep(1.0)
 
 	# Commands with arguments.
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
+#	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
 	# Dump SRAM and NOR flash (64 MiB and 128 MiB).
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
@@ -84,6 +89,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'MSM_IRAM_Dump.bin', 0xFFFF0000, 0xFFFFFFFF, 0x10)
 #	mfp_dump_sram_1byte(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000)
 #	mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
+#	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
@@ -100,6 +106,24 @@ def calculate_checksum(data):
 	for byte in data:
 		checksum = (checksum + byte) % 256
 	return checksum
+
+def mfp_dump_dump(er, ew, file_path, start, end, step = 0x100):
+	addr_s = start
+	addr_e = start + step
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.process_time()
+		while addr_e <= end:
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (index % (step * 0x100) == 0):
+				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+
+			result_data = mfp_cmd(er, ew, 'DUMP', f'{addr_s:08X}'.encode())
+			file.write(result_data)
+
+			addr_s = addr_s + step
+			addr_e = addr_s + step
+			index += step
 
 def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30, wide_nand = 1):
 	addr_s = 0x60000000
