@@ -137,6 +137,7 @@ def mfp_dump_r(er, ew, file_path, start, end, step = 0x100):
 			binary_cmd.extend(step.to_bytes(4, byteorder = 'big'))
 			result_data = mfp_binary_cmd(er, ew, binary_cmd)
 			result_data = mfp_binary_cmd(er, ew, binary_cmd)
+			result_data = result_data[:-1]  # Drop checksum.
 			file.write(result_data)
 
 			addr_s = addr_s + step
