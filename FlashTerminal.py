@@ -100,7 +100,7 @@ def worksheet(er, ew):
 	# Motorola A835/A845 dumping tricks.
 	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', False)
-	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
+	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin', False)
 	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
 	mfp_binary_cmd(er, ew, b'\x41')
 	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x10000400, 0x100)
