@@ -103,7 +103,7 @@ def worksheet(er, ew):
 	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin', False)
 	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
 	mfp_binary_cmd(er, ew, b'\x41')
-	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x10000400, 0x100)
+	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x10000200, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
@@ -333,7 +333,7 @@ def mfp_cmd(er, ew, cmd, data = None):
 def mfp_binary_cmd(er, ew, binary_cmd, read_response = True):
 	logging.debug(f'>>> Send to device...\n{hexdump(binary_cmd)}')
 
-	result = mfp_send_recv(er, ew, binary_cmd, read_response, False)
+	result = mfp_send_recv(er, ew, binary_cmd, read_response)
 	if result:
 		logging.debug(f'<<< Read from device...\n{hexdump(result)}')
 
@@ -345,7 +345,7 @@ def mfp_recv(er):
 def mfp_send(ew, data):
 	return ew.write(data, timeout_write)
 
-def mfp_send_recv(er, ew, data, read_response = True, exit = True):
+def mfp_send_recv(er, ew, data, read_response = True):
 	mfp_send(ew, data)
 	response = None
 	if read_response:
@@ -355,8 +355,7 @@ def mfp_send_recv(er, ew, data, read_response = True, exit = True):
 			except usb.USBError as error:
 				# TODO: Proper USB errors handling.
 				logging.error(f'USB Error: {error}')
-				if exit:
-					exit(1)
+				exit(1)
 			time.sleep(delay_ack)
 	return response
 
