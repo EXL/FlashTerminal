@@ -28,6 +28,38 @@ typedef struct {
 #define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x07800A7A))
 #define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x078006C8))
 #define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x078006A0))
+#elif defined(M_CORE_MOTOROLA_V60_0355)
+#define rsrc_str ((UINT8 *) 0x1101DA1F)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x11025AA0)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x1101CB02))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x11010B06))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11012244))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x1101221C))
+#elif defined(M_CORE_MOTOROLA_V60_0371)
+#define rsrc_str ((UINT8 *) 0x00104A8D)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x11040068)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x0010000A))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x001014BA))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x00103FA8))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x00103F80))
+#elif defined(M_CORE_MOTOROLA_V66I_1001)
+#define rsrc_str ((UINT8 *) 0x00104BE9)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x11040068)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x0010000A))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x001014C8))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x0010401C))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x00103FF4))
+#elif defined(M_CORE_MOTOROLA_V66I_1001_2)
+#define rsrc_str ((UINT8 *) 0x110217F5)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x11040068)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x1101CC16))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x1101E0D4))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11020C28))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x11020C00))
 #else
 extern UINT8 rsrc_str[];
 extern BLOADER_SECTION_ADDR_TBL blvar_RAM_section_addr_tbl;
