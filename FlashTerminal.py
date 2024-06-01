@@ -9,6 +9,7 @@ A Flash Terminal utility for various Motorola phones using Motorola Flash Protoc
 Python: 3.10+
 License: MIT
 Authors: EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, MotoFan.Ru and ROMphonix developers
+Thanks: PUNK-398, asdf
 Date: 10-May-2024
 Version: 1.0
 '''
@@ -66,7 +67,7 @@ def worksheet(er, ew):
 		# Upload RAMDLD to phone and wait for RAMDLD start.
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
@@ -77,13 +78,13 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0371_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0371_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR_2.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0371_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0371_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR_2.ldr', 0x11010000, 0x11010010)
 		time.sleep(1.0)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
@@ -94,7 +95,7 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
-	# Dump SRAM and NOR flash (64 MiB and 128 MiB).
+	# Dump SRAM and NOR flash.
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 #	mfp_dump_sram(er, ew, 'MSM_IRAM_Dump.bin', 0xFFFF0000, 0xFFFFFFFF, 0x10)
@@ -102,12 +103,10 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
-
-	mfp_dump_sram_1byte(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000)
-	mfp_dump_sram_1byte(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000)
-
-	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
-	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
+#	mfp_dump_sram_1byte(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000)
+#	mfp_dump_sram_1byte(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000)
+#	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+#	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -126,6 +125,7 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 4)
+	mfp_dump_nand(er, ew, 'V3m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30, 1, 0x64000000)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -197,10 +197,10 @@ def mfp_dump_dump(er, ew, file_path, start, end, step = 0x100):
 			addr_e = addr_s + step
 			index += step
 
-def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30, wide_nand = 1):
-	addr_s = 0x60000000
+def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30, wide_nand = 1, nand_buffer = 0x60000000):
+	addr_s = nand_buffer
 	addr_e = addr_s + step
-	addr_h = 0x60000210
+	addr_h = nand_buffer + 0x210
 	with open(file_path, 'wb') as dump, open(insert_to_filename('_spare_area', file_path), 'wb') as spare:
 		index = 0
 		time_start = time.process_time()
