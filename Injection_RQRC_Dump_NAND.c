@@ -144,10 +144,10 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 
 	watchdog_check_delay_110344();
 
-	while (((*((UINT32 *) 0x64000308)) & 0x800000C8) != 0);
+//	while (((*((UINT32 *) 0x64000308)) & 0x800000C8) != 0);
 
-	*((UINT32 *) 0x80000904) = 0x2000;
-	*((UINT32 *) 0x64000300) = 7;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
+//	*((UINT32 *) 0x80000904) = 0x2000;
+//	*((UINT32 *) 0x64000300) = 7;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
 #else
 	#error "Unknown device or unknown MSM SoC!"
 #endif
