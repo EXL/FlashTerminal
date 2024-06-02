@@ -128,7 +128,7 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 		}
 	}
 #elif defined(FTR_V3M_MSM6500)
-	*((UINT32 *) 0x80000904) = 0x2000;
+//	*((UINT32 *) 0x80000904) = 0x2000;
 	*((UINT32 *) 0x01248170) = *((UINT32 *) 0x01248170) & 0xFFFFFFFE | 1;
 	*((UINT32 *) 0x6400031C) = *((UINT32 *) 0x01248170);
 
@@ -138,6 +138,13 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 	*((UINT32 *) 0x64000300) = 1;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 001 - page_read
 
 	watchdog_check_delay_110344();
+
+	*((UINT32 *) 0x80000904) = 0x2000;
+	*((UINT32 *) 0x64000300) = 6;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 101 - status_check
+
+	watchdog_check_delay_110344();
+
+	while (((*((UINT32 *) 0x64000308)) & 0x800000C8) != 0);
 
 	*((UINT32 *) 0x80000904) = 0x2000;
 	*((UINT32 *) 0x64000300) = 7;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
