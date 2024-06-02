@@ -125,8 +125,8 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 4)
-	mfp_dump_nand(er, ew, 'V3m_NAND_Dump_1.bin', int(0x02000000 / 512), int(0x02000000 / 512) + 2, 0x30, 1, 0x64000000)
-	mfp_dump_nand(er, ew, 'V3m_NAND_Dump_2.bin', int(0x04000000 / 512), int(0x04000000 / 512) + 2, 0x30, 1, 0x64000000)
+	mfp_dump_nand(er, ew, 'V3m_NAND_Dump_1.bin', int(0x04000000 / 512), int(0x04000000 / 512) + 2, 0x30, 1, 0x64000000)
+	mfp_dump_nand(er, ew, 'V3m_NAND_Dump_2.bin', int(0x08000000 / 512), int(0x08000000 / 512) + 2, 0x30, 1, 0x64000000)
 
 ## Motorola Flash Protocol #############################################################################################
 
