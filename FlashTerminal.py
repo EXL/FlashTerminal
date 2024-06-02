@@ -233,7 +233,7 @@ def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30, wide_nand = 1, nan
 					addr_e = addr_s + step
 
 				index += 1
-				addr_s = 0x60000000
+				addr_s = nand_buffer
 				addr_e = addr_s + step
 
 def mfp_dump_sram(er, ew, file_path, start, end, step = 0x30):
