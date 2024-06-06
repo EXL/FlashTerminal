@@ -141,7 +141,6 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 
 //		*((UINT32 *) 0x80000904) = 0x2000;
 //		*((UINT32 *) 0x6400031C) = *((UINT32 *) 0x6400031C) & 0xFFFFFFFE;
-
 //		watchdog_check_delay_110344();
 #else
 	#error "Unknown device or unknown MSM SoC!"
