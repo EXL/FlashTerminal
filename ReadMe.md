@@ -10,6 +10,10 @@ A set of utilities and patched/hacked RAMDLD loaders (RAM downloaders) for dumpi
 ```bash
 # pip install pyusb
 # pip install pyserial
+
+# Alternative non-pip Debian-like Linux distros.
+$ sudo apt install python3-usb
+$ sudo apt install python3-serial
 ```
 
 ## Usage
@@ -69,7 +73,7 @@ mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 ```python
 mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 time.sleep(1.0)
-mfp_dump_nand(er, ew, 'V3m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000, 0x01)
+mfp_dump_nand(er, ew, 'V3m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 ```
 
 **Dumping 64 MB SRAM Memory from Motorola RAZR2 V9m and Motorola ROKR Z6m**

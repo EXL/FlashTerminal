@@ -139,6 +139,7 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 
 		watchdog_check_delay_110344();
 
+		// 0x031C / NAND_FLASH_CFG1, 0 bit - ECC_DISABLE
 //		*((UINT32 *) 0x80000904) = 0x2000;
 //		*((UINT32 *) 0x6400031C) = *((UINT32 *) 0x6400031C) & 0xFFFFFFFE;
 //		watchdog_check_delay_110344();
