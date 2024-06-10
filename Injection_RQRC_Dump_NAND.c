@@ -30,14 +30,10 @@ extern UINT32 util_hexasc_to_ui32(UINT8 *str_ptr, UINT8 size);
 extern INT32 watchdog_check_121A78(void);
 extern INT64 watchdog_delay_121ADC(void);
 
-// MSM6575,MSM6800: QA30, VE40, ic902
+// MSM6575, MSM6800: QA30, VE40, ic902
 INT32 watchdog_check_delay_326EB8(void);
 
-// MSM6500: V3m
-// INT32 sub_110730(int a1, unsigned int a2);
-// INT32 sub_110622(int a1, unsigned int a2);
-// INT32 sub_11077C(int a1, unsigned int a2, int a3);
-// INT32 sub_1206A4(int a1, int a2, int a3, int a4);
+// MSM6125, MSM6500: V3m, E815, W755, W385
 INT32 watchdog_check_delay_110344(void);
 
 void handle_command_RQRC(UINT8 *data_ptr) {
@@ -74,7 +70,8 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 //	Qualcomm MSM6550 NAND Flash Memory Interface!
 //	Additional informatrion:
 //		1. 80-V7196-2-MSM6150-6550-SoftwareInterface.pdf
-//		2. https://github.com/dumpit3315/dumpit
+//		2. 80-V6968-2_MSM6280_Software_Interface.pdf
+//		3. https://github.com/dumpit3315/dumpit
 //
 //		12-May-2024 02:09:57 DEBUG [mfp_cmd]:
 //		>>> Send to device...
@@ -93,7 +90,7 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 //		0000005A:  41 30 45 33 30 30 32 30 41 30 45 33 03        |A0E30020A0E3.  |
 
 #if defined(FTR_V9M_MSM6550) /* Motorola PCS Flash MSM6550: V9m, Z6m, etc. */
-//	See sub_107678 in the "V9m_RAMDLD_01B5.ldr" file.
+	//	See sub_107678 in the "V9m_RAMDLD_01B5.ldr" file.
 	*((UINT32 *) 0x28000000) = 101;
 	*((UINT32 *) 0x800002B0) =   2;
 
@@ -109,9 +106,10 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 
 	*((UINT32 *) 0x60000300) = 7;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
 #elif defined(FTR_QA30_MSM6575) /* Motorola PCS Flash MSM6575/MSM6800: QA30, VE40, etc. */
-//	See sub_327F04 in the "QA30_RAMDLD_0206.ldr" file.
+	//	See sub_327F04 in the "QA30_RAMDLD_0206.ldr" file.
 	if (blvar_RAM_section_addr_tbl.start_addr == 0x60000000) {
-		*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE | 1;
+		// 0x0328 / NAND_FLASH_CFG1, 0 bit - ECC_DISABLE
+//		*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE | 1;
 
 		*((UINT32 *) 0x60000300) = page << 9; // 0x0304 / NAND_FLASH_ADDR, 31:9 bits - NAND_FLASH_PAGE_ADDRESS
 
@@ -121,13 +119,15 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 
 		watchdog_check_delay_326EB8();
 
-		*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE;
+		// 0x0328 / NAND_FLASH_CFG1, 0 bit - ECC_DISABLE
+//		*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE;
 
 		if (blvar_RAM_section_addr_tbl.start_addr == 0x60000200 && wide == 3) {
 			*((UINT32 *) 0x60000304) = 7;     // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
 		}
 	}
-#elif defined(FTR_V3M_MSM6500)
+#elif defined(FTR_V3M_MSM6500) /* Motorola PCS Flash MSM6125/MSM6500: V3m, E815, W755, W385, etc. */
+		//	See sub_110622 in the "V3m_RAMDLD_010C.ldr" file.
 		*((UINT32 *) 0x80000904) = 0x2000;
 		// 0x031C / NAND_FLASH_CFG1, 0 bit - ECC_DISABLE
 //		*((UINT32 *) 0x6400031C) = *((UINT32 *) 0x6400031C) & 0xFFFFFFFE | 1;

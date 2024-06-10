@@ -68,7 +68,7 @@ mfp_dump_sram(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000, 0x30)
 mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 ```
 
-**Dumping 64 MB NAND Memory from Motorola RAZR V3m, Motorola W755, Motorola E815**
+**Dumping 64 MB NAND Memory from Motorola RAZR V3m, Motorola W755, Motorola E815, Motorola W385**
 
 ```python
 mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
@@ -110,11 +110,13 @@ time.sleep(1.0)
 mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 4)
 ```
 
+
 ## Developers & Thanks
 
 - EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion
 - MotoFan.Ru developers
 - ROMphonix developers
+- asdf, PUNK-398
 
 ## Useful Information and Resources
 

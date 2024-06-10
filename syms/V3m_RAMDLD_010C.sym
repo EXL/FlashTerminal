@@ -9,8 +9,3 @@
 0x01199BC0 D blvar_RAM_section_addr_tbl
 
 0x00110344 T watchdog_check_delay_110344
-
-0x00110730 T sub_110730
-0x00110622 T sub_110622
-0x0011077C T sub_11077C
-0x001206A4 T sub_1206A4
