@@ -559,7 +559,7 @@ def main():
 				- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion
 				- MotoFan.Ru developers
 				- ROMphonix developers
-				- asdf, PUNK-398
+				- PUNK-398, asdf
 
 			10-May-2024, Siberia
 		''')

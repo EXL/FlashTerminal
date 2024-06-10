@@ -90,9 +90,5 @@ extern void handle_command_RQRC(UINT8 *data_ptr) {
 		HAPI_WATCHDOG_service();
 	}
 
-#if defined(M_CORE_MOTOROLA_A830_SIEMENS_U10)
 	parser_send_packet((UINT8 *) rsrc_str, response);
-#else
-	parser_send_packet((UINT8 *) &rsrc_str[0], response);
-#endif
 }
