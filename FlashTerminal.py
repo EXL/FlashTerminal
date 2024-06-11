@@ -27,6 +27,7 @@ import usb.util
 ## Settings ############################################################################################################
 
 usb_devices = [
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2A23, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6100'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6500/MSM6800'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6550'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
@@ -68,7 +69,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V325i_RAMDLD_010A_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V325i_RAMDLD_010A_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000)
@@ -127,7 +128,7 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 4)
 #	mfp_dump_nand(er, ew, 'V3m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
-	mfp_dump_nand(er, ew, 'V325i_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
+#	mfp_dump_nand(er, ew, 'V325i_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -389,7 +390,7 @@ def usb_check_restart_phone(er, ew, restart_flag):
 		time.sleep(2.0)
 		er, ew = usb_init(usb_devices, 'flash')
 		if not er or not ew:
-			logging.error(f'Cannot find USB device!')
+			logging.error('Cannot find USB device!')
 			exit(1)
 	return er, ew
 
@@ -466,7 +467,7 @@ def switch_atmode_to_p2kmode(modem_device, modem_speed):
 	return False
 
 def switch_p2kmode_to_flashmode(p2k_usb_device):
-	logging.info(f'P2K device found, switch it to Flash mode!')
+	logging.info('P2K device found, switching it to the Flash mode!')
 	ctrl_packet = b'\x00\x01\x00\x0D\x00\x00\x00\x00'
 	p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
 	logging.debug(f'>>> Send USB control packet '

@@ -31,13 +31,13 @@ extern INT32 watchdog_check_121A78(void);
 extern INT64 watchdog_delay_121ADC(void);
 
 // MSM6575, MSM6800: QA30, VE40, ic902
-INT32 watchdog_check_delay_326EB8(void);
+extern INT32 watchdog_check_delay_326EB8(void);
 
 // MSM6125, MSM6500: V3m, E815, W755, W385
-INT32 watchdog_check_delay_110344(void);
+extern INT32 watchdog_check_delay_110344(void);
 
 // MSM6100: V325i, V325ix
-INT32 watchdog_check_delay_115E3A(void);
+extern INT32 watchdog_check_delay_115E3A(void);
 
 void handle_command_RQRC(UINT8 *data_ptr) {
 	UINT8 response[MAX_RESPONSE_DATA_SIZE];
