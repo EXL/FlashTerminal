@@ -36,6 +36,9 @@ INT32 watchdog_check_delay_326EB8(void);
 // MSM6125, MSM6500: V3m, E815, W755, W385
 INT32 watchdog_check_delay_110344(void);
 
+// MSM6100: V325i, V325ix
+INT32 watchdog_check_delay_115E3A(void);
+
 void handle_command_RQRC(UINT8 *data_ptr) {
 	UINT8 response[MAX_RESPONSE_DATA_SIZE];
 	UINT8 *response_ptr = &response[0];
@@ -143,6 +146,23 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 //		*((UINT32 *) 0x80000904) = 0x2000;
 //		*((UINT32 *) 0x6400031C) = *((UINT32 *) 0x6400031C) & 0xFFFFFFFE;
 //		watchdog_check_delay_110344();
+#elif defined(FTR_V325I_MSM6100) /* Motorola PCS Flash MSM6100: V325i, V325ix, etc. */
+		//	See sub_1160EC in the "V325i_RAMDLD_010A.ldr" file.
+		*((UINT32 *) 0x80000C84) = 0x2000;
+		// 0x031C / NAND_FLASH_CFG1, 0 bit - ECC_DISABLE
+//		*((UINT32 *) 0x6400031C) = *((UINT32 *) 0x6400031C) & 0xFFFFFFFE | 1;
+
+		*((UINT32 *) 0x64000304) = page << 9; // 0x0304 / NAND_FLASH_ADDR, 31:9 bits - NAND_FLASH_PAGE_ADDRESS
+
+		*((UINT32 *) 0x80000C84) = 0x2000;
+		*((UINT32 *) 0x64000300) = 1;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 001 - page_read
+
+		watchdog_check_delay_115E3A();
+
+		// 0x031C / NAND_FLASH_CFG1, 0 bit - ECC_DISABLE
+//		*((UINT32 *) 0x80000C84) = 0x2000;
+//		*((UINT32 *) 0x6400031C) = *((UINT32 *) 0x6400031C) & 0xFFFFFFFE;
+//		watchdog_check_delay_115E3A();
 #else
 	#error "Unknown device or unknown MSM SoC!"
 #endif

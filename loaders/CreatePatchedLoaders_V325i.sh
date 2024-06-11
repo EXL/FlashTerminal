@@ -3,7 +3,7 @@
 ADS_TOOLCHAIN_BIN_DIR=/opt/arm/bin/
 
 # Compile dump NAND patch.
-${ADS_TOOLCHAIN_BIN_DIR}/tcc -apcs /interwork -DFTR_V3M_MSM6500 -O2 ../Injection_RQRC_Dump_NAND.c -c -o patch_nand.o
+${ADS_TOOLCHAIN_BIN_DIR}/tcc -apcs /interwork -DFTR_V325I_MSM6100 -O2 ../Injection_RQRC_Dump_NAND.c -c -o patch_nand.o
 ${ADS_TOOLCHAIN_BIN_DIR}/armlink -ro-base 0x0012EAE0 patch_nand.o ../syms/V325i_RAMDLD_010A.sym -o patch_nand.elf
 ${ADS_TOOLCHAIN_BIN_DIR}/fromelf patch_nand.elf -bin -output patch_nand.bin
 # Align patch file with 8 (0x08) bytes.
