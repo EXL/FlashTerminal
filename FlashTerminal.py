@@ -28,6 +28,7 @@ import usb.util
 
 usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2A23, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6100'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2B43, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6125'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6500/MSM6800'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6550'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
