@@ -33,7 +33,7 @@ extern INT64 watchdog_delay_121ADC(void);
 // MSM6575, MSM6800: QA30, VE40, ic902
 extern INT32 watchdog_check_delay_326EB8(void);
 
-// MSM6125, MSM6500: V3m, E815, W755, W385
+// MSM6125, MSM6500: V3m, K1m (different address), E815, W755, W385
 extern INT32 watchdog_check_delay_110344(void);
 
 // MSM6100: V325i, V325ix
@@ -129,7 +129,7 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 			*((UINT32 *) 0x60000304) = 7;     // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 111 - reset
 		}
 	}
-#elif defined(FTR_V3M_MSM6500) /* Motorola PCS Flash MSM6125/MSM6500: V3m, E815, W755, W385, etc. */
+#elif defined(FTR_V3M_MSM6500) /* Motorola PCS Flash MSM6125/MSM6500: V3m, K1m, E815, W755, W385, etc. */
 		//	See sub_110622 in the "V3m_RAMDLD_010C.ldr" file.
 		*((UINT32 *) 0x80000904) = 0x2000;
 		// 0x031C / NAND_FLASH_CFG1, 0 bit - ECC_DISABLE
