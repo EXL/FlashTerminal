@@ -68,6 +68,7 @@ def worksheet(er, ew):
 
 	if '-l' in sys.argv:
 		# Upload RAMDLD to phone and wait for RAMDLD start.
+		logging.debug('Uploading RAMDLD to phone and wait for RAMDLD start.')
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
