@@ -46,7 +46,8 @@ modem_device = '/dev/ttyACM0'
 at_command = 'AT'
 p2k_mode_command = 'AT+MODE=8'
 delay_ack = 0.00
-delay_switch = 8.0
+delay_switch = 8.00
+delay_jump = 3.00
 timeout_read = 5000
 timeout_write = 5000
 buffer_write_size = 0x800
@@ -70,7 +71,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/K1m_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/K1m_RAMDLD_0013_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/K1mm_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V325i_RAMDLD_010A_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5.ldr', 0x00100000, 0x00100000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V9m_RAMDLD_01B5_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000)
@@ -89,13 +91,12 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR_2.ldr', 0x11010000, 0x11010010)
-		time.sleep(3.0)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
-	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
@@ -130,7 +131,7 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 4)
 #	mfp_dump_nand(er, ew, 'V3m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
-#	mfp_dump_nand(er, ew, 'K1m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
+	mfp_dump_nand(er, ew, 'K1m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 #	mfp_dump_nand(er, ew, 'V325i_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 
 ## Motorola Flash Protocol #############################################################################################
@@ -306,6 +307,8 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None
 			mfp_cmd(er, ew, 'RQRC', f'{start:08X},{end:08X}'.encode())
 		logging.info(f'Jumping to 0x{jump:08X} address.')
 		mfp_cmd(er, ew, 'JUMP', mfp_get_addr_with_chksum(jump))
+		logging.info(f'Waiting {delay_jump} seconds for RAMDLD init on device...')
+		time.sleep(delay_jump)
 
 def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None, read_response = True):
 	binary_file_size = os.path.getsize(file_path)
