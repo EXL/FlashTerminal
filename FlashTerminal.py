@@ -93,7 +93,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR_2.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/C350_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/C550_RAMDLD_0910_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -115,8 +115,8 @@ def worksheet(er, ew):
 #	mfp_dump_sram_1byte(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000)
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
-#	mfp_dump_sram(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
-	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x30)
+	mfp_dump_sram(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
+#	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x30)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')

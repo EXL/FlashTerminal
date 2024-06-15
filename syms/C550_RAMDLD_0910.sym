@@ -2,8 +2,8 @@
 
 0x01FD28C0 T HAPI_WATCHDOG_service
 0x01FD1632 T parser_send_packet
-0x11072038 T util_ui8_to_hexasc
+0x01FD3C3C T util_ui8_to_hexasc
 0x01FD3C0C T util_hexasc_to_ui32
 
 0x01FD6375 D rsrc_str
-0x01FD691C D blvar_RAM_section_addr_tbl
+0x01FDC14C D blvar_RAM_section_addr_tbl
