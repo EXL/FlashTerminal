@@ -34,6 +34,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rainbow'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4903, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTE'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3803, 'mode': 'flash', 'desc': 'Motorola PCS Flash LT'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
@@ -114,8 +115,8 @@ def worksheet(er, ew):
 #	mfp_dump_sram_1byte(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000)
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
-	mfp_dump_sram(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
-	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x30)
+#	mfp_dump_sram(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
+	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x0000060, 0x30)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
