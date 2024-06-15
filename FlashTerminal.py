@@ -93,7 +93,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR_2.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/C550_RAMDLD_0910_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/C550_RAMDLD_0910_Patched_Dump_NOR.ldr', 0x01FD0000, 0x01FD0010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
