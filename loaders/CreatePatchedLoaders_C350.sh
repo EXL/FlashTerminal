@@ -3,7 +3,7 @@
 ADS_TOOLCHAIN_BIN_DIR=/opt/arm/bin/
 
 # Compile dump SRAM patch.
-${ADS_TOOLCHAIN_BIN_DIR}/tcc -apcs /interwork -O2 ../Injection_RQRC_Dump_SRAM.c -c -o patch_nor.o
+${ADS_TOOLCHAIN_BIN_DIR}/tcc -bigend -apcs /interwork -O2 ../Injection_RQRC_Dump_SRAM.c -c -o patch_nor.o
 ${ADS_TOOLCHAIN_BIN_DIR}/armlink -ro-base 0x11060040 patch_nor.o ../syms/C350_RAMDLD_0372.sym -o patch_nor.elf
 ${ADS_TOOLCHAIN_BIN_DIR}/fromelf patch_nor.elf -bin -output patch_nor.bin
 
