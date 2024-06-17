@@ -60,6 +60,14 @@ typedef struct {
 #define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x1101E0D4))
 #define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11020C28))
 #define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x11020C00))
+#elif defined(ARM7TDMI_MOTOROLA_C350)
+#define rsrc_str ((UINT8 *) 0x01FD2E25)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x01FD691C)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x11071418))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x11070568))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11072038))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x11072008))
 #else
 extern UINT8 rsrc_str[];
 extern BLOADER_SECTION_ADDR_TBL blvar_RAM_section_addr_tbl;
@@ -71,29 +79,24 @@ extern UINT32 util_hexasc_to_ui32(UINT8 *str_ptr, UINT8 size);
 #endif
 
 extern void handle_command_RQRC(UINT8 *data_ptr) {
-	UINT8 response[10];
+	UINT8 response[MAX_RESPONSE_DATA_SIZE];
 	UINT8 *response_ptr = &response[0];
 	UINT8 *data_start_ptr, *data_end_ptr;
 
-	response[0] = 'A';
-	response[1] = 'B';
-	response[2] = 'C';
-	response[3] = '\0';
+	blvar_RAM_section_addr_tbl.start_addr = util_hexasc_to_ui32(&data_ptr[0], ADDR_CMD_ADDR_SIZE);
+	blvar_RAM_section_addr_tbl.end_addr   = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
 
-//	blvar_RAM_section_addr_tbl.start_addr = util_hexasc_to_ui32(&data_ptr[0], ADDR_CMD_ADDR_SIZE);
-//	blvar_RAM_section_addr_tbl.end_addr   = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
+	data_start_ptr = (UINT8 *) blvar_RAM_section_addr_tbl.start_addr;
+	data_end_ptr   = (UINT8 *) blvar_RAM_section_addr_tbl.end_addr;
 
-//	data_start_ptr = (UINT8 *) blvar_RAM_section_addr_tbl.start_addr;
-//	data_end_ptr   = (UINT8 *) blvar_RAM_section_addr_tbl.end_addr;
+	while (data_start_ptr < data_end_ptr) {
+		util_ui8_to_hexasc(*data_start_ptr, response_ptr);
 
-//	while (data_start_ptr < data_end_ptr) {
-//		util_ui8_to_hexasc(*data_start_ptr, response_ptr);
+		data_start_ptr++;
+		response_ptr += 2;
 
-//		data_start_ptr++;
-//		response_ptr += 2;
-
-//		HAPI_WATCHDOG_service();
-//	}
+		HAPI_WATCHDOG_service();
+	}
 
 	parser_send_packet((UINT8 *) rsrc_str, response);
 }

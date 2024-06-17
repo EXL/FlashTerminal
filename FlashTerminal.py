@@ -48,7 +48,7 @@ at_command = 'AT'
 p2k_mode_command = 'AT+MODE=8'
 delay_ack = 0.00
 delay_switch = 8.00
-delay_jump = 3.00
+delay_jump = 1.00
 timeout_read = 5000
 timeout_write = 5000
 buffer_write_size = 0x800
@@ -85,7 +85,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMDLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0371_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -94,13 +94,13 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR_2.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C550_RAMDLD_0910_Patched_Dump_NOR.ldr', 0x01FD0000, 0x01FD0010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/C350_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/C350_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
-	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
@@ -121,13 +121,13 @@ def worksheet(er, ew):
 #	mfp_dump_sram_1byte(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000)
 
 	# Motorola A835/A845 dumping tricks.
-#	mfp_cmd(er, ew, 'RQHW')
-#	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
-#	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', None, False)
-#	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
-#	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
-#	mfp_binary_cmd(er, ew, b'\x41')
-#	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
+	mfp_cmd(er, ew, 'RQHW')
+	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
+	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', None, False)
+	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
+	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
+	mfp_binary_cmd(er, ew, b'\x41')
+	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x10100000, 0x100)
 #	mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00006100, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
