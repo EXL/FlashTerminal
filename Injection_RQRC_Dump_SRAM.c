@@ -60,14 +60,6 @@ typedef struct {
 #define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x1101E0D4))
 #define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11020C28))
 #define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x11020C00))
-#elif defined(ARM7TDMI_MOTOROLA_C350)
-#define rsrc_str ((UINT8 *) 0x01FD2E25)
-#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x01FD691C)
-
-#define HAPI_WATCHDOG_service ((void (*)(void)) (0x11071418))
-#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x11070568))
-#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11072038))
-#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x11072008))
 #else
 extern UINT8 rsrc_str[];
 extern BLOADER_SECTION_ADDR_TBL blvar_RAM_section_addr_tbl;

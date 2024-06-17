@@ -1,14 +1,7 @@
-ENTRY(handle_command_RQRC)
-SECTIONS
-{
-	. = 0x11071B26;
-	.text :
-	{
-		*(.text)
-	}
-	.data :
-	{
-		*(.data)
-		*(.rodata)
-	}
+SECTIONS {
+    .patch 0x11071B26 : {
+        KEEP(*(.data*))
+        KEEP(*(.text*))
+        KEEP(*(.rodata*))
+    }
 }
