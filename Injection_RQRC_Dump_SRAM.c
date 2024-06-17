@@ -71,13 +71,14 @@ extern UINT32 util_hexasc_to_ui32(UINT8 *str_ptr, UINT8 size);
 #endif
 
 extern void handle_command_RQRC(UINT8 *data_ptr) {
-	UINT8 response[MAX_RESPONSE_DATA_SIZE];
+	UINT8 response[10];
 	UINT8 *response_ptr = &response[0];
 	UINT8 *data_start_ptr, *data_end_ptr;
 
 	response[0] = 'A';
 	response[1] = 'B';
 	response[2] = 'C';
+	response[3] = '\0';
 
 //	blvar_RAM_section_addr_tbl.start_addr = util_hexasc_to_ui32(&data_ptr[0], ADDR_CMD_ADDR_SIZE);
 //	blvar_RAM_section_addr_tbl.end_addr   = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
