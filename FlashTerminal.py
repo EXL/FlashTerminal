@@ -100,7 +100,7 @@ def worksheet(er, ew):
 	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
-#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
@@ -117,7 +117,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
-	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x07)
+#	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x10)
 #	mfp_dump_sram_1byte(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000)
 
 	# Motorola A835/A845 dumping tricks.

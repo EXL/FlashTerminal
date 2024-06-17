@@ -75,20 +75,24 @@ extern void handle_command_RQRC(UINT8 *data_ptr) {
 	UINT8 *response_ptr = &response[0];
 	UINT8 *data_start_ptr, *data_end_ptr;
 
-	blvar_RAM_section_addr_tbl.start_addr = util_hexasc_to_ui32(&data_ptr[0], ADDR_CMD_ADDR_SIZE);
-	blvar_RAM_section_addr_tbl.end_addr   = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
+	response[0] = 'A';
+	response[1] = 'B';
+	response[2] = 'C';
 
-	data_start_ptr = (UINT8 *) blvar_RAM_section_addr_tbl.start_addr;
-	data_end_ptr   = (UINT8 *) blvar_RAM_section_addr_tbl.end_addr;
+//	blvar_RAM_section_addr_tbl.start_addr = util_hexasc_to_ui32(&data_ptr[0], ADDR_CMD_ADDR_SIZE);
+//	blvar_RAM_section_addr_tbl.end_addr   = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
 
-	while (data_start_ptr < data_end_ptr) {
-		util_ui8_to_hexasc(*data_start_ptr, response_ptr);
+//	data_start_ptr = (UINT8 *) blvar_RAM_section_addr_tbl.start_addr;
+//	data_end_ptr   = (UINT8 *) blvar_RAM_section_addr_tbl.end_addr;
 
-		data_start_ptr++;
-		response_ptr += 2;
+//	while (data_start_ptr < data_end_ptr) {
+//		util_ui8_to_hexasc(*data_start_ptr, response_ptr);
 
-		HAPI_WATCHDOG_service();
-	}
+//		data_start_ptr++;
+//		response_ptr += 2;
+
+//		HAPI_WATCHDOG_service();
+//	}
 
 	parser_send_packet((UINT8 *) rsrc_str, response);
 }
