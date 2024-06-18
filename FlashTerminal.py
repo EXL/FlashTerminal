@@ -35,12 +35,15 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rainbow'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4903, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTE'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3803, 'mode': 'flash', 'desc': 'Motorola PCS Flash LT'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x5803, 'mode': 'flash', 'desc': 'Motorola PCS Flash ULS'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C01, 'mode': 'p2k', 'desc': 'Motorola PCS Siemens Phone U10 (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4902, 'mode': 'at', 'desc': 'Motorola PCS Triplet GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4901, 'mode': 'p2k', 'desc': 'Motorola PCS Triplet GSM Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x5802, 'mode': 'at', 'desc': 'Motorola PCS C350L Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x5801, 'mode': 'p2k', 'desc': 'Motorola PCS C350L Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -60,8 +63,8 @@ def worksheet(er, ew):
 	er, ew = usb_check_restart_phone(er, ew, '-r' in sys.argv)
 
 	# Various single commands.
-	mfp_cmd(er, ew, 'RQHW')
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQHW')
+#	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'POWER_DOWN')
@@ -86,6 +89,9 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMDLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
+		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
+
+		# ~~~~~~~~~~~~~~~~~~~~ UNDER CONSTRUCT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0371_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -93,8 +99,10 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_Dump_NOR_2.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/C350_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/C350_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C550_RAMDLD_0910_Patched_Dump_NOR.ldr', 0x01FD0000, 0x01FD0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/C350L_RAMDLD_0000.ldr', 0x12000000, 0x12000000)
+		# ~~~~~~~~~~~~~~~~~~~~ UNDER CONSTRUCT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -108,16 +116,21 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 #	mfp_dump_sram(er, ew, 'MSM_IRAM_Dump.bin', 0xFFFF0000, 0xFFFFFFFF, 0x10)
-#	mfp_dump_sram_1byte(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000)
 #	mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
+#	mfp_dump_sram(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000, 0x30)
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
+	mfp_dump_sram(er, ew, 'C350L_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
+#	mfp_dump_sram(er, ew, 'C350L_IROM_Dump.bin', 0x00000000, 0x00040000, 0x30)
+
+	# ~~~~~~~~~~~~~~~~~~~~ UNDER CONSTRUCT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 #	mfp_dump_sram_1byte(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000)
 #	mfp_dump_sram_1byte(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000)
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
-	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x30)
+#	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x30)
+	# ~~~~~~~~~~~~~~~~~~~~ UNDER CONSTRUCT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -316,18 +329,44 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None
 		logging.info(f'Waiting {delay_jump} seconds for RAMDLD init on device...')
 		time.sleep(delay_jump)
 
-def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None, read_response = True):
+def mfp_uls_upload(er, ew, file_path, load_address = 0x12000000, chunk_size = None, read_response = False):
+	binary_file_size = os.path.getsize(file_path)
+	with open(file_path, 'rb') as file:
+		chunk = file.read()
+		chunk = bytearray(chunk)
+		payload_magic = b'\x55\x55\x55\xAA'
+		payload_body = load_address.to_bytes(4, 'big') + int(binary_file_size << 16).to_bytes(4, 'big')
+		chunk = payload_body + chunk
+		checksum = 0xFF - calculate_checksum(chunk)
+		mfp_upload_raw_binary(er, ew, file_path, chunk_size, read_response, checksum, payload_magic + payload_body)
+
+def mfp_upload_raw_binary(er, ew, file_path, chunk_size = None, read_response = True, checksum = None, payload = None):
 	binary_file_size = os.path.getsize(file_path)
 	if not chunk_size:
 		chunk_size = binary_file_size
-	logging.info(f'Uploading "{file_path}" of {binary_file_size} bytes size...')
+	logging.info(f'Uploading "{file_path}" of {binary_file_size} bytes size on {chunk_size} chunk_size...')
 	with open(file_path, 'rb') as file:
+		index = 0
 		while True:
-			chunk = file.read(binary_file_size)
+			# First frame.
+			if index == 0 and payload:
+				chunk = bytearray(payload)
+				chunk.extend(file.read(chunk_size - len(payload)))
+			else:
+				chunk = file.read(chunk_size)
+
 			if not chunk:
 				break
+
+			# Last frame.
+			if len(chunk) < chunk_size:
+				if checksum:
+					chunk = bytearray(chunk)
+					chunk.extend(checksum.to_bytes(1, 'big'))
+
 			logging.debug(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}"...')
 			mfp_binary_cmd(er, ew, chunk, read_response)
+			index += 1
 	logging.info(f'Uploading "{file_path}" is done.')
 
 def mfp_get_addr_with_chksum(address):
@@ -342,7 +381,7 @@ def mfp_addr(er, ew, address):
 
 def mfp_bin(er, ew, data):
 	packet = bytearray()
-	packet.extend(len(data).to_bytes(2, "big"))
+	packet.extend(len(data).to_bytes(2, 'big'))
 	packet.extend(data)
 	packet.append(calculate_checksum(packet))
 	logging.debug(f'BIN packet: size={len(data)}, chksum={calculate_checksum(packet)}')
