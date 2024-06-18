@@ -8,8 +8,8 @@ A Flash Terminal utility for various Motorola phones using Motorola Flash Protoc
 
 Python: 3.10+
 License: MIT
-Authors: EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, MotoFan.Ru and ROMphonix developers
-Thanks: PUNK-398, asdf, wavvy01
+Authors: EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever, MotoFan.Ru, ROMphonix
+Thanks: PUNK-398, asdf, wavvy01, diokhann
 Date: 10-May-2024
 Version: 1.0
 '''
@@ -102,6 +102,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C350_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C550_RAMDLD_0910_Patched_Dump_NOR.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C350L_RAMDLD_0000.ldr', 0x12000000, 0x12000000)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 		# ~~~~~~~~~~~~~~~~~~~~ UNDER CONSTRUCT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
@@ -130,6 +131,8 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x30)
+#	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
+	mfp_dump_dump(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10000200, 0x100)
 	# ~~~~~~~~~~~~~~~~~~~~ UNDER CONSTRUCT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 	# Motorola A835/A845 dumping tricks.
@@ -610,10 +613,10 @@ def main():
 				-h - Show help
 
 			Developers and Thanks:
-				- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion
+				- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
 				- MotoFan.Ru developers
 				- ROMphonix developers
-				- PUNK-398, asdf, wavvy01
+				- PUNK-398, asdf, wavvy01, diokhann
 
 			10-May-2024, Siberia
 		''')

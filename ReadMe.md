@@ -153,10 +153,10 @@ These phones were dumped by the Flash Terminal tool.
 
 ## Developers & Thanks
 
-- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion
+- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
 - MotoFan.Ru developers
 - ROMphonix developers
-- PUNK-398, asdf, wavvy01
+- PUNK-398, asdf, wavvy01, diokhann
 
 ## Useful Information and Resources
 
