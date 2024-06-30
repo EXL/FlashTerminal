@@ -46,7 +46,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5802, 'mode': 'at', 'desc': 'Motorola PCS C350L Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5801, 'mode': 'p2k', 'desc': 'Motorola PCS C350L Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1005, 'mode': 'at', 'desc': 'Motorola PCS V60 Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1006, 'mode': 'p2k', 'desc': 'Motorola PCS V60 Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'p2k', 'desc': 'Motorola PCS V60 Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
