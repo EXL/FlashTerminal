@@ -93,7 +93,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 		# ~~~~~~~~~~~~~~~~~~~~ UNDER CONSTRUCT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0371_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0371_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V66i_RAMDLD_1001_Patched_1byte_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -105,7 +105,7 @@ def worksheet(er, ew):
 	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
-#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
