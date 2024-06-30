@@ -36,6 +36,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4903, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTE'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3803, 'mode': 'flash', 'desc': 'Motorola PCS Flash LT'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5803, 'mode': 'flash', 'desc': 'Motorola PCS Flash ULS'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'flash', 'desc': 'Motorola PCS Flash Patriot 1.0'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
