@@ -21,6 +21,8 @@ typedef struct {
 } BLOADER_SECTION_ADDR_TBL;
 
 #if defined(M_CORE_MOTOROLA_A830_SIEMENS_U10)        /* Motorola A820, A830, Siemens U10. */
+
+/* Rainbow */
 #define rsrc_str ((UINT8 *) 0x078064CB)
 #define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x0782AD7C)
 
@@ -28,7 +30,10 @@ typedef struct {
 #define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x07800A7A))
 #define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x078006C8))
 #define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x078006A0))
+
 #elif defined(M_CORE_MOTOROLA_V60_0355)              /* Motorola V60, V66, V60i, V66i, V70, T280, T280i, P280, P280i. */
+
+/* Patriot */
 #define rsrc_str ((UINT8 *) 0x1101DA1F)
 #define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x11025AA0)
 
@@ -36,7 +41,21 @@ typedef struct {
 #define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x11010B06))
 #define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11012244))
 #define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x1101221C))
+
+#elif defined(M_CORE_MOTOROLA_V120C_0312)              /* Motorola V120c. */
+
+/* Wally */
+#define rsrc_str ((UINT8 *) 0x4100A733)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x4100E948)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x410098A6))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x41008AC8))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x4100A148))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x4100A120))
+
 #else
+
+/* Undefined/ADS */
 extern UINT8 rsrc_str[];
 extern BLOADER_SECTION_ADDR_TBL blvar_RAM_section_addr_tbl;
 
@@ -44,6 +63,7 @@ extern void HAPI_WATCHDOG_service(void);
 extern void parser_send_packet(UINT8 *command_ptr, UINT8 *data_ptr);
 extern void util_ui8_to_hexasc(UINT8 val, UINT8 *str_ptr);
 extern UINT32 util_hexasc_to_ui32(UINT8 *str_ptr, UINT8 size);
+
 #endif
 
 extern void handle_command_RQRC(UINT8 *data_ptr) {
