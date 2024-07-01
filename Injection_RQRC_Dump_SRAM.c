@@ -42,7 +42,7 @@ typedef struct {
 #define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11012244))
 #define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x1101221C))
 
-#elif defined(M_CORE_MOTOROLA_V120C_0312)              /* Motorola V120c. */
+#elif defined(M_CORE_MOTOROLA_V120C_0312)            /* Motorola V120c. */
 
 /* Wally */
 #define rsrc_str ((UINT8 *) 0x4100A733)
@@ -53,7 +53,29 @@ typedef struct {
 #define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x4100A148))
 #define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x4100A120))
 
-#else
+#elif defined(M_CORE_MOTOROLA_T720_0370_1)             /* Motorola T720, T720i, T721, T722i. */
+
+/* Patriot */
+#define rsrc_str ((UINT8 *) 0x00104B69)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x11040068)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x0010000A))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x001014BE))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x00104004))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x00103FDC))
+
+#elif defined(M_CORE_MOTOROLA_T720_0370_2)             /* Motorola T720, T720i, T721, T722i. */
+
+/* Patriot */
+#define rsrc_str ((UINT8 *) 0x1102176D)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x11040068)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x1101CC0E))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x1101E0C2))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11020C08))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x11020BE0))
+
+#else                                                /* Any other Motorola phones. */
 
 /* Undefined/ADS */
 extern UINT8 rsrc_str[];
