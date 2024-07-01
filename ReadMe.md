@@ -3,7 +3,7 @@ Flash Terminal
 
 A set of utilities and patched/hacked RAMDLD loaders (RAM downloaders) for dumping SRAM, NAND, NOR, etc. memory chips data of Motorola phones and researching the Motorola Flash Protocol.
 
-![Flash Terminal Screenshot on Ubuntu 22.04 LTS](images/Screenshot_FlashTerminal.png)
+![Flash Terminal Screenshot on Ubuntu 22.04 LTS](images/Screenshot_FlashTerminal_Ubuntu_2204.png)
 
 ## Dependencies
 
@@ -83,6 +83,15 @@ mfp_dump_dump(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 mfp_dump_dump(er, ew, 'C550_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
 ```
 
+**Dumping 4 MB and 8 MB NOR Memory from Motorola V60/V60i, Motorola V66/V66i, Motorola V70 (+ IROM)**
+
+```python
+mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
+mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
+```
+
 **Dumping 64 MB NAND Memory from Motorola RAZR V3m, Motorola W755, Motorola E815, Motorola W385**
 
 ```python
@@ -150,6 +159,9 @@ These phones were dumped by the Flash Terminal tool.
 | C350         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | diokhann                 |
 | C450         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | metalman87, ahsim2009    |
 | C550         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | ahsim2009                |
+| V60          | Patriot               | 4 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
+| V66i         | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
+| V70          | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | kostett                  |
 | ic902        | MSM6800               | 128 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND.ldr        | EXL                      |
 | QA30         | MSM6575               | 256 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr   | EXL                      |
 | V9m          | MSM6550               | 128 MiB (NAND)  | V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr         | EXL                      |
@@ -168,7 +180,7 @@ These phones were dumped by the Flash Terminal tool.
 - EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
 - MotoFan.Ru developers
 - ROMphonix developers
-- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls
+- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 
 ## Useful Information and Resources
 

@@ -9,7 +9,7 @@ A Flash Terminal utility for various Motorola phones using Motorola Flash Protoc
 Python: 3.10+
 License: MIT
 Authors: EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever, MotoFan.Ru, ROMphonix
-Thanks: PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls
+Thanks: PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 Date: 10-May-2024
 Version: 1.0
 '''
@@ -94,7 +94,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -119,7 +119,7 @@ def worksheet(er, ew):
 #	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
 #	mfp_dump_dump(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 #	mfp_dump_dump(er, ew, 'C550_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
-	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+#	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 
@@ -604,7 +604,7 @@ def main():
 				- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
 				- MotoFan.Ru developers
 				- ROMphonix developers
-				- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls
+				- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 
 			10-May-2024, Siberia
 		''')
