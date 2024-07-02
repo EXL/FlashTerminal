@@ -27,6 +27,7 @@ import usb.util
 ## Settings ############################################################################################################
 
 usb_devices = [
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2823, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM5100'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2A23, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6100'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B43, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6125'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6500/MSM6800'},
@@ -47,8 +48,6 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5801, 'mode': 'p2k', 'desc': 'Motorola PCS C350L Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1005, 'mode': 'at', 'desc': 'Motorola PCS V60 Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'p2k', 'desc': 'Motorola PCS V60 Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2822, 'mode': 'at', 'desc': 'Motorola PCS V120e Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2821, 'mode': 'p2k', 'desc': 'Motorola PCS V120e Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -107,7 +106,7 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQSF')
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000010'.encode())
-	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
+#	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
@@ -132,7 +131,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
-#	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
