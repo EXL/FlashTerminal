@@ -174,6 +174,7 @@ These phones were dumped by the Flash Terminal tool.
 | V325i        | MSM6100               | 64 MiB (NAND)   | V325i_RAMDLD_010A_Patched_Dump_NAND.ldr       | asdf                     |
 | V325xi       | MSM6100               | 64 MiB (NAND)   | V325i_RAMDLD_010A_Patched_Dump_NAND.ldr       | asdf                     |
 | K1m (K1mm)   | MSM6500               | 64 MiB (NAND)   | K1mm_RAMDLD_000D_Patched_Dump_NAND.ldr        | wavvy01                  |
+| V120e        | MSM5100               | 4 MiB (NOR)     | V120e_RAMDLD_0713_Patched_Dump_NOR.ldr        | metalman87               |
 
 ## Developers & Thanks
 
