@@ -131,8 +131,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
-#	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
-	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x003F0000, 0x00410000, 0x30)
+	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00801000, 0x30)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
