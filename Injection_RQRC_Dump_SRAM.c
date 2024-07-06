@@ -42,6 +42,17 @@ typedef struct {
 #define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x11012244))
 #define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x1101221C))
 
+#elif defined(M_CORE_MOTOROLA_V60I_1007)              /* Motorola V60i, V66i on 10.xx bootloaders. */
+
+/* Patriot */
+#define rsrc_str ((UINT8 *) 0x00104D71)
+#define blvar_RAM_section_addr_tbl (*(BLOADER_SECTION_ADDR_TBL *) 0x11019CEC)
+
+#define HAPI_WATCHDOG_service ((void (*)(void)) (0x0010000A))
+#define parser_send_packet ((void (*)(UINT8 *, UINT8 *)) (0x0010159C))
+#define util_ui8_to_hexasc ((void (*)(UINT8, UINT8 *)) (0x001042B4))
+#define util_hexasc_to_ui32 ((UINT32 (*)(UINT8 *, UINT8)) (0x0010428C))
+
 #elif defined(M_CORE_MOTOROLA_V120C_0312)            /* Motorola V120c. */
 
 /* Wally */
