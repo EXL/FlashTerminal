@@ -15,6 +15,9 @@ python3 -c "with open('patch_nor.bin','rb') as i,open('V60i_RAMDLD_1007_Patched_
 
 ## Add branch patch.
 python3 -c "with open('V60i_RAMDLD_1007_Patched_Dump_NOR.bin','r+b') as f: f.seek(0x6944);f.write(b'\x11\x01\x00\x40')"
+python3 -c "with open('V60i_RAMDLD_1007_Patched_Dump_NOR.bin','r+b') as f: f.seek(0x6944);f.write(b'\x11\x01\x00\x40')"
+python3 -c "with open('V60i_RAMDLD_1007_Patched_Dump_NOR.bin','r+b') as f: f.seek(0x6944);f.write(b'\x11\x01\x00\x40')"
+python3 -c "with open('V60i_RAMDLD_1007_Patched_Dump_NOR.bin','r+b') as f: f.seek(0x6944);f.write(b'\x11\x01\x00\x40')"
 
 ## Clean intermedianes.
 rm -f *.o *.elf patch_nor.bin
