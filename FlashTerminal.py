@@ -92,7 +92,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMDLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/E1000_RAMDLD_0610.ldr', 0x07804000, 0x07804010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -102,7 +103,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR_2.ldr', 0x11010000, 0x11010010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-#	mfp_cmd(er, ew, 'RQVN')
+	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
@@ -120,6 +121,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000, 0x30)
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
+	mfp_dump_read(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x10100000, 0x100)
 #	mfp_dump_sram(er, ew, 'C350L_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350L_IROM_Dump.bin', 0x00000000, 0x00040000, 0x30)
 #	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
@@ -135,13 +137,13 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 
 	# Motorola A835/A845 dumping tricks.
-	mfp_cmd(er, ew, 'RQHW')
-	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
-	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', None, False)
-	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
-	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
-	mfp_binary_cmd(er, ew, b'\x41')
-	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
+#	mfp_cmd(er, ew, 'RQHW')
+#	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
+#	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', None, False)
+#	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
+#	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
+#	mfp_binary_cmd(er, ew, b'\x41')
+#	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
 #	mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00006100, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
