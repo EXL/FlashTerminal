@@ -37,7 +37,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4903, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTE'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3803, 'mode': 'flash', 'desc': 'Motorola PCS Flash LT'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5803, 'mode': 'flash', 'desc': 'Motorola PCS Flash ULS'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'flash', 'desc': 'Motorola PCS Flash Patriot 1.0'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'flash', 'desc': 'Motorola PCS Flash Patriot'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
@@ -92,15 +92,15 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMDLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/E1000_RAMDLD_0610.ldr', 0x07804000, 0x07804010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR_1.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/E1000_RAMDLD_0610.ldr', 0x07804000, 0x07804010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -121,7 +121,6 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000, 0x30)
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
-#	mfp_dump_read(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x10100000, 0x100)
 #	mfp_dump_sram(er, ew, 'C350L_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350L_IROM_Dump.bin', 0x00000000, 0x00040000, 0x30)
 #	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
@@ -131,13 +130,11 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
+#	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+#	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40400000, 0x30)
-
-#	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
-	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
-
-#	mfp_dump_rqrc(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x10001000)
+#	mfp_dump_rqrc(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x10001000)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -168,34 +165,36 @@ def calculate_checksum(data):
 		checksum = (checksum + byte) % 256
 	return checksum
 
-#def mfp_dump_rqrc(er, ew, file_path, start, end, step = 0x01):
-#	addr_s = start
-#	addr_e = start + 0x400
-#	with open(file_path, 'wb') as file:
-#		index = 0
-#		time_start = time.process_time()
-#		while addr_e <= end + 0x400:
-#			if addr_e > end:
-#				addr_e = end
-#			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
-#			if index > 0 and (index % (step * 0x100) == 0):
-#				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+def mfp_dump_rqrc(er, ew, file_path, start, end, step = 0x01):
+	addr_s = start
+	addr_e = start + step + 0x400
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.process_time()
+		while addr_e <= end + 0x400:
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (index % (step * 0x100) == 0):
+				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
 
-#			result_data1 = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
-#			result_data1 = result_data1[6:]   # Drop start marker and command.
-#			result_data1 = result_data1[:-1]  # Drop end marker.
+			result_data1 = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
+			result_data1 = result_data1[6:]   # Drop start marker and command.
+			result_data1 = result_data1[:-1]  # Drop end marker.
 
-#			result_data2 = mfp_cmd(er, ew, 'RQRC', f'{addr_s + 0x01:08X},{addr_e + 0x01:08X}'.encode())
-#			result_data2 = result_data2[6:]   # Drop start marker and command.
-#			result_data2 = result_data2[:-1]  # Drop end marker.
+			result_data2 = mfp_cmd(er, ew, 'RQRC', f'{addr_s + 0x01:08X},{addr_e:08X}'.encode())
+			result_data2 = result_data2[6:]   # Drop start marker and command.
+			result_data2 = result_data2[:-1]  # Drop end marker.
 
-#			result = int.to_bytes(int.from_bytes(result_data2, 'big') - int.from_bytes(result_data1, 'big'), 1, 'big')
+			result = int.to_bytes(
+				int.from_bytes(bytes.fromhex(result_data1.decode()), 'big') -
+				int.from_bytes(bytes.fromhex(result_data2.decode()), 'big'),
+				1, 'big'
+			)
 
-#			file.write(result)
+			file.write(result)
 
-#			addr_s = addr_s + step
-#			addr_e = addr_s + step + 0x400
-#			index += step
+			addr_s = addr_s + step
+			addr_e = addr_s + step + 0x400
+			index += step
 
 def mfp_dump_r(er, ew, file_path, start, end, step = 0x100):
 	addr_s = start
