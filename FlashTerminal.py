@@ -108,7 +108,7 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQSF')
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000010'.encode())
-	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
+#	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
@@ -133,7 +133,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40400000, 0x30)
-#	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 
 	# Motorola A835/A845 dumping tricks.
@@ -164,6 +164,33 @@ def calculate_checksum(data):
 	for byte in data:
 		checksum = (checksum + byte) % 256
 	return checksum
+
+#def mfp_dump_rqrc(er, ew, file_path, start, end, step = 0x400):
+#	addr_s = start
+#	addr_e = start + step
+#	with open(file_path, 'wb') as file:
+#		index = 0
+#		time_start = time.process_time()
+#		while addr_e <= end + step:
+#			if addr_e > end:
+#				addr_e = end
+#			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+#			if index > 0 and (index % (step * 0x100) == 0):
+#				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+
+#			result_data1 = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
+#			result_data1 = result_data[6:]   # Drop start marker and command.
+#			result_data1 = result_data[:-1]  # Drop end marker.
+
+#			result_data2 = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
+#			result_data2 = result_data[6:]   # Drop start marker and command.
+#			result_data2 = result_data[:-1]  # Drop end marker.
+
+#			file.write(bytearray.fromhex(result_data.decode()))
+
+#			addr_s = addr_s + step
+#			addr_e = addr_s + step
+#			index += step
 
 def mfp_dump_r(er, ew, file_path, start, end, step = 0x100):
 	addr_s = start
