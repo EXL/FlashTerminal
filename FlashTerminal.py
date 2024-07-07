@@ -99,8 +99,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR_1.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -133,8 +133,11 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40400000, 0x30)
-	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
-#	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
+
+#	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
+
+#	mfp_dump_rqrc(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x10001000)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -165,13 +168,13 @@ def calculate_checksum(data):
 		checksum = (checksum + byte) % 256
 	return checksum
 
-#def mfp_dump_rqrc(er, ew, file_path, start, end, step = 0x400):
+#def mfp_dump_rqrc(er, ew, file_path, start, end, step = 0x01):
 #	addr_s = start
-#	addr_e = start + step
+#	addr_e = start + 0x400
 #	with open(file_path, 'wb') as file:
 #		index = 0
 #		time_start = time.process_time()
-#		while addr_e <= end + step:
+#		while addr_e <= end + 0x400:
 #			if addr_e > end:
 #				addr_e = end
 #			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
@@ -179,17 +182,19 @@ def calculate_checksum(data):
 #				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
 
 #			result_data1 = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
-#			result_data1 = result_data[6:]   # Drop start marker and command.
-#			result_data1 = result_data[:-1]  # Drop end marker.
+#			result_data1 = result_data1[6:]   # Drop start marker and command.
+#			result_data1 = result_data1[:-1]  # Drop end marker.
 
-#			result_data2 = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
-#			result_data2 = result_data[6:]   # Drop start marker and command.
-#			result_data2 = result_data[:-1]  # Drop end marker.
+#			result_data2 = mfp_cmd(er, ew, 'RQRC', f'{addr_s + 0x01:08X},{addr_e + 0x01:08X}'.encode())
+#			result_data2 = result_data2[6:]   # Drop start marker and command.
+#			result_data2 = result_data2[:-1]  # Drop end marker.
 
-#			file.write(bytearray.fromhex(result_data.decode()))
+#			result = int.to_bytes(int.from_bytes(result_data2, 'big') - int.from_bytes(result_data1, 'big'), 1, 'big')
+
+#			file.write(result)
 
 #			addr_s = addr_s + step
-#			addr_e = addr_s + step
+#			addr_e = addr_s + step + 0x400
 #			index += step
 
 def mfp_dump_r(er, ew, file_path, start, end, step = 0x100):
