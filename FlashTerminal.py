@@ -100,7 +100,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/E1000_RAMDLD_0610.ldr', 0x07804000, 0x07804010, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/E1000_RAMDLD_0610.ldr', 0x07804000, 0x07804010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -109,7 +109,7 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000010'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
-#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
+	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
