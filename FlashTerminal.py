@@ -179,16 +179,15 @@ def mfp_dump_rqrc(er, ew, file_path, start, end, step = 0x01):
 			result_data1 = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
 			result_data1 = result_data1[6:]   # Drop start marker and command.
 			result_data1 = result_data1[:-1]  # Drop end marker.
+			result_data1_int = int.from_bytes(bytes.fromhex(result_data1.decode()), 'big')
 
 			result_data2 = mfp_cmd(er, ew, 'RQRC', f'{addr_s + 0x01:08X},{addr_e:08X}'.encode())
 			result_data2 = result_data2[6:]   # Drop start marker and command.
 			result_data2 = result_data2[:-1]  # Drop end marker.
+			result_data2_int = int.from_bytes(bytes.fromhex(result_data2.decode()), 'big')
 
-			result = int.to_bytes(
-				int.from_bytes(bytes.fromhex(result_data1.decode()), 'big') -
-				int.from_bytes(bytes.fromhex(result_data2.decode()), 'big'),
-				1, 'big'
-			)
+			result_byte = (result_data1_int - result_data2_int) % 256
+			result = int.to_bytes(result_byte,1, 'big')
 
 			file.write(result)
 
