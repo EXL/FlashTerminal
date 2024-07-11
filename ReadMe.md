@@ -42,7 +42,7 @@ mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x0800
 mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 ```
 
-**Dumping 16 MB NOR Memory from Motorola A835, Motorola A845, and Siemens U15 (+ IROM)**
+**Dumping 16 MB NOR Memory from Motorola A835, A845, C975, E1000 and Siemens U15 (+ IROM)**
 
 ```python
 mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
@@ -54,6 +54,9 @@ mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
 mfp_binary_cmd(er, ew, b'\x41')
 mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
 mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00006100, 0x100)
+
+mfp_dump_r(er, ew, 'C975_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
+mfp_dump_r(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 ```
 
 **Dumping 16 MB NOR Memory from Motorola A830 and Siemens U10 (+ IROM)**
@@ -169,6 +172,8 @@ These phones were dumped by the Flash Terminal tool.
 | U10          | Rainbow               | 16 MiB (NOR)    | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL                      |
 | A835         | Rainbow POG           | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
 | A845         | Rainbow POG           | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
+| C975         | Rainbow POG           | 32 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | diokhann                 |
+| E1000        | Rainbow POG           | 64 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
 | E398         | Neptune LTE           | 32 MiB (NOR)    | E398_RAMLD_07B0_Hacked_Dump.ldr               | EXL                      |
 | V3x          | Rainbow POG           | 64 MiB (NOR)    | V3x_RAMDLD_0682_RSA_Read.ldr                  | EXL                      |
 | C350L        | Neptune ULS           | 8 MiB (NOR)     | C350L_RAMDLD_0000_Patched_Dump_NOR.ldr        | EXL                      |
