@@ -46,6 +46,7 @@ mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 
 ```python
 mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
+#	mfp_cmd(er, ew, 'RQVN')
 mfp_cmd(er, ew, 'RQHW')
 mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
 mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', None, False)
