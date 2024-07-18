@@ -56,8 +56,8 @@ mfp_binary_cmd(er, ew, b'\x41')
 mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
 mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00006100, 0x100)
 
-mfp_dump_r(er, ew, 'C975_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
-mfp_dump_r(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
+mfp_dump_r(er, ew, 'C975_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
+mfp_dump_r(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 ```
 
 **Dumping 16 MB NOR Memory from Motorola A830 and Siemens U10 (+ IROM)**
