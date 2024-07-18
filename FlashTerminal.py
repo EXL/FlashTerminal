@@ -554,14 +554,21 @@ def switch_atmode_to_p2kmode(modem_device, modem_speed):
 
 def switch_p2kmode_to_flashmode(p2k_usb_device):
 	logging.info('P2K device found, switching it to the Flash mode!')
-	with open(p2k_command_list, 'r', newline='') as file:
-		for line in file:
-			line = line.strip()
-			# ctrl_packet = b'\x00\x01\x00\x0D\x00\x00\x00\x00'
-			ctrl_packet = bytes.fromhex(line)
-			p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
-			logging.debug(f'>>> Send USB control packet '
-				f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) to device...\n{hexdump(ctrl_packet)}')
+	try:
+		with open(p2k_command_list, 'r', newline='') as file:
+			for line in file:
+				line = line.strip()
+				if line and not line.startswith('#'):
+					# ctrl_packet = b'\x00\x01\x00\x0D\x00\x00\x00\x00'
+					ctrl_packet = bytes.fromhex(line)
+					p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
+					logging.debug(
+						f'>>> Send USB control packet '
+						f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) '
+						f'to device...\n{hexdump(ctrl_packet)}'
+					)
+	except Exception as e:
+		logging.error(f'Cannot open "{p2k_command_list}" file! Error:\n{e}')
 
 def reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices):
 	if switch_atmode_to_p2kmode(modem_device, modem_speed):
