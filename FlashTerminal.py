@@ -553,7 +553,12 @@ def switch_atmode_to_p2kmode(modem_device, modem_speed):
 
 def switch_p2kmode_to_flashmode(p2k_usb_device):
 	logging.info('P2K device found, switching it to the Flash mode!')
-	ctrl_packet = b'\x00\x01\x00\x0D\x00\x00\x00\x00'
+	#ctrl_packet = b'\x00\x01\x00\x0D\x00\x00\x00\x00'
+	ctrl_packet = bytes.fromhex('0001004A0024000000000000000000442F612F6D6F62696C652F617564696F2F43617061636974792E6D7033')
+	p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
+	logging.debug(f'>>> Send USB control packet '
+		f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) to device...\n{hexdump(ctrl_packet)}')
+	ctrl_packet = bytes.fromhex('0002004A0004000000000004')
 	p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
 	logging.debug(f'>>> Send USB control packet '
 		f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) to device...\n{hexdump(ctrl_packet)}')
