@@ -14,7 +14,7 @@ cp V120c_RAMDLD_0312.bin V120c_RAMDLD_0312_Patched_Dump_NOR.bin
 python3 -c "with open('patch_nor.bin','rb') as i,open('V120c_RAMDLD_0312_Patched_Dump_NOR.bin','r+b') as o: o.seek(0x40);o.write(i.read())"
 
 ## Add branch patch.
-python3 -c "with open('V120c_RAMDLD_0312_Patched_Dump_NOR.bin','r+b') as f: f.seek(0xD04);f.write(b'\x41\x00\x80\x40')"
+python3 -c "with open('V120c_RAMDLD_0312_Patched_Dump_NOR.bin','r+b') as f: f.seek(0xD00);f.write(b'\x41\x00\x80\x40')"
 
 ## Clean intermedianes.
 rm -f *.o *.elf patch_nor.bin
