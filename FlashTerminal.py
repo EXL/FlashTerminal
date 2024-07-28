@@ -140,8 +140,8 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQRC', '40000000,40000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '40000000,40000030'.encode())
 
-	mfp_dump_dump(er, ew, 'E380_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
-#	mfp_dump_dump(er, ew, 'E380_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
+#	mfp_dump_dump(er, ew, 'E380_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
+	mfp_dump_dump(er, ew, 'E380_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
