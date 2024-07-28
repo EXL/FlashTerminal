@@ -3,15 +3,32 @@
 
 ## Information #########################################################################################################
 
-'''
-A Flash Terminal utility for various Motorola phones using Motorola Flash Protocol.
+splash = '''
+Motorola Flash Terminal Utility v1.0
 
-Python: 3.10+
-License: MIT
-Authors: EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever, MotoFan.Ru, ROMphonix
-Thanks: PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
-Date: 10-May-2024
-Version: 1.0
+	A Flash Terminal utility for various Motorola phones using Motorola Flash Protocol.
+
+Python:
+	3.10+
+
+License:
+	MIT
+
+Flags:
+	-v - Verbose USB packets
+	-r - Reboot device
+	-l - Upload RAMDLD to RAM
+	-s - Switch device to Flash Mode (Bootloader Mode)
+	-h - Show help
+
+Developers and Thanks:
+	- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
+	- MotoFan.Ru developers
+	- ROMphonix developers
+	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
+	- SGXVII
+
+10-May-2024, Siberia
 '''
 
 ## Imports #############################################################################################################
@@ -97,11 +114,13 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+
+		mfp_upload_binary_to_addr(er, ew, 'loaders/loaders/V120c_RAMDLD_0312.ldr', 0x41008000, 0x41008010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
@@ -137,11 +156,8 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40410000, 0x30)
-#	mfp_cmd(er, ew, 'RQRC', '40000000,40000400'.encode())
+	mfp_cmd(er, ew, 'RQRC', '40000000,40000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '40000000,40000030'.encode())
-
-#	mfp_dump_dump(er, ew, 'E380_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
-	mfp_dump_dump(er, ew, 'E380_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -653,24 +669,7 @@ def set_logging_configuration(verbose):
 def main():
 	set_logging_configuration('-v' in sys.argv)
 	if '-h' in sys.argv:
-		logging.info('''
-			Motorola Flash Terminal Utility v1.0
-
-			Flags:
-				-v - Verbose USB packets
-				-r - Reboot device
-				-l - Upload RAMDLD to RAM
-				-s - Switch device to Flash Mode (Bootloader Mode)
-				-h - Show help
-
-			Developers and Thanks:
-				- EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
-				- MotoFan.Ru developers
-				- ROMphonix developers
-				- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
-
-			10-May-2024, Siberia
-		''')
+		logging.info(splash)
 		exit(1)
 	if '-s' in sys.argv:
 		reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices)
