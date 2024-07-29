@@ -120,7 +120,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 
-		mfp_upload_binary_to_addr(er, ew, 'loaders/loaders/V120c_RAMDLD_0312.ldr', 0x41008000, 0x41008010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312.ldr', 0x41008000, 0x41008010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
