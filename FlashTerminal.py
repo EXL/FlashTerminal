@@ -120,8 +120,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312.ldr', 0x41008000, 0x41008010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312.ldr', 0x41008000, 0x41008010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -156,8 +156,9 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40410000, 0x30)
-	mfp_cmd(er, ew, 'RQRC', '40000000,40000400'.encode())
-#	mfp_cmd(er, ew, 'RQRC', '40000000,40000030'.encode())
+
+#	mfp_cmd(er, ew, 'RQRC', '40000000,40000400'.encode())
+	mfp_cmd(er, ew, 'RQRC', '40000000,40000030'.encode())
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
