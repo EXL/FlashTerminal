@@ -36,42 +36,42 @@ $ ./FlashTerminal.py -h # Show help.
 
 These phones were dumped by the Flash Terminal tool.
 
-| Phone        | SoC                   | Flash           | Loader                                                              | Dumped by                |
-|--------------|-----------------------|-----------------|---------------------------------------------------------------------|--------------------------|
-| A830         | Rainbow               | 16 MiB (NOR)    | <sup><sub>A830_RAMDLD_0520_Patched_Dump_NOR.ldr</sub></sup>         | EXL, greyowls            |
-| U10          | Rainbow               | 16 MiB (NOR)    | <sup><sub>A830_RAMDLD_0520_Patched_Dump_NOR.ldr</sub></sup>         | EXL                      |
-| A835         | Rainbow POG           | 16 MiB (NOR)    | <sup><sub>A835_RAMDLD_0612_Hacked_RSA_Read.ldr</sub></sup>          | PUNK-398                 |
-| A845         | Rainbow POG           | 16 MiB (NOR)    | <sup><sub>A835_RAMDLD_0612_Hacked_RSA_Read.ldr</sub></sup>          | PUNK-398                 |
-| C975         | Rainbow POG           | 32 MiB (NOR)    | <sup><sub>A835_RAMDLD_0612_Hacked_RSA_Read.ldr</sub></sup>          | diokhann                 |
-| E1000        | Rainbow POG           | 64 MiB (NOR)    | <sup><sub>A835_RAMDLD_0612_Hacked_RSA_Read.ldr</sub></sup>          | PUNK-398                 |
-| E398         | Neptune LTE           | 32 MiB (NOR)    | <sup><sub>E398_RAMLD_07B0_Hacked_Dump.ldr</sub></sup>               | EXL                      |
-| V3x          | Rainbow POG           | 64 MiB (NOR)    | <sup><sub>V3x_RAMDLD_0682_RSA_Read.ldr</sub></sup>                  | EXL                      |
-| C350L        | Neptune ULS           | 8 MiB (NOR)     | <sup><sub>C350L_RAMDLD_0000_Patched_Dump_NOR.ldr</sub></sup>        | EXL                      |
-| C330         | Neptune LT (LCA)      | 8 MiB (NOR)     | <sup><sub>E380_RAMDLD_0910_Hacked_Dump.ldr</sub></sup>              | Ivan_Fox                 |
-| C350         | Neptune LT (LCA)      | 8 MiB (NOR)     | <sup><sub>E380_RAMDLD_0910_Hacked_Dump.ldr</sub></sup>              | diokhann                 |
-| C450         | Neptune LT (LCA)      | 16 MiB (NOR)    | <sup><sub>E380_RAMDLD_0910_Hacked_Dump.ldr</sub></sup>              | metalman87, ahsim2009    |
-| C550         | Neptune LT (LCA)      | 16 MiB (NOR)    | <sup><sub>E380_RAMDLD_0910_Hacked_Dump.ldr</sub></sup>              | ahsim2009                |
-| E380         | Neptune LT (LCA)      | 16 MiB (NOR)    | <sup><sub>E380_RAMDLD_0910_Hacked_Dump.ldr</sub></sup>              | SGXVII                   |
-| V60          | Patriot               | 4 MiB (NOR)     | <sup><sub>V60_RAMDLD_0355_Patched_Dump_NOR.ldr</sub></sup>          | Ivan_Fox                 |
-| V66i         | Patriot               | 8 MiB (NOR)     | <sup><sub>V60_RAMDLD_0355_Patched_Dump_NOR.ldr</sub></sup>          | Ivan_Fox                 |
-| V60i         | Patriot               | 8 MiB (NOR)     | <sup><sub>V60i_RAMDLD_1007_Patched_Dump_NOR.ldr</sub></sup>         | metalman87               |
-| V70          | Patriot               | 8 MiB (NOR)     | <sup><sub>V60_RAMDLD_0355_Patched_Dump_NOR.ldr</sub></sup>          | kostett                  |
-| T720i        | Patriot               | 8 MiB (NOR)     | <sup><sub>T720_RAMDLD_0370_Patched_Dump_NOR.ldr</sub></sup>         | diokhann                 |
-| V120c        | Wally                 | 4 MiB (NOR)     | <sup><sub>V120c_RAMDLD_0312_Patched_Dump_NOR.ldr</sub></sup>        | NextG50                  |
-| ic902        | MSM6800               | 128 MiB (NAND)  | <sup><sub>QA30_RAMDLD_0206_Patched_Dump_NAND.ldr</sub></sup>        | EXL                      |
-| QA30         | MSM6575               | 256 MiB (NAND)  | <sup><sub>QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr</sub></sup>   | EXL                      |
-| V9m          | MSM6550               | 128 MiB (NAND)  | <sup><sub>V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr</sub></sup>         | EXL                      |
-| VE40         | MSM6800               | 128 MiB (NAND)  | <sup><sub>QA30_RAMDLD_0206_Patched_Dump_NAND.ldr</sub></sup>        | EXL                      |
-| Z6m          | MSM6550               | 64 MiB (NAND)   | <sup><sub>V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr</sub></sup>         | EXL                      |
-| V3m          | MSM6500               | 64 MiB (NAND)   | <sup><sub>V3m_RAMDLD_010C_Patched_Dump_NAND.ldr</sub></sup>         | asdf                     |
-| W755         | MSM6500               | 64 MiB (NAND)   | <sup><sub>V3m_RAMDLD_010C_Patched_Dump_NAND.ldr</sub></sup>         | asdf                     |
-| E815         | MSM6500               | 64 MiB (NAND)   | <sup><sub>V3m_RAMDLD_010C_Patched_Dump_NAND.ldr</sub></sup>         | asdf                     |
-| W385         | MSM6125               | 64 MiB (NAND)   | <sup><sub>V3m_RAMDLD_010C_Patched_Dump_NAND.ldr</sub></sup>         | asdf, wavvy01            |
-| V325i        | MSM6100               | 64 MiB (NAND)   | <sup><sub>V325i_RAMDLD_010A_Patched_Dump_NAND.ldr</sub></sup>       | asdf                     |
-| V325xi       | MSM6100               | 64 MiB (NAND)   | <sup><sub>V325i_RAMDLD_010A_Patched_Dump_NAND.ldr</sub></sup>       | asdf                     |
-| K1m (K1mm)   | MSM6500               | 64 MiB (NAND)   | <sup><sub>K1mm_RAMDLD_000D_Patched_Dump_NAND.ldr</sub></sup>        | wavvy01                  |
-| V120e        | MSM5100               | 4+1 MiB (NOR)   | <sup><sub>V120e_RAMDLD_0713_Patched_Dump_NOR.ldr</sub></sup>        | metalman87               |
-| W315         | MSM6050               | 16 MiB (NOR)    | <sup><sub>W315_RAMDLD_0106_Patched_Dump_NOR.ldr</sub></sup>         | asdf                     |
+| Phone        | SoC                   | Flash           | Loader                                        | Dumped by                |
+|--------------|-----------------------|-----------------|-----------------------------------------------|--------------------------|
+| A830         | Rainbow               | 16 MiB (NOR)    | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL, greyowls            |
+| U10          | Rainbow               | 16 MiB (NOR)    | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL                      |
+| A835         | Rainbow POG           | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
+| A845         | Rainbow POG           | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
+| C975         | Rainbow POG           | 32 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | diokhann                 |
+| E1000        | Rainbow POG           | 64 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
+| E398         | Neptune LTE           | 32 MiB (NOR)    | E398_RAMLD_07B0_Hacked_Dump.ldr               | EXL                      |
+| V3x          | Rainbow POG           | 64 MiB (NOR)    | V3x_RAMDLD_0682_RSA_Read.ldr                  | EXL                      |
+| C350L        | Neptune ULS           | 8 MiB (NOR)     | C350L_RAMDLD_0000_Patched_Dump_NOR.ldr        | EXL                      |
+| C330         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | Ivan_Fox                 |
+| C350         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | diokhann                 |
+| C450         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | metalman87, ahsim2009    |
+| C550         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | ahsim2009                |
+| E380         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | SGXVII                   |
+| V60          | Patriot               | 4 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
+| V66i         | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
+| V60i         | Patriot               | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | metalman87               |
+| V70          | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | kostett                  |
+| T720i        | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | diokhann                 |
+| V120c        | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | NextG50                  |
+| ic902        | MSM6800               | 128 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND.ldr        | EXL                      |
+| QA30         | MSM6575               | 256 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr   | EXL                      |
+| V9m          | MSM6550               | 128 MiB (NAND)  | V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr         | EXL                      |
+| VE40         | MSM6800               | 128 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND.ldr        | EXL                      |
+| Z6m          | MSM6550               | 64 MiB (NAND)   | V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr         | EXL                      |
+| V3m          | MSM6500               | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
+| W755         | MSM6500               | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
+| E815         | MSM6500               | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
+| W385         | MSM6125               | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf, wavvy01            |
+| V325i        | MSM6100               | 64 MiB (NAND)   | V325i_RAMDLD_010A_Patched_Dump_NAND.ldr       | asdf                     |
+| V325xi       | MSM6100               | 64 MiB (NAND)   | V325i_RAMDLD_010A_Patched_Dump_NAND.ldr       | asdf                     |
+| K1m (K1mm)   | MSM6500               | 64 MiB (NAND)   | K1mm_RAMDLD_000D_Patched_Dump_NAND.ldr        | wavvy01                  |
+| V120e        | MSM5100               | 4+1 MiB (NOR)   | V120e_RAMDLD_0713_Patched_Dump_NOR.ldr        | metalman87               |
+| W315         | MSM6050               | 16 MiB (NOR)    | W315_RAMDLD_0106_Patched_Dump_NOR.ldr         | asdf                     |
 
 ## Dumping Worksheet Parameters
 
