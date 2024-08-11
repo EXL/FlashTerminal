@@ -71,6 +71,8 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5801, 'mode': 'p2k', 'desc': 'Motorola PCS C350L Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1005, 'mode': 'at', 'desc': 'Motorola PCS V60 Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'p2k', 'desc': 'Motorola PCS V60 Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS EZX Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6009, 'mode': 'p2k', 'desc': 'Motorola PCS EZX Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -195,12 +197,12 @@ def worksheet(er, ew):
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 	if not '-2' in sys.argv:
 		# EZX AP
-	#	mfp_upload_binary_to_addr(er, ew, 'loaders/A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 	else:
 		# EZX BP
-	#	mfp_upload_binary_to_addr(er, ew, 'loaders/A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr', 0x12000000, 0x12000010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr', 0x12000000, 0x12000010)
 
 ## Motorola Flash Protocol #############################################################################################
 
