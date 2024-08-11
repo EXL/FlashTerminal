@@ -19,6 +19,7 @@ Flags:
 	-r - Reboot device
 	-l - Upload RAMDLD to RAM
 	-s - Switch device to Flash Mode (Bootloader Mode)
+	-2 - Use second interface for BP Bootloader
 	-h - Show help
 
 Developers and Thanks:
@@ -57,6 +58,9 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5803, 'mode': 'flash', 'desc': 'Motorola PCS Flash ULS'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'flash', 'desc': 'Motorola PCS Flash Patriot'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x0001, 'mode': 'flash', 'desc': 'Motorola PCS Flash Wally'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6003, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6008, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart RDL'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6023, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
@@ -99,7 +103,7 @@ def worksheet(er, ew):
 		logging.debug('Uploading RAMDLD to phone and wait for RAMDLD start.')
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_SRAM.ldr', 0x00100000, 0x00100000, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V3m_RAMDLD_010C_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K1m_RAMDLD_0013_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K1mm_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V325i_RAMDLD_010A_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
@@ -122,6 +126,15 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr', 0x14010000, 0x14010000)
+
+		if not '-2' in sys.argv:
+			# EZX AP
+			mfp_upload_binary_to_addr(er, ew, 'loaders/A760_AP_RAMDLD_0000.ldr', 0xA0200000, 0xA0200000, True)
+#			mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_AP_RAMDLD_0000.ldr', 0xA0200000, 0xA0200000, True)
+		else:
+			# EZX BP
+			mfp_upload_binary_to_addr(er, ew, 'loaders/A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010, True)
+#			mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_BP_RAMDLD_0731.ldr', 0x12000000, 0x12000010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -158,6 +171,11 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40410000, 0x30)
 #	mfp_dump_sram(er, ew, 'W315_ROM_Dump.bin', 0x00000000, 0x01000000, 0x30)
 
+	mfp_dump_sram(er, ew, 'A760_BP_ROM_Dump.bin', 0x00000000, 0x04000000, 0x30)
+#	mfp_dump_sram(er, ew, 'A760_BP_IROM_Dump.bin', 0x10000000, 0x14000000, 0x30)
+
+#	mfp_dump_read(er, ew, 'A768_ROM_Dump.bin', 0x10000000, 0x10100000, 0x100)
+
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
 #	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
@@ -177,7 +195,7 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'QA30_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 4)
-	mfp_dump_nand(er, ew, 'V3m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
+#	mfp_dump_nand(er, ew, 'V3m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 #	mfp_dump_nand(er, ew, 'K1m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 #	mfp_dump_nand(er, ew, 'V325i_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 
@@ -512,7 +530,7 @@ def get_endpoints(device):
 	config = device.get_active_configuration()
 	logging.debug(config)
 
-	interface = config[(0, 0)]
+	interface = config[(1 if '-2' in sys.argv else 0, 0)]
 	logging.debug(interface)
 
 	ep_read = usb.util.find_descriptor(

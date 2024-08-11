@@ -9,7 +9,7 @@ ${ADS_TOOLCHAIN_BIN_DIR}/fromelf patch_nor.elf -bin -output patch_nor.bin
 
 cp C350L_RAMDLD_0000.ldr C350L_RAMDLD_0000_Patched_Dump_NOR.ldr
 
-# Insert patch to 0x61FC offset.
+# Insert patch to 0x40 offset.
 python3 -c "with open('patch_nor.bin','rb') as i,open('C350L_RAMDLD_0000_Patched_Dump_NOR.ldr','r+b') as o: o.seek(0x40);o.write(i.read())"
 
 # Add branch patch.
