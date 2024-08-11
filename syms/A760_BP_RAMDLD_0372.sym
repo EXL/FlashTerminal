@@ -1,0 +1,9 @@
+#<SYMDEFS>#symdef-file
+
+0x1107374C T HAPI_WATCHDOG_service
+0x110727E4 T parser_send_packet
+0x11074258 T util_ui8_to_hexasc
+0x11074228 T util_hexasc_to_ui32
+
+0x01FD2DD5 D rsrc_str
+0x01FD68DC D blvar_RAM_section_addr_tbl

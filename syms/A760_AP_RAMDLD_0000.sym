@@ -1,0 +1,7 @@
+#<SYMDEFS>#symdef-file
+
+0xA0202A0C A parser_send_packet
+0xA02031EC A util_ui8_to_hexasc
+0xA02031A0 A util_hexasc_to_ui32
+
+0xA020759C D rsrc_str
