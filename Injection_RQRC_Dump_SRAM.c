@@ -93,19 +93,24 @@ extern void handle_command_RQRC(UINT8 *data_ptr) {
 	UINT8 *response_ptr = &response[0];
 	UINT8 *data_start_ptr, *data_end_ptr;
 
+#if defined(EZX_AP)
+	data_start_ptr = (UINT8 *) util_hexasc_to_ui32(&data_ptr[0], ADDR_CMD_ADDR_SIZE);
+	data_end_ptr   = (UINT8 *) util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
+#else
 	blvar_RAM_section_addr_tbl.start_addr = util_hexasc_to_ui32(&data_ptr[0], ADDR_CMD_ADDR_SIZE);
 	blvar_RAM_section_addr_tbl.end_addr   = util_hexasc_to_ui32(&data_ptr[ADDR_CMD_ADDR_SIZE + 1], ADDR_CMD_ADDR_SIZE);
 
 	data_start_ptr = (UINT8 *) blvar_RAM_section_addr_tbl.start_addr;
 	data_end_ptr   = (UINT8 *) blvar_RAM_section_addr_tbl.end_addr;
-
+#endif
 	while (data_start_ptr < data_end_ptr) {
 		util_ui8_to_hexasc(*data_start_ptr, response_ptr);
 
 		data_start_ptr++;
 		response_ptr += 2;
-
+#if !defined(EZX_AP)
 		HAPI_WATCHDOG_service();
+#endif
 	}
 
 	parser_send_packet((UINT8 *) rsrc_str, response);
