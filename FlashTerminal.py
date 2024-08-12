@@ -19,7 +19,7 @@ Flags:
 	-r - Reboot device
 	-l - Upload RAMDLD to RAM
 	-s - Switch device to Flash Mode (Bootloader Mode)
-	-2 - Use second interface for BP Bootloader
+	-2 - Use second USB interface for BP Bootloader
 	-h - Show help
 
 Developers and Thanks:
@@ -164,12 +164,14 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40410000, 0x30)
 #	mfp_dump_sram(er, ew, 'W315_ROM_Dump.bin', 0x00000000, 0x01000000, 0x30)
-	mfp_dump_sram(er, ew, 'A760_AP_ROM_Dump.bin', 0x00000000, 0x02000000, 0x30)
-#	mfp_dump_sram(er, ew, 'A760_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+#	mfp_dump_sram(er, ew, 'A760_AP_ROM_Dump.bin', 0x00000000, 0x02000000, 0x30)
+
+	mfp_dump_sram(er, ew, 'A760_BP_ROM_Dump.bin', 0x00000000, 0x00080000, 0x30)
 #	mfp_dump_sram(er, ew, 'A760_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
-#	mfp_dump_read(er, ew, 'A768i_ROM_Dump.bin', 0x00000000, 0x00400000, 0x100)
-#	mfp_dump_read(er, ew, 'A768i_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
-#	mfp_dump_sram(er, ew, 'A768i_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
+
+#	mfp_dump_read(er, ew, 'A768i_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x100)
+#	mfp_dump_read(er, ew, 'A768i_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
+#	mfp_dump_sram(er, ew, 'A768i_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
