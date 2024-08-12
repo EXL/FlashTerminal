@@ -28,7 +28,8 @@ The workflow can be configured directly in the [FlashTerminal.py](FlashTerminal.
 $ ./FlashTerminal.py -v # Activate verbose hexdump USB-packets logging.
 $ ./FlashTerminal.py -r # Reboot device.
 $ ./FlashTerminal.py -l # Upload RAMDLD to RAM.
-$ ./FlashTerminal.py -s # Switch device to Flash Mode (Bootloader Mode)
+$ ./FlashTerminal.py -s # Switch device to Flash Mode (Bootloader Mode).
+$ ./FlashTerminal.py -2 # Use second USB interface for BP Bootloader.
 $ ./FlashTerminal.py -h # Show help.
 ```
 
@@ -72,6 +73,10 @@ These phones were dumped by the Flash Terminal tool.
 | K1m (K1mm)   | MSM6500               | 64 MiB (NAND)   | K1mm_RAMDLD_000D_Patched_Dump_NAND.ldr        | wavvy01                  |
 | V120e        | MSM5100               | 4+1 MiB (NOR)   | V120e_RAMDLD_0713_Patched_Dump_NOR.ldr        | metalman87               |
 | W315         | MSM6050               | 16 MiB (NOR)    | W315_RAMDLD_0106_Patched_Dump_NOR.ldr         | asdf                     |
+| A760         | Dalhart               | 32 MiB (NOR)    | A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr      | EXL, PUNK-398            |
+| A760         | Neptune LT (LCA)      | 4 MiB (NOR)     | A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr      | EXL, PUNK-398            |
+| A768i        | Dalhart               | 32 MiB (NOR)    | A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr     | EXL                      |
+| A768i        | Neptune LTE           | 4 MiB (NOR)     | A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr     | EXL                      |
 
 ## Dumping Worksheet Parameters
 
@@ -223,6 +228,32 @@ mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 Mi
 ```python
 mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr', 0x14010000, 0x14010000)
 mfp_dump_sram(er, ew, 'W315_ROM_Dump.bin', 0x00000000, 0x01000000, 0x30)
+```
+
+**Dumping AP and BP NOR Memories from Motorola A760, A768i (+IROM)**
+
+```python
+# AP Part
+mfp_upload_binary_to_addr(er, ew, 'loaders/A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
+mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
+
+mfp_dump_sram(er, ew, 'A760_AP_ROM_Dump.bin', 0x00000000, 0x02000000, 0x30)
+
+sudo ./FlashTerminal.py -l
+sudo ./FlashTerminal.py
+
+# BP Part
+mfp_upload_binary_to_addr(er, ew, 'loaders/A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
+mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr', 0x12000000, 0x12000010)
+
+mfp_dump_sram(er, ew, 'A760_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+mfp_dump_sram(er, ew, 'A760_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
+
+mfp_dump_read(er, ew, 'A768i_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x100)
+mfp_dump_read(er, ew, 'A768i_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
+
+sudo ./FlashTerminal.py -l
+sudo ./FlashTerminal.py -l -2
 ```
 
 ## Developers & Thanks
