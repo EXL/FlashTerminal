@@ -131,7 +131,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr', 0x14010000, 0x14010000)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
