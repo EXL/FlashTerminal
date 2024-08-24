@@ -48,6 +48,7 @@ These phones were dumped by the Flash Terminal tool.
 | E1000        | Rainbow POG           | 64 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
 | E398         | Neptune LTE           | 32 MiB (NOR)    | E398_RAMLD_07B0_Hacked_Dump.ldr               | EXL                      |
 | V3x          | Rainbow POG           | 64 MiB (NOR)    | V3x_RAMDLD_0682_RSA_Read.ldr                  | EXL                      |
+| A1000        | BP: Rainbow POG       | 16 MiB (NOR)    | A1000_BP_RAMDLD_0651_RSA_Read.ldr             | PUNK-398                 |
 | C350L        | Neptune ULS           | 8 MiB (NOR)     | C350L_RAMDLD_0000_Patched_Dump_NOR.ldr        | EXL                      |
 | C330         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | Ivan_Fox                 |
 | C350         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | diokhann                 |
@@ -94,6 +95,18 @@ mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 ```python
 mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
+```
+
+**Dumping BP 16 MB NOR Memory from Motorola A1000**
+
+```python
+# ./FlashTerminal.py -l
+mfp_upload_binary_to_addr(er, ew, 'loaders/A1000_BP_RAMDLD_0651_RSA_Read.ldr', 0x08000000, 0x08000010, True)
+mfp_dump_read(er, ew, 'A1000_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
+
+# ./FlashTerminal.py
+mfp_upload_binary_to_addr(er, ew, 'loaders/A1000_BP_RAMDLD_0651_RSA_Read.ldr', 0x08000000, 0x08000010, True)
+mfp_dump_rqrc(er, ew, 'A1000_PDS_ROM_Dump.bin', 0x10010000, 0x10020000)
 ```
 
 **Dumping 16 MB NOR Memory from Motorola A835, A845, C975, E1000 and Siemens U15 (+ IROM)**
