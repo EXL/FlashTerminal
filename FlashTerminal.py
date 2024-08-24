@@ -182,7 +182,7 @@ def worksheet(er, ew):
 #	mfp_dump_r(er, ew, 'C975_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_r(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 #	mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00006100, 0x100)
-	mfp_dump_r(er, ew, 'A1000_ROM_Dump.bin', 0x10000000, 0x01000100, 0x100)
+	mfp_dump_r(er, ew, 'A1000_ROM_Dump.bin', 0x10000000, 0x11000100, 0x100)
 #	mfp_dump_r(er, ew, 'A1000_IROM_Dump.bin', 0x00000000, 0x00100000, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
