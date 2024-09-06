@@ -418,7 +418,7 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None
 		time.sleep(delay_jump)
 	if ezx_ap:
 		logging.info(f'EZX AP RAMDLD was loaded. Please remove the "-l" flag or add the "-2" flag and rerun script.')
-		exit(0)
+		sys.exit(0)
 
 def mfp_uls_upload(er, ew, file_path, load_address = 0x12000000, chunk_size = None, read_response = False):
 	binary_file_size = os.path.getsize(file_path)
@@ -520,7 +520,7 @@ def mfp_send_recv(er, ew, data, read_response = True):
 			except usb.USBError as error:
 				# TODO: Proper USB errors handling.
 				logging.error(f'USB Error: {error}')
-				exit(1)
+				sys.exit(1)
 			time.sleep(delay_ack)
 	return response
 
@@ -533,7 +533,7 @@ def usb_check_restart_phone(er, ew, restart_flag):
 		er, ew = usb_init(usb_devices, 'flash')
 		if not er or not ew:
 			logging.error('Cannot find USB device!')
-			exit(1)
+			sys.exit(1)
 	return er, ew
 
 def get_usb_device_information(usb_device):
@@ -702,7 +702,7 @@ def main():
 	set_logging_configuration('-v' in sys.argv)
 	if '-h' in sys.argv:
 		logging.info(splash)
-		exit(1)
+		sys.exit(1)
 	if '-s' in sys.argv:
 		reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices)
 	er, ew = usb_init(usb_devices, 'flash')
