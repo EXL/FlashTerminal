@@ -61,7 +61,6 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6003, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6008, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart RAMDLD'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6023, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde'},
-	{'usb_vid': 0x0000, 'usb_pid': 0x0002, 'mode': 'flash', 'desc': 'Siemens CC75 test'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
@@ -118,7 +117,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/QA30_RAMDLD_0206_Patched_Dump_NAND.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr', 0x002F0000, 0x002F0000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMDLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMDLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E1000_RAMDLD_0610.ldr', 0x07804000, 0x07804010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A1000_BP_RAMDLD_0651_RSA_Read.ldr', 0x08000000, 0x08000010, True)
@@ -149,7 +148,8 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'MSM_IRAM_Dump.bin', 0xFFFF0000, 0xFFFFFFFF, 0x10)
 #	mfp_dump_sram(er, ew, 'U10_ROM_Dump.bin', 0x10000000, 0x11000000, 0x30)
 #	mfp_dump_sram(er, ew, 'A830_IROM_Dump.bin', 0x00000000, 0x00010000, 0x30)
-#	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
+	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
+	mfp_dump_dump(er, ew, 'E398_IROM_Dump.bin', 0x00000000, 0x00400000, 0x100)
 #	mfp_dump_rqrc(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x10010000)
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 #	mfp_dump_sram(er, ew, 'C350L_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
