@@ -135,6 +135,9 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_G252_NS_Flash.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_RAMLDR.ldr', 0x03FD0000, 0x03FD0010)
 
+	mfp_upload_binary_to_addr(er, ew, 'loaders/K1s_RAMDLD_0DC0.ldr', 0x03FC8000, 0x03FC8010, True)
+#	mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
+
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
@@ -179,6 +182,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 #	mfp_dump_read(er, ew, 'A1000_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
 #	mfp_dump_rqrc(er, ew, 'A1000_PDS_ROM_Dump.bin', 0x10010000, 0x10020000)
+	mfp_dump_read(er, ew, 'L72_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
