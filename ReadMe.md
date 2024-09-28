@@ -81,6 +81,8 @@ These phones were dumped by the Flash Terminal tool.
 | A768i        | AP: Dalhart           | 32 MiB (NOR)    | A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr     | EXL                      |
 | A768i        | BP: Neptune LTE       | 4 MiB (NOR)     | A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr     | EXL                      |
 | A780DVB-H    | BP: Neptune LTE       | 4 MiB (NOR)     | A780g_BP_RAMDLD_08A0.ldr                      | ronalp                   |
+| L72/L9       | Neptune LTE2 irom0400 | 64 MiB (NOR)    | L72_RAMDLD_0C70.ldr                           | fkcoder                  |
+| K1s          | Neptune LTE2 irom0400 | 64 MiB (NOR)    | K1s_RAMDLD_0DC0.ldr                           | fkcoder                  |
 
 ## Dumping Worksheet Parameters
 
@@ -274,13 +276,21 @@ sudo ./FlashTerminal.py -l
 sudo ./FlashTerminal.py -l -2
 ```
 
+**Dumping 64 MB NOR Memory from Motorola SLVR L72/L9 and KRZR K1s**
+
+```python
+mfp_upload_binary_to_addr(er, ew, 'loaders/K1s_RAMDLD_0DC0.ldr', 0x03FC8000, 0x03FC8010, True)
+mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
+mfp_dump_read(er, ew, 'L9_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
+```
+
 ## Developers & Thanks
 
 - EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
 - MotoFan.Ru developers
 - ROMphonix developers
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
-- SGXVII, NextG50, ronalp, CrayZor, Paschendale
+- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder
 
 ## Useful Information and Resources
 
