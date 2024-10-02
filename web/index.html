@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Flash Terminal</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="container">
+			<h1>Flash Terminal</h1>
+			<form id="vendorIdForm">
+				<label for="vendorId">Vendor ID:</label>
+				<input type="text" id="vendorId" name="vendorId" required value="0x22B8">
+				<button type="submit">Connect</button>
+			</form>
+			<textarea id="consoleOutput" rows="10" cols="50"></textarea>
+		</div>
+		<script src="script.js"></script>
+		<noscript>
+			<p>Please enable JavaScript in your browser settings.</p>
+		</noscript>
+	</body>
+</html>

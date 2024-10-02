@@ -1,0 +1,10 @@
+.container {
+	text-align: center;
+	margin: 20px;
+}
+
+#consoleOutput {
+	font-family: monospace;
+	overflow-y: scroll;
+	margin: 5px;
+}
