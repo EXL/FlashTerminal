@@ -73,6 +73,10 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'p2k', 'desc': 'Motorola PCS V60 Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS EZX Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6009, 'mode': 'p2k', 'desc': 'Motorola PCS EZX Phone (P2K)'},
+	{'usb_vid': 0x11F5, 'usb_pid': 0x0007, 'mode': 'at', 'desc': 'Siemens CC75 GSM Phone (AT)'},
+	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'at', 'desc': 'Siemens CC75 GSM Phone (P2K)'},
+	{'usb_vid': 0x11F5, 'usb_pid': 0x0007, 'mode': 'flash', 'desc': 'Siemens CC75 GSM Phone (Flash)'},
+	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'flash', 'desc': 'Siemens CC75 GSM Phone (Flash)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -133,9 +137,9 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K1s_RAMDLD_0DC0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
 
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_E398_Blank_RFDI.ldr', 0x03FD0000, 0x03FD0010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_G252_NS_Flash.ldr', 0x03FD0000, 0x03FD0010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_RAMLDR.ldr', 0x03FD0000, 0x03FD0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_E398_Blank_RFDI.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_G252_NS_Flash.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_RAMLDR.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -402,7 +406,7 @@ def mfp_dump_byte(er, ew, file_path, start, end):
 			addr_e += 1
 			index += 1
 
-def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None, ezx_ap = None):
+def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None, ezx_ap = None, read_response = True):
 	address = start
 	logging.info(f'Uploading "{file_path}" to 0x{address:08X} with {buffer_write_size} bytes chunks...')
 	with open(file_path, 'rb') as file:
@@ -422,7 +426,7 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None
 			logging.info(f'Calculate checksum of "{start:08X},{end:08X}" region.')
 			mfp_cmd(er, ew, 'RQRC', f'{start:08X},{end:08X}'.encode())
 		logging.info(f'Jumping to 0x{jump:08X} address.')
-		mfp_cmd(er, ew, 'JUMP', mfp_get_addr_with_chksum(jump))
+		mfp_cmd(er, ew, 'JUMP', mfp_get_addr_with_chksum(jump), read_response)
 		logging.info(f'Waiting {delay_jump} seconds for RAMDLD init on device...')
 		time.sleep(delay_jump)
 	if ezx_ap:
@@ -488,7 +492,7 @@ def mfp_bin(er, ew, data):
 	result = mfp_cmd(er, ew, 'BIN', packet)
 	return result
 
-def mfp_cmd(er, ew, cmd, data = None):
+def mfp_cmd(er, ew, cmd, data = None, read_response = True):
 	packet = bytearray(b'\x02')  # Start marker.
 	packet.extend(cmd.encode())
 	if data:
@@ -497,7 +501,7 @@ def mfp_cmd(er, ew, cmd, data = None):
 	packet.extend(b'\x03')  # End marker.
 	logging.debug(f'>>> Send to device...\n{hexdump(packet)}')
 
-	result = mfp_send_recv(er, ew, packet)
+	result = mfp_send_recv(er, ew, packet, read_response)
 	logging.debug(f'<<< Read from device...\n{hexdump(result)}')
 
 	return result
