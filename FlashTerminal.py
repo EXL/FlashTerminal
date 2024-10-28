@@ -137,9 +137,10 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K1s_RAMDLD_0DC0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
 
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_RAMLDR.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_E398_Blank_RFDI.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_G252_NS_Flash.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_RAMLDR.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_G252_NS_Flash_All.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
