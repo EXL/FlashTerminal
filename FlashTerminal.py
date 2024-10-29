@@ -536,6 +536,8 @@ def mfp_send_recv(er, ew, data, read_response = True):
 				logging.error(f'USB Error: {error}')
 				sys.exit(1)
 			time.sleep(delay_ack)
+	else:
+		response = b'00'
 	return response
 
 ## USB Routines ########################################################################################################
