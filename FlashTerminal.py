@@ -559,7 +559,7 @@ def get_endpoints(device):
 	config = device.get_active_configuration()
 	logging.debug(config)
 
-	interface = config[(1 if '-2' in sys.argv else 0, 0)]
+	interface = config[1]
 	logging.debug(interface)
 
 	ep_read = usb.util.find_descriptor(
