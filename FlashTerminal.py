@@ -149,7 +149,7 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000010'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
-#	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
+	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
@@ -559,7 +559,7 @@ def get_endpoints(device):
 	config = device.get_active_configuration()
 	logging.debug(config)
 
-	interface = config[(1, 0)]
+	interface = config[(1 if '-2' in sys.argv else 0, 0)]
 	logging.debug(interface)
 
 	ep_read = usb.util.find_descriptor(
@@ -607,21 +607,20 @@ def write_read_at_command(serial_handle, at_command, read = True):
 	return None
 
 def switch_atmode_to_p2kmode(modem_device, modem_speed):
-	return True
-#	if os.path.exists(modem_device):
-#		logging.info(f'USB modem device "{modem_device}" found, switch it to P2K mode!')
-#		serial_handle = serial.Serial(modem_device, modem_speed, timeout = 1)
-#		if serial_handle:
-#			write_read_at_command(serial_handle, at_command, True)
-#			time.sleep(1.0)
-#			write_read_at_command(serial_handle, p2k_mode_command, False)
-#			serial_handle.close()
-#			return True
-#		else:
-#			logging.error(f'Cannot open "{modem_device}" device on "{modem_speed}" speed!')
-#	else:
-#		logging.error(f'Cannot find "{modem_device}" device!')
-#	return False
+	if os.path.exists(modem_device):
+		logging.info(f'USB modem device "{modem_device}" found, switch it to P2K mode!')
+		serial_handle = serial.Serial(modem_device, modem_speed, timeout = 1)
+		if serial_handle:
+			write_read_at_command(serial_handle, at_command, True)
+			time.sleep(1.0)
+			write_read_at_command(serial_handle, p2k_mode_command, False)
+			serial_handle.close()
+			return True
+		else:
+			logging.error(f'Cannot open "{modem_device}" device on "{modem_speed}" speed!')
+	else:
+		logging.error(f'Cannot find "{modem_device}" device!')
+	return False
 
 def switch_p2kmode_to_flashmode(p2k_usb_device):
 	logging.info('P2K device found, switching it to the Flash mode!')
