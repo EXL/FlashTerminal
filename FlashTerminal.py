@@ -607,20 +607,21 @@ def write_read_at_command(serial_handle, at_command, read = True):
 	return None
 
 def switch_atmode_to_p2kmode(modem_device, modem_speed):
-	if os.path.exists(modem_device):
-		logging.info(f'USB modem device "{modem_device}" found, switch it to P2K mode!')
-		serial_handle = serial.Serial(modem_device, modem_speed, timeout = 1)
-		if serial_handle:
-			write_read_at_command(serial_handle, at_command, True)
-			time.sleep(1.0)
-			write_read_at_command(serial_handle, p2k_mode_command, False)
-			serial_handle.close()
-			return True
-		else:
-			logging.error(f'Cannot open "{modem_device}" device on "{modem_speed}" speed!')
-	else:
-		logging.error(f'Cannot find "{modem_device}" device!')
-	return False
+	return True
+#	if os.path.exists(modem_device):
+#		logging.info(f'USB modem device "{modem_device}" found, switch it to P2K mode!')
+#		serial_handle = serial.Serial(modem_device, modem_speed, timeout = 1)
+#		if serial_handle:
+#			write_read_at_command(serial_handle, at_command, True)
+#			time.sleep(1.0)
+#			write_read_at_command(serial_handle, p2k_mode_command, False)
+#			serial_handle.close()
+#			return True
+#		else:
+#			logging.error(f'Cannot open "{modem_device}" device on "{modem_speed}" speed!')
+#	else:
+#		logging.error(f'Cannot find "{modem_device}" device!')
+#	return False
 
 def switch_p2kmode_to_flashmode(p2k_usb_device):
 	logging.info('P2K device found, switching it to the Flash mode!')
