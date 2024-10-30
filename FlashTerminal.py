@@ -74,7 +74,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS EZX Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6009, 'mode': 'p2k', 'desc': 'Motorola PCS EZX Phone (P2K)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0007, 'mode': 'at', 'desc': 'Siemens CC75 GSM Phone (AT)'},
-	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'at', 'desc': 'Siemens CC75 GSM Phone (P2K)'},
+	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'p2k', 'desc': 'Siemens CC75 GSM Phone (P2K)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0007, 'mode': 'flash', 'desc': 'Siemens CC75 GSM Phone (Flash)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'flash', 'desc': 'Siemens CC75 GSM Phone (Flash)'},
 ]
@@ -91,7 +91,7 @@ timeout_write = 5000
 buffer_write_size = 0x800
 buffer_read_size = 0x800
 
-## Worksheet ###########################################################################################################
+## Worksheets ##########################################################################################################
 
 def worksheet(er, ew):
 	er, ew = usb_check_restart_phone(er, ew, '-r' in sys.argv)
@@ -149,7 +149,7 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000010'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
-	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
+#	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
@@ -224,6 +224,10 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr', 0x12000000, 0x12000010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A780g_BP_RAMDLD_08A0.ldr', 0x03FD0000, 0x03FD0010)
 		pass
+
+def worksheet_memacs(p2k_usb_device):
+	do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x0800)
+	return True
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -609,6 +613,8 @@ def write_read_at_command(serial_handle, at_command, read = True):
 	return None
 
 def switch_atmode_to_p2kmode(modem_device, modem_speed):
+	if '-skip_at' in sys.argv:
+		return True
 	if os.path.exists(modem_device):
 		logging.info(f'USB modem device "{modem_device}" found, switch it to P2K mode!')
 		serial_handle = serial.Serial(modem_device, modem_speed, timeout = 1)
@@ -617,6 +623,8 @@ def switch_atmode_to_p2kmode(modem_device, modem_speed):
 			time.sleep(1.0)
 			write_read_at_command(serial_handle, p2k_mode_command, False)
 			serial_handle.close()
+			logging.info(f'Wait {delay_switch} sec for AT => P2K switching...')
+			time.sleep(delay_switch)
 			return True
 		else:
 			logging.error(f'Cannot open "{modem_device}" device on "{modem_speed}" speed!')
@@ -641,26 +649,110 @@ def switch_p2kmode_to_flashmode(p2k_usb_device):
 					)
 	except Exception as e:
 		logging.error(f'Cannot open "{p2k_command_list}" file! Error:\n{e}')
+	logging.info(f'Wait {delay_switch} sec for P2K => Flash switching...')
+	time.sleep(delay_switch)
 
 def reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices):
 	if switch_atmode_to_p2kmode(modem_device, modem_speed):
-		logging.info(f'Wait {delay_switch} sec for AT => P2K switching...')
-		time.sleep(delay_switch)
 		p2k_usb_device = find_usb_device(usb_devices, 'p2k')
 		if p2k_usb_device:
+			p2k_usb_device.set_configuration()
+			config = p2k_usb_device.get_active_configuration()
+			logging.debug(config)
 			switch_p2kmode_to_flashmode(p2k_usb_device)
-			logging.info(f'Wait {delay_switch} sec for P2K => Flash switching...')
-			time.sleep(delay_switch)
 			return True
 		else:
 			logging.error('Cannot find P2K device!')
 			return False
+
+def do_memacs_dump(p2k_usb_device, file_path, start = 0x10000000, end = 0x12000000, step = 0x0800):
+	addr_s = start
+	addr_e = start + step
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.process_time()
+		while addr_e <= end:
+			if addr_e > end:
+				addr_e = end
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (((index - 2) * step) % (step * 0x10) == 0):
+				time_start = progess(step, time_start, step, step * (index - 2), file_path, addr_s, addr_e)
+
+			# MEMACS P2K Command.
+			# 00 02 00 16 00 08 00 00 10 00 00 00 08 00 00 00    ................
+			# 00 03 00 16 00 08 00 00 10 00 08 00 08 00 00 00    ................
+			# 00 04 00 16 00 08 00 00 10 00 10 00 08 00 00 00    ................
+			ctrl_packet = int.to_bytes(index + 2, 2, 'big') +  b'\x00\x16\x00\x08\x00\x00' + \
+				int.to_bytes(addr_s, 4, 'big') + int.to_bytes(step, 2, 'big') +  b'\x00\x00'
+			p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
+			logging.debug(
+				f'>>> Send USB control packet '
+				f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) '
+				f'to device...\n{hexdump(ctrl_packet)}'
+			)
+
+			# Stabilization.
+			retry = 0
+			while not retry:
+				result = p2k_usb_device.ctrl_transfer(0xC1, 0x00, 0x00, 0x08, 0x08, timeout_read)
+				logging.debug(
+					f'>>> Send USB control packet '
+					f'(bmRequestType=0xC1, bmRequest=0x00, wValue=0x00, wIndex=0x08, size=0x08) to device...'
+					f'\nresult =\n{hexdump(result)}'
+				)
+				retry = int.from_bytes(result, 'little')
+
+			# Read data.
+			result = p2k_usb_device.ctrl_transfer(0xC1, 0x01, 0x01, 0x08, 0x080F, timeout_read)
+			logging.debug(
+				f'>>> Send USB control packet '
+				f'(bmRequestType=0xC1, bmRequest=0x01, wValue=0x01, wIndex=0x08, size=0x080F) to device...'
+				f'\nresult =\n{hexdump(result)}'
+			)
+			result_data = result[0x0F:]     # Drop 0x0F first bytes from pipe answer.
+			if len(result_data) != step:
+				logging.error(f'Result data is smaller than step: {len(result_data)}!={step}')
+				return False
+			file.write(result_data)
+
+			addr_s = addr_s + step
+			addr_e = addr_s + step
+			index += 1
+	return True
+
+def do_memacs(modem_device, modem_speed, usb_devices):
+	if switch_atmode_to_p2kmode(modem_device, modem_speed):
+		p2k_usb_device = find_usb_device(usb_devices, 'p2k')
+		if p2k_usb_device:
+			p2k_usb_device.set_configuration()
+			config = p2k_usb_device.get_active_configuration()
+			logging.debug(config)
+			worksheet_memacs(p2k_usb_device)
+		else:
+			logging.error('Cannot find P2K device!')
+	sys.exit(0)
 
 ## Utils ###############################################################################################################
 
 def insert_to_filename(insert, filename):
 	name_part, extension = filename.rsplit('.', 1)
 	return f'{name_part}{insert}.{extension}'
+
+def progress(time_start, size_in_bytes, file_path, index, addr_s, addr_e, end, pages = 0, nand = False):
+	time_end = time.process_time()
+	speed = size_in_bytes / (time_end - time_start) / 1024
+	if nand:
+		logging.info(
+			f'Dumped {index:08}/{pages:08} pages, 512 bytes to "{file_path}", '
+			f'16 bytes to "{insert_to_filename("_spare_area",file_path)}", '
+			f'addr=0x{addr_s:08X},0x{addr_e:08X}, speed={speed:.2f} Kb/s'
+		)
+	else:
+		logging.info(
+			f'Dumped {size_in_bytes} bytes to "{file_path}", '
+			f'addr=0x{addr_s:08X}, end=0x{end:08X}, speed={speed:.2f} Kb/s'
+		)
+	return time.process_time()  # Reset time.
 
 def progess(step, time_start, size, index, file_path, addr_s, addr_e, pages = 0, nand = False):
 	time_end = time.process_time()
@@ -721,6 +813,8 @@ def main():
 		sys.exit(1)
 	if '-s' in sys.argv:
 		reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices)
+	if '-memacs' in sys.argv:
+		do_memacs(modem_device, modem_speed, usb_devices)
 	er, ew = usb_init(usb_devices, 'flash')
 	if er and ew:
 		worksheet(er, ew)
