@@ -242,11 +242,11 @@ def mfp_dump_rqrc(er, ew, file_path, start, end, step = 0x01):
 	addr_e = start + step + 0x400
 	with open(file_path, 'wb') as file:
 		index = 0
-		time_start = time.process_time()
+		time_start = time.time()
 		while addr_e <= end + 0x400:
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
-				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+				time_start = progress(step, time_start, 0x100, index, file_path, addr_s, addr_e, end)
 
 			result_data1 = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
 			result_data1 = result_data1[6:]   # Drop start marker and command.
@@ -272,11 +272,11 @@ def mfp_dump_r(er, ew, file_path, start, end, step = 0x100):
 	addr_e = start + step
 	with open(file_path, 'wb') as file:
 		index = 0
-		time_start = time.process_time()
+		time_start = time.time()
 		while addr_e <= end:
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
-				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+				time_start = progress(step, time_start, 0x100, index, file_path, addr_s, addr_e, end)
 			binary_cmd = bytearray()
 			binary_cmd.extend('R'.encode())
 			binary_cmd.extend(addr_s.to_bytes(4, byteorder = 'big'))
@@ -295,11 +295,11 @@ def mfp_dump_read(er, ew, file_path, start, end, step = 0x100):
 	addr_e = start + step
 	with open(file_path, 'wb') as file:
 		index = 0
-		time_start = time.process_time()
+		time_start = time.time()
 		while addr_e <= end:
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
-				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+				time_start = progress(step, time_start, 0x100, index, file_path, addr_s, addr_e, end)
 			result_data = mfp_cmd(er, ew, 'READ', f'{addr_s:08X},{step:04X}'.encode())
 			result_data = result_data[6:]   # Drop start marker and command.
 			result_data = result_data[2:]   # Drop size step.
@@ -316,11 +316,11 @@ def mfp_dump_dump(er, ew, file_path, start, end, step = 0x100):
 	addr_e = start + step
 	with open(file_path, 'wb') as file:
 		index = 0
-		time_start = time.process_time()
+		time_start = time.time()
 		while addr_e <= end:
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
-				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+				time_start = progress(step, time_start, 0x100, index, file_path, addr_s, addr_e, end)
 
 			result_data = mfp_cmd(er, ew, 'DUMP', f'{addr_s:08X}'.encode())
 			file.write(result_data)
@@ -337,14 +337,14 @@ def mfp_dump_nand(er, ew, file_path, start, end, step = 0x30, wide_nand = 1, nan
 	addr_h = nand_buffer + 0x210
 	with open(file_path, 'wb') as dump, open(insert_to_filename('_spare_area', file_path), 'wb') as spare:
 		index = 0
-		time_start = time.process_time()
+		time_start = time.time()
 		for page in range(start, end):
 			for wide in range(wide_nand):
 				logging.debug(f'Dumping NAND {page:08} page ({wide:02}), 512+16 bytes to "{file_path}" +spare_area...')
 				if index > 0 and (index % 100 == 0):
-					time_start = progess(
+					time_start = progress(
 						528, time_start, 100, index, file_path,
-						addr_s, addr_h, (end - start) * wide_nand, True
+						addr_s, addr_h, end, (end - start) * wide_nand, True
 					)
 				while addr_e <= addr_h:
 					if wide_nand > 1:
@@ -375,13 +375,13 @@ def mfp_dump_sram(er, ew, file_path, start, end, step = 0x30):
 	addr_e = start + step
 	with open(file_path, 'wb') as file:
 		index = 0
-		time_start = time.process_time()
+		time_start = time.time()
 		while addr_e <= end + step:
 			if addr_e > end:
 				addr_e = end
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
-				time_start = progess(step, time_start, 0x100, index, file_path, addr_s, addr_e)
+				time_start = progress(step, time_start, 0x100, index, file_path, addr_s, addr_e, end)
 			result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
 			result_data = result_data[6:]   # Drop start marker and command.
 			result_data = result_data[:-1]  # Drop end marker.
@@ -396,11 +396,11 @@ def mfp_dump_byte(er, ew, file_path, start, end):
 	addr_e = start
 	with open(file_path, 'wb') as file:
 		index = 0
-		time_start = time.process_time()
+		time_start = time.time()
 		while addr_e < end:
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (0x01 * 0x100) == 0):
-				time_start = progess(0x01, time_start, 0x100, index, file_path, addr_s, addr_e)
+				time_start = progress(0x01, time_start, 0x100, index, file_path, addr_s, addr_e, end)
 			result_data = mfp_cmd(er, ew, 'RQRC', f'{addr_s:08X},{addr_e:08X}'.encode())
 			result_data = result_data[6:]   # Drop start marker and command.
 			result_data = result_data[:-1]  # Drop end marker.
@@ -670,13 +670,13 @@ def do_memacs_dump(p2k_usb_device, file_path, start = 0x10000000, end = 0x120000
 	addr_e = start + step
 	with open(file_path, 'wb') as file:
 		index = 0
-		time_start = time.process_time()
+		time_start = time.time()
 		while addr_e <= end:
 			if addr_e > end:
 				addr_e = end
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
-			if index > 0 and (((index - 2) * step) % (step * 0x10) == 0):
-				time_start = progess(step, time_start, step, step * (index - 2), file_path, addr_s, addr_e)
+			if index > 0 and (index % 0x100 == 0):
+				time_start = progress(step, time_start, 0x100, index * step, file_path, addr_s, addr_e, end)
 
 			# MEMACS P2K Command.
 			# 00 02 00 16 00 08 00 00 10 00 00 00 08 00 00 00    ................
@@ -738,34 +738,21 @@ def insert_to_filename(insert, filename):
 	name_part, extension = filename.rsplit('.', 1)
 	return f'{name_part}{insert}.{extension}'
 
-def progress(time_start, size_in_bytes, file_path, index, addr_s, addr_e, end, pages = 0, nand = False):
-	time_end = time.process_time()
-	speed = size_in_bytes / (time_end - time_start) / 1024
-	if nand:
-		logging.info(
-			f'Dumped {index:08}/{pages:08} pages, 512 bytes to "{file_path}", '
-			f'16 bytes to "{insert_to_filename("_spare_area",file_path)}", '
-			f'addr=0x{addr_s:08X},0x{addr_e:08X}, speed={speed:.2f} Kb/s'
-		)
-	else:
-		logging.info(
-			f'Dumped {size_in_bytes} bytes to "{file_path}", '
-			f'addr=0x{addr_s:08X}, end=0x{end:08X}, speed={speed:.2f} Kb/s'
-		)
-	return time.process_time()  # Reset time.
-
-def progess(step, time_start, size, index, file_path, addr_s, addr_e, pages = 0, nand = False):
-	time_end = time.process_time()
+def progress(step, time_start, size, index, file_path, addr_s, addr_e, end, pages = 0, nand = False):
+	time_end = time.time()
 	speed = (step * size) / (time_end - time_start) / 1024
-	if nand:
+	if not nand:
 		logging.info(
-			f'Dumped {index:08}/{pages:08} pages, 512 bytes to "{file_path}", '
-			f'16 bytes to "{insert_to_filename("_spare_area",file_path)}", '
-			f'addr=0x{addr_s:08X},0x{addr_e:08X}, speed={speed:.2f} Kb/s'
+			f'Dumped: {index:08}/{pages:08} pages | {index*512/1024:>8} KiB | 0x{index*512:08X}-{index*512:010d} bytes | '
+			f'0x{addr_s:08X}-0x{addr_e:08X}-0x{end:08X} | '
+			f'{speed:.2f} KiB/s\n512, 16 bytes => "{file_path}", "{insert_to_filename("_spare_area",file_path)}"'
 		)
 	else:
-		logging.info(f'Dumped {index} bytes to "{file_path}", addr=0x{addr_s:08X}, speed={speed:.2f} Kb/s')
-	return time.process_time()  # Reset time.
+		logging.info(
+			f'Dumped: {index/1024:>8} KiB | 0x{index:08X}-{index:010d} bytes | '
+			f'0x{addr_s:08X}-0x{addr_e:08X}-0x{end:08X} | {speed:.2f} KiB/s => "{file_path}"'
+		)
+	return time.time()  # Reset time.
 
 def hexdump(data, wide = 0x10):
 	line = bytearray()
