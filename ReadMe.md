@@ -25,12 +25,15 @@ $ sudo apt install python3-serial
 The workflow can be configured directly in the [FlashTerminal.py](FlashTerminal.py) file's `Settings` and `Worksheet` sections.
 
 ```bash
-$ ./FlashTerminal.py -v # Activate verbose hexdump USB-packets logging.
-$ ./FlashTerminal.py -r # Reboot device.
-$ ./FlashTerminal.py -l # Upload RAMDLD to RAM.
-$ ./FlashTerminal.py -s # Switch device to Flash Mode (Bootloader Mode).
-$ ./FlashTerminal.py -2 # Use second USB interface for BP Bootloader.
-$ ./FlashTerminal.py -h # Show help.
+$ ./FlashTerminal.py -v       # Activate verbose hexdump USB-packets logging.
+$ ./FlashTerminal.py -r       # Reboot device.
+$ ./FlashTerminal.py -l       # Upload RAMDLD to RAM.
+$ ./FlashTerminal.py -s       # Switch device to Flash Mode (Bootloader Mode).
+$ ./FlashTerminal.py -2       # Use second USB interface for BP Bootloader.
+$ ./FlashTerminal.py -memacs  # Use P2K MEMACS command for dumping
+$ ./FlashTerminal.py -at_skip # Skip AT => P2K switching
+$ ./FlashTerminal.py -at_usb  # Use AT USB writing instead of /dev/ttyACM0 writing
+$ ./FlashTerminal.py -h       # Show help.
 ```
 
 ## Dumping Table
