@@ -229,8 +229,8 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 		pass
 
 def worksheet_memacs(p2k_usb_device):
-#	do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
-	do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
+	do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
+#	do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
 	return True
 
 ## Motorola Flash Protocol #############################################################################################
