@@ -78,6 +78,8 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6009, 'mode': 'p2k', 'desc': 'Motorola PCS EZX Phone (P2K)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0007, 'mode': 'at', 'desc': 'Siemens CC75 GSM Phone (AT)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'p2k', 'desc': 'Siemens CC75 GSM Phone (P2K)'},
+	{'usb_vid': 0x1907, 'usb_pid': 0x0001, 'mode': 'at', 'desc': 'Mosel GSM Phone (AT)'},
+	{'usb_vid': 0x1907, 'usb_pid': 0x0002, 'mode': 'p2k', 'desc': 'Mosel GSM Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -228,6 +230,7 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 
 def worksheet_memacs(p2k_usb_device):
 #	do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
+	do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
 	return True
 
 ## Motorola Flash Protocol #############################################################################################
