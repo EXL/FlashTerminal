@@ -226,8 +226,8 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 def worksheet_p2k(p2k_usb_device):
 #	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
 #	p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
-#	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
-#	p2k_do_dump_files(p2k_usb_device, 'a')
+	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
+	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
 
 ## Motorola Test Command Interface (P2K) Protocol ######################################################################
