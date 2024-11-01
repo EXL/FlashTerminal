@@ -140,11 +140,6 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K1s_RAMDLD_0DC0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
 
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_RAMLDR.ldr', 0x03FD0000, 0x03FD0010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_E398_Blank_RFDI.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_G252_NS_Flash.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/CC75_G252_NS_Flash_All.ldr', 0x03FD0000, 0x03FD0010, None, None, False)
-
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
@@ -232,20 +227,106 @@ def worksheet_p2k(p2k_usb_device):
 #	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
 #	p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
 #	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
+#	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
 
 ## Motorola Test Command Interface (P2K) Protocol ######################################################################
 
+def p2k_save_file(p2k_usb_device, index, file_info):
+	logging.info(f'Dumping "{file_info[0]}" file of {file_info[1]} bytes size...')
+
+	# Open file with previous flags.
+	# 04 FC 00 4A 00 17 00 00 00 00 00 00 00 00 00 04    .ь.J..........$.
+	# 2F 61 2F 56 69 62 5F 64 61 73 68 2E 77 61 76      /a/Vib_dash.wav
+	packet_name_size = 0x10 + len(file_info[0]) - 8
+	ctrl_packet = int.to_bytes(index, 2, 'big') + b'\x00\x4A' + int.to_bytes(packet_name_size, 2, 'big') + \
+		b'\x00\x00\x00\x00\x00\x00\x00\x00' + int.to_bytes(file_info[3], 2, 'big') + file_info[0].encode('CP1251')
+	p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+
+	# Seek file to start.
+	# 04 FE 00 4A 00 09 00 00 00 00 00 03 00 00 00 00
+	# 00
+	ctrl_packet = int.to_bytes(index + 2, 2, 'big') + b'\x00\x4A\x00\x09\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00'
+	p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+
+	# Write file to disk.
+	# 05 00 00 4A 00 08 00 00 00 00 00 01 00 00 04 00
+	# 05 00 00 4A 00 08 00 00 00 00 00 01 00 00 01 78
+	step = 2
+	directory = '.' + os.path.dirname(file_info[0])
+	os.makedirs(directory, exist_ok=True)
+	with open('.' + file_info[0], 'wb') as file:
+		u = int(file_info[1] / 0x400)
+		d = int(file_info[1] % 0x400)
+		for i in range(0, u):
+			ctrl_packet = int.to_bytes(index + step, 2, 'big') + b'\x00\x4A\x00\x08\x00\x00\x00\x00\x00\x01' + \
+				int.to_bytes(0x400, 4, 'big')
+			result_data = p2k_cmd_execute(p2k_usb_device, ctrl_packet, None, True, True)
+			file.write(result_data)
+			step += 2
+		if d > 0:
+			ctrl_packet = int.to_bytes(index + step, 2, 'big') + b'\x00\x4A\x00\x08\x00\x00\x00\x00\x00\x01' + \
+				int.to_bytes(d, 4, 'big')
+			result_data = p2k_cmd_execute(p2k_usb_device, ctrl_packet, None, True, True)
+			file.write(result_data)
+
+	# Close file.
+	# 05 02 00 4A 00 04 00 00 00 00 00 04
+	ctrl_packet = int.to_bytes(index + (step * 2) + 2, 2, 'big') + b'\x00\x4A\x00\x04\x00\x00\x00\x00\x00\x04'
+	p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+
+def p2k_get_file_list(p2k_usb_device, index, disk):
+	ctrl_packet = int.to_bytes(index, 2, 'big') + b'\x00\x4A\x00\x05\x00\x00\x00\x00\x00\x08\x03'
+	path_size = 0x10C # 268 bytes.
+	# FIXME: Something nasty here.
+	answer_size = 0x330
+	files = []
+	while answer_size > 0x10:
+		result = p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+		answer_size = len(result)
+		if answer_size > 0x10:
+			file_path_count = result[0]
+			for i in range(0, file_path_count):
+				start = 3
+				slice = result[start + i * path_size:(i * path_size) + path_size + start]
+				strings = bytes(slice).split(b'\x00')
+				files.append((
+					strings[0].decode('CP1251', errors='ignore'), # Path
+					int.from_bytes(slice[-4:], 'big'),            # Size
+					int.from_bytes(slice[-6:-4], 'big'),          # User
+					int.from_bytes(slice[-8:-6], 'big'),          # Flags
+				))
+	return files
+
+def p2k_disk_init(p2k_usb_device, index, disk):
+	ctrl_packet = int.to_bytes(index, 2, 'big') + b'\x00\x4A\x02\x00\x00\x00\x00\x00\x00\x0B\xFF\xFE\x00\x2F\x00' \
+		+ disk.encode() + (b'\x00' * 0x1E6)  # 486
+	p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+
+	ctrl_packet = int.to_bytes(index + 2, 2, 'big') + b'\x00\x4A\x00\x10\x00\x00\x00\x00\x00\x07\x00\x2F\x00' \
+		+ disk.encode() + b'\x00\x2F\xFF\xFE\x00\x2A\x00\x00'
+	p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+
+def p2k_get_volume_list(p2k_usb_device, index):
+	ctrl_packet = int.to_bytes(index, 2, 'big') + b'\x00\x4A\x00\x04\x00\x00\x00\x00\x00\x0A'
+	result = p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+	volumes = []
+	for byte in result:
+		if byte >= 97 and byte <= 122:   # Only lowercase ASCII check.
+			volumes.append(chr(byte))
+	logging.info(f'Phone disks are {volumes}!')
+	return volumes
+
 def p2k_get_info(p2k_usb_device, index, feature, fixup=False):
 	# 00 0A 00 39 00 02 00 00 FF FF
 	# 00 0C 00 39 00 02 00 00 00 01
-	ctrl_packet = int.to_bytes(index + 2, 2, 'big') +  b'\x00\x39\x00\x02\x00\x00' + int.to_bytes(feature, 2, 'big')
+	ctrl_packet = int.to_bytes(index, 2, 'big') +  b'\x00\x39\x00\x02\x00\x00' + int.to_bytes(feature, 2, 'big')
 	return p2k_cmd_execute(p2k_usb_device, ctrl_packet, None, True, fixup)
 
 def p2k_read_seem(p2k_usb_device, index, seem, rec, file_path=None):
 	# 00 06 00 20 00 08 00 00 01 17 00 01 00 00 00 00
 	# 00 08 00 20 00 08 00 00 01 7F 00 01 00 00 00 00
-	ctrl_packet = int.to_bytes(index + 2, 2, 'big') +  b'\x00\x20\x00\x08\x00\x00' + \
+	ctrl_packet = int.to_bytes(index, 2, 'big') +  b'\x00\x20\x00\x08\x00\x00' + \
 		int.to_bytes(seem, 2, 'big') + int.to_bytes(rec, 2, 'big') +  b'\x00\x00\x00\x00'
 	result_data = p2k_cmd_execute(p2k_usb_device, ctrl_packet)
 	if file_path:
@@ -311,6 +392,36 @@ def p2k_cmd_execute(p2k_usb_device, ctrl_packet, size=None, trim_usb_packet=True
 		result_data = 'NO DATA'.encode()
 
 	return result_data
+
+def p2k_do_dump_files(p2k_usb_device, disk, skip_files=[]):
+	logging.info(f'Dumping files from disk /{disk}/!')
+
+	volumes = p2k_get_volume_list(p2k_usb_device, 0x0002)
+	if disk not in volumes:
+		logging.error(f'There is no disk /{disk}/ in volumes {volumes} on the phone!')
+		return False
+
+	p2k_disk_init(p2k_usb_device, 0x0004, disk)
+
+	logging.info(f'Getting file list from disk /{disk}/...')
+	file_list = p2k_get_file_list(p2k_usb_device, 0x0008, disk)
+	file_list.sort()
+	str_list_files = ''
+	for file, size, user, flags in file_list:
+		str_list_files += f'{file} user=0x{user:02X} flags=0x{flags:02X} size={size} bytes.\n'
+	logging.info(str_list_files)
+
+	index = 0x1000
+	for file_info in file_list:
+		save_flag = True
+		for skip in skip_files:
+			if file_info[0].endswith(skip):
+				save_flag = False
+		if save_flag:
+			p2k_save_file(p2k_usb_device, index, file_info)
+		else:
+			logging.info(f'Skipped dumping of "{file_info[0]}" file!')
+		index += 2
 
 def p2k_do_info_dump(p2k_usb_device, file_path):
 	logging.info(f'Dumping P2K Information to the "{file_path}" file!')
@@ -826,12 +937,7 @@ def switch_p2kmode_to_flashmode(p2k_usb_device):
 				if line and not line.startswith('#'):
 #					ctrl_packet = b'\x00\x01\x00\x0D\x00\x00\x00\x00'
 					ctrl_packet = bytes.fromhex(line)
-					p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
-					logging.debug(
-						f'>>> Send USB control packet '
-						f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) '
-						f'to device...\n{hexdump(ctrl_packet)}'
-					)
+					p2k_cmd_execute(p2k_usb_device, ctrl_packet)
 	except Exception as e:
 		logging.error(f'Cannot open "{p2k_command_list}" file! Error:\n{e}')
 	logging.info(f'Wait {delay_switch} sec for P2K => Flash switching...')
