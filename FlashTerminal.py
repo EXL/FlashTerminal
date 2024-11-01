@@ -20,7 +20,7 @@ Flags:
 	-l       - Upload RAMDLD to RAM
 	-s       - Switch device to Flash Mode (Bootloader Mode)
 	-2       - Use second USB interface for BP Bootloader
-	-memacs  - Use P2K MEMACS command for dumping
+	-p       - Do some P2K stuff (MEMACS, P2K_INFO, FILES_DUMP)
 	-at_skip - Skip AT => P2K switching
 	-at_usb  - Use AT USB writing instead of /dev/ttyACM0 writing
 	-h       - Show help
@@ -30,7 +30,7 @@ Developers and Thanks:
 	- MotoFan.Ru developers
 	- ROMphonix developers
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
-	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder
+	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube
 
 10-May-2024, Siberia
 '''
@@ -76,10 +76,10 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'p2k', 'desc': 'Motorola PCS V60 Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS EZX Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6009, 'mode': 'p2k', 'desc': 'Motorola PCS EZX Phone (P2K)'},
+	{'usb_vid': 0x1907, 'usb_pid': 0x0001, 'mode': 'at', 'desc': 'Elcoteq Mosel GSM Phone (AT)'},
+	{'usb_vid': 0x1907, 'usb_pid': 0x0002, 'mode': 'p2k', 'desc': 'Elcoteq Mosel GSM Phone (P2K)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0007, 'mode': 'at', 'desc': 'Siemens CC75 GSM Phone (AT)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'p2k', 'desc': 'Siemens CC75 GSM Phone (P2K)'},
-	{'usb_vid': 0x1907, 'usb_pid': 0x0001, 'mode': 'at', 'desc': 'Mosel GSM Phone (AT)'},
-	{'usb_vid': 0x1907, 'usb_pid': 0x0002, 'mode': 'p2k', 'desc': 'Mosel GSM Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -228,10 +228,176 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A780g_BP_RAMDLD_08A0.ldr', 0x03FD0000, 0x03FD0010)
 		pass
 
-def worksheet_memacs(p2k_usb_device):
-	do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
-#	do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
+def worksheet_p2k(p2k_usb_device):
+#	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
+#	p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
+#	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
 	return True
+
+## Motorola Test Command Interface (P2K) Protocol ######################################################################
+
+def p2k_get_info(p2k_usb_device, index, feature, fixup=False):
+	# 00 0A 00 39 00 02 00 00 FF FF
+	# 00 0C 00 39 00 02 00 00 00 01
+	ctrl_packet = int.to_bytes(index + 2, 2, 'big') +  b'\x00\x39\x00\x02\x00\x00' + int.to_bytes(feature, 2, 'big')
+	return p2k_cmd_execute(p2k_usb_device, ctrl_packet, None, True, fixup)
+
+def p2k_read_seem(p2k_usb_device, index, seem, rec, file_path=None):
+	# 00 06 00 20 00 08 00 00 01 17 00 01 00 00 00 00
+	# 00 08 00 20 00 08 00 00 01 7F 00 01 00 00 00 00
+	ctrl_packet = int.to_bytes(index + 2, 2, 'big') +  b'\x00\x20\x00\x08\x00\x00' + \
+		int.to_bytes(seem, 2, 'big') + int.to_bytes(rec, 2, 'big') +  b'\x00\x00\x00\x00'
+	result_data = p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+	if file_path:
+		with open(file_path, 'wb') as file:
+			file.write(result_data)
+	return bytes(result_data)
+
+def p2k_memacs(p2k_usb_device, index, addr_s, step, file_path=None):
+	# MEMACS P2K Command.
+	# 00 02 00 16 00 08 00 00 10 00 00 00 08 00 00 00
+	# 00 03 00 16 00 08 00 00 10 00 08 00 08 00 00 00
+	ctrl_packet = int.to_bytes(index + 2, 2, 'big') +  b'\x00\x16\x00\x08\x00\x00' + \
+		int.to_bytes(addr_s, 4, 'big') + int.to_bytes(step, 2, 'big') +  b'\x00\x00'
+	return p2k_cmd_execute(p2k_usb_device, ctrl_packet)
+
+def p2k_cmd_execute(p2k_usb_device, ctrl_packet, size=None, trim_usb_packet=True, fixup=False):
+	usb_additional_payload_size = 0x06
+
+	# Send control packet.
+	p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
+	logging.debug(
+		f'>>> Send USB control packet '
+		f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) '
+		f'to device...\n{hexdump(ctrl_packet)}'
+	)
+
+	# Stabilization.
+	retry = 0
+	while not retry:
+		result = p2k_usb_device.ctrl_transfer(0xC1, 0x00, 0x00, 0x08, 0x08, timeout_read)
+		logging.debug(
+			f'>>> Send USB control packet '
+			f'(bmRequestType=0xC1, bmRequest=0x00, wValue=0x00, wIndex=0x08, size=0x08) to device...'
+			f'\nresult =\n{hexdump(result)}'
+		)
+		retry = int.from_bytes(result, 'little')
+
+	# Read count of packets and packet size.
+	usb_packet_count = int.from_bytes(result[:2], 'big')
+	usb_packet_size  = int.from_bytes(result[2:], 'big')
+	logging.debug(
+		f'usb_packet_count={usb_packet_count}|0x{usb_packet_count:02X}, '
+		f'usb_packet_size={usb_packet_size}|0x{usb_packet_size:02X}'
+	)
+	if not size:
+		size = usb_packet_size + usb_additional_payload_size
+
+	# Read data.
+	result = p2k_usb_device.ctrl_transfer(0xC1, 0x01, 0x01, 0x08, size, timeout_read)
+	logging.debug(
+		f'>>> Send USB control packet '
+		f'(bmRequestType=0xC1, bmRequest=0x01, wValue=0x01, wIndex=0x08, size=0x{size:08X}) to device...'
+		f'\nresult =\n{hexdump(result)}'
+	)
+	if trim_usb_packet:
+		usb_packet_answer_header_size = size - int.from_bytes(result[10:12], 'big')
+		if not fixup:
+			usb_packet_answer_header_size += 1
+		result_data = result[usb_packet_answer_header_size:]     # Drop first bytes from pipe answer.
+	else:
+		result_data = result
+	if (not result_data) or (len(result_data) == 0):
+		result_data = 'NO DATA'.encode()
+
+	return result_data
+
+def p2k_do_info_dump(p2k_usb_device, file_path):
+	logging.info(f'Dumping P2K Information to the "{file_path}" file!')
+	with open(file_path, 'w') as file:
+		file.write('\nSEEM 0117_0001:\n' + hexdump(p2k_read_seem(p2k_usb_device, 0x0006, 0x0117, 0x0001)))
+		file.write('\nSEEM 0117_0001:\n' + hexdump(p2k_read_seem(p2k_usb_device, 0x0008, 0x017F, 0x0001)))
+		file.write('\nFTR FFFF:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x000A, 0xFFFF, True)))
+		file.write('\nFTR 0001:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x000C, 0x0001, True)))
+		file.write('\nFTR 0002:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x000E, 0x0002, True)))
+		file.write('\nFTR 0003:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0010, 0x0003, True)))
+		file.write('\nFTR 1107:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0012, 0x1107, True)))
+		file.write('\nFTR 0006:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0014, 0x0006, True)))
+		file.write('\nFTR 0007:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0016, 0x0007, True)))
+		file.write('\nFTR 0008:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0018, 0x0008, True)))
+		file.write('\nFTR 0009:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x001A, 0x0009, True)))
+		file.write('\nFTR 1000:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x001C, 0x1000, True)))
+		file.write('\nFTR 1001:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x001E, 0x1001, True)))
+		file.write('\nFTR 1002:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0020, 0x1002, True)))
+		file.write('\nFTR 1003:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0022, 0x1003, True)))
+		file.write('\nFTR 1100:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0024, 0x1100, True)))
+		file.write('\nFTR 1101:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0026, 0x1101, True)))
+		file.write('\nFTR 1102:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0028, 0x1102, True)))
+		file.write('\nFTR 1103:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x002A, 0x1103, True)))
+		file.write('\nFTR 1104:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x002C, 0x1104, True)))
+		file.write('\nFTR 1105:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x002E, 0x1105, True)))
+		file.write('\nFTR 1106:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0030, 0x1106, True)))
+		file.write('\nFTR 0004:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0032, 0x0004, True)))
+		file.write('\nFTR 1108:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0034, 0x1108, True)))
+		file.write('\nFTR 1109:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0036, 0x1109, True)))
+		file.write('\nFTR 110A:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0038, 0x110A, True)))
+		file.write('\nFTR 110B:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x003A, 0x110B, True)))
+		file.write('\nFTR 110C:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x003C, 0x110C, True)))
+		file.write('\nFTR 110D:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x003E, 0x110D, True)))
+		file.write('\nFTR 1200:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0040, 0x1200, True)))
+		file.write('\nFTR 1300:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0042, 0x1300, True)))
+		file.write('\nFTR 1301:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0044, 0x1301, True)))
+		file.write('\nFTR 1302:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0046, 0x1302, True)))
+		file.write('\nFTR 1303:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0048, 0x1303, True)))
+		file.write('\nFTR 1304:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x004A, 0x1304, True)))
+		file.write('\nFTR 1305:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x004C, 0x1305, True)))
+		file.write('\nFTR 1306:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x004E, 0x1306, True)))
+		file.write('\nFTR 1307:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0050, 0x1307, True)))
+		file.write('\nFTR 1308:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0052, 0x1308, True)))
+		file.write('\nFTR 1309:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0054, 0x1309, True)))
+		file.write('\nFTR 130A:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0056, 0x130A, True)))
+		file.write('\nFTR 1400:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x0058, 0x1400, True)))
+		file.write('\nFTR 1401:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x005A, 0x1401, True)))
+		file.write('\nFTR 2000:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x005C, 0x2000, True)))
+		file.write('\nFTR FFFE:\n' + hexdump(p2k_get_info(p2k_usb_device, 0x005E, 0xFFFE, True)))
+	return True
+
+def p2k_do_memacs_dump(p2k_usb_device, file_path, start = 0x10000000, end = 0x12000000, step = 0x0800):
+	logging.info(f'Dumping 0x{start:08X}-0x{end:08X} memory region to the "{file_path}" file!')
+	addr_s = start
+	addr_e = start + step
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.time()
+		while addr_e <= end:
+			if addr_e > end:
+				addr_e = end
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (index % 0x50 == 0):
+				time_start = progress(step, time_start, 0x50, index * step, file_path, addr_s, addr_e, end)
+
+			result_data = p2k_memacs(p2k_usb_device, index, addr_s, step)
+			if len(result_data) != step:
+				logging.error(f'Result data is smaller than step: {len(result_data)} != {step}, MEMACS disabled?')
+				return False
+			file.write(result_data)
+
+			addr_s = addr_s + step
+			addr_e = addr_s + step
+			index += 1
+	return True
+
+def do_p2k_work(modem_device, modem_speed, usb_devices):
+	if switch_atmode_to_p2kmode(modem_device, modem_speed, usb_devices):
+		p2k_usb_device = find_usb_device(usb_devices, 'p2k')
+		if p2k_usb_device:
+#			p2k_usb_device.set_configuration()
+			config = p2k_usb_device.get_active_configuration()
+			logging.debug(config)
+			worksheet_p2k(p2k_usb_device)
+		else:
+			logging.error('Cannot find P2K device!')
+	sys.exit(0)
 
 ## Motorola Flash Protocol #############################################################################################
 
@@ -545,7 +711,7 @@ def mfp_send_recv(er, ew, data, read_response = True):
 				sys.exit(1)
 			time.sleep(delay_ack)
 	else:
-		response = b''
+		response = 'NO DATA'.encode()
 	return response
 
 ## USB Routines ########################################################################################################
@@ -684,73 +850,6 @@ def reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices):
 			logging.error('Cannot find P2K device!')
 			return False
 
-def do_memacs_dump(p2k_usb_device, file_path, start = 0x10000000, end = 0x12000000, step = 0x0800):
-	addr_s = start
-	addr_e = start + step
-	with open(file_path, 'wb') as file:
-		index = 0
-		time_start = time.time()
-		while addr_e <= end:
-			if addr_e > end:
-				addr_e = end
-			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
-			if index > 0 and (index % 0x50 == 0):
-				time_start = progress(step, time_start, 0x50, index * step, file_path, addr_s, addr_e, end)
-
-			# MEMACS P2K Command.
-			# 00 02 00 16 00 08 00 00 10 00 00 00 08 00 00 00    ................
-			# 00 03 00 16 00 08 00 00 10 00 08 00 08 00 00 00    ................
-			# 00 04 00 16 00 08 00 00 10 00 10 00 08 00 00 00    ................
-			ctrl_packet = int.to_bytes(index + 2, 2, 'big') +  b'\x00\x16\x00\x08\x00\x00' + \
-				int.to_bytes(addr_s, 4, 'big') + int.to_bytes(step, 2, 'big') +  b'\x00\x00'
-			p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
-			logging.debug(
-				f'>>> Send USB control packet '
-				f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) '
-				f'to device...\n{hexdump(ctrl_packet)}'
-			)
-
-			# Stabilization.
-			retry = 0
-			while not retry:
-				result = p2k_usb_device.ctrl_transfer(0xC1, 0x00, 0x00, 0x08, 0x08, timeout_read)
-				logging.debug(
-					f'>>> Send USB control packet '
-					f'(bmRequestType=0xC1, bmRequest=0x00, wValue=0x00, wIndex=0x08, size=0x08) to device...'
-					f'\nresult =\n{hexdump(result)}'
-				)
-				retry = int.from_bytes(result, 'little')
-
-			# Read data.
-			result = p2k_usb_device.ctrl_transfer(0xC1, 0x01, 0x01, 0x08, step + 0x0F, timeout_read)
-			logging.debug(
-				f'>>> Send USB control packet '
-				f'(bmRequestType=0xC1, bmRequest=0x01, wValue=0x01, wIndex=0x08, size={step + 0x0F}) to device...'
-				f'\nresult =\n{hexdump(result)}'
-			)
-			result_data = result[0x0F:]     # Drop 0x0F first bytes from pipe answer.
-			if len(result_data) != step:
-				logging.error(f'Result data is smaller than step: {len(result_data)} != {step}, MEMACS disabled?')
-				return False
-			file.write(result_data)
-
-			addr_s = addr_s + step
-			addr_e = addr_s + step
-			index += 1
-	return True
-
-def do_memacs(modem_device, modem_speed, usb_devices):
-	if switch_atmode_to_p2kmode(modem_device, modem_speed, usb_devices):
-		p2k_usb_device = find_usb_device(usb_devices, 'p2k')
-		if p2k_usb_device:
-#			p2k_usb_device.set_configuration()
-			config = p2k_usb_device.get_active_configuration()
-			logging.debug(config)
-			worksheet_memacs(p2k_usb_device)
-		else:
-			logging.error('Cannot find P2K device!')
-	sys.exit(0)
-
 ## Utils ###############################################################################################################
 
 def insert_to_filename(insert, filename):
@@ -819,8 +918,8 @@ def main():
 		sys.exit(1)
 	if '-s' in sys.argv:
 		reconnect_device_in_flash_mode(modem_device, modem_speed, usb_devices)
-	if '-memacs' in sys.argv:
-		do_memacs(modem_device, modem_speed, usb_devices)
+	if '-p' in sys.argv:
+		do_p2k_work(modem_device, modem_speed, usb_devices)
 	er, ew = usb_init(usb_devices, 'flash')
 	if er and ew:
 		worksheet(er, ew)

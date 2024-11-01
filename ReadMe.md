@@ -30,7 +30,7 @@ $ ./FlashTerminal.py -r       # Reboot device.
 $ ./FlashTerminal.py -l       # Upload RAMDLD to RAM.
 $ ./FlashTerminal.py -s       # Switch device to Flash Mode (Bootloader Mode).
 $ ./FlashTerminal.py -2       # Use second USB interface for BP Bootloader.
-$ ./FlashTerminal.py -memacs  # Use P2K MEMACS command for dumping
+$ ./FlashTerminal.py -p       # Do some P2K stuff (MEMACS, P2K_INFO, FILES_DUMP)
 $ ./FlashTerminal.py -at_skip # Skip AT => P2K switching
 $ ./FlashTerminal.py -at_usb  # Use AT USB writing instead of /dev/ttyACM0 writing
 $ ./FlashTerminal.py -h       # Show help.
@@ -86,6 +86,7 @@ These phones were dumped by the Flash Terminal tool.
 | A780DVB-H    | BP: Neptune LTE       | 4 MiB (NOR)     | A780g_BP_RAMDLD_08A0.ldr                      | ronalp                   |
 | L72/L9       | Neptune LTE2 irom0400 | 64 MiB (NOR)    | L72_RAMDLD_0C70.ldr                           | fkcoder                  |
 | K1s          | Neptune LTE2 irom0400 | 64 MiB (NOR)    | K1s_RAMDLD_0DC0.ldr                           | fkcoder                  |
+| CC75/Mosel   | Neptune LTE           | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | overglube                |
 
 ## Dumping Worksheet Parameters
 
@@ -287,13 +288,19 @@ mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x0
 mfp_dump_read(er, ew, 'L9_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 ```
 
+**Dumping 32 MB NOR Memory from Siemens CC75 (Mars, Mosel) using MEMACS**
+
+```python
+p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
+```
+
 ## Developers & Thanks
 
 - EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
 - MotoFan.Ru developers
 - ROMphonix developers
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
-- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder
+- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube
 
 ## Useful Information and Resources
 
