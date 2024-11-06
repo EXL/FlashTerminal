@@ -226,8 +226,8 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 def worksheet_p2k(p2k_usb_device):
 #	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
 #	p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
-	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
-	p2k_do_dump_files(p2k_usb_device, 'a')
+#	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
+#	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
 
 ## Motorola Test Command Interface (P2K) Protocol ######################################################################
@@ -244,8 +244,7 @@ def p2k_save_file(p2k_usb_device, index, file_info):
 	p2k_cmd_execute(p2k_usb_device, ctrl_packet)
 
 	# Seek file to start.
-	# 04 FE 00 4A 00 09 00 00 00 00 00 03 00 00 00 00
-	# 00
+	# 04 FE 00 4A 00 09 00 00 00 00 00 03 00 00 00 00 00
 	ctrl_packet = int.to_bytes(index + 2, 2, 'big') + b'\x00\x4A\x00\x09\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00'
 	p2k_cmd_execute(p2k_usb_device, ctrl_packet)
 
