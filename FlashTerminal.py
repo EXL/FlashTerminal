@@ -126,7 +126,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A830_RAMDLD_0520_Patched_Dump_NOR.ldr', 0x07800000, 0x07800010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E398_RAMDLD_07B0_Hacked_Dump.ldr', 0x03FD0000, 0x03FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E1000_RAMDLD_0610.ldr', 0x07804000, 0x07804010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A1000_BP_RAMDLD_0651_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
@@ -161,7 +161,7 @@ def worksheet(er, ew):
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_dump(er, ew, 'E398_IROM_Dump.bin', 0x00000000, 0x00200000, 0x100)
 #	mfp_dump_rqrc(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x10010000)
-	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
+#	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 #	mfp_dump_sram(er, ew, 'C350L_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350L_IROM_Dump.bin', 0x00000000, 0x00040000, 0x30)
 #	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
@@ -966,13 +966,13 @@ def progress(step, time_start, size, index, file_path, addr_s, addr_e, end, page
 	speed = (step * size) / (time_end - time_start) / 1024
 	if nand:
 		logging.info(
-			f'Dumped: {index:08}/{pages:08} pages | {index*512/1024:>8} KiB | 0x{index*512:08X}-{index*512:010d} bytes | '
+			f'Dumped: {index:08}/{pages:08} pages | {index*512/1024:>8} KiB | 0x{index*512:08X}={index*512:010d} bytes | '
 			f'0x{addr_s:08X}-0x{addr_e:08X}-0x{end:08X} | '
 			f'{speed:.2f} KiB/s\n512, 16 bytes => "{file_path}", "{insert_to_filename("_spare_area",file_path)}"'
 		)
 	else:
 		logging.info(
-			f'Dumped: {index/1024:>8} KiB | 0x{index:08X}-{index:010d} bytes | '
+			f'Dumped: {index/1024:>8} KiB | 0x{index:08X}={index:010d} bytes | '
 			f'0x{addr_s:08X}-0x{addr_e:08X}-0x{end:08X} | {speed:.2f} KiB/s => "{file_path}"'
 		)
 	return time.time()  # Reset time.
