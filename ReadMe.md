@@ -87,6 +87,7 @@ These phones were dumped by the Flash Terminal tool.
 | L72/L9       | Neptune LTE2 irom0400 | 64 MiB (NOR)    | L72_RAMDLD_0C70.ldr                           | fkcoder                  |
 | K1s          | Neptune LTE2 irom0400 | 64 MiB (NOR)    | K1s_RAMDLD_0DC0.ldr                           | fkcoder                  |
 | CC75/Mosel   | Neptune LTE           | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | overglube                |
+| U3           | Neptune LTE2 irom0400 | 32 MiB (NOR)    | U3_RAMDLD_0CF0.ldr                            | fkcoder                  |
 
 ## Dumping Worksheet Parameters
 
