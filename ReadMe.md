@@ -296,6 +296,21 @@ mfp_dump_read(er, ew, 'L9_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
 ```
 
+**Dumping 32 MB NOR Memory from Motorola PEBL U3**
+
+```python
+mfp_upload_binary_to_addr(er, ew, 'loaders/U3_RAMDLD_0CF0.ldr', 0x03FC8000, 0x03FC8010, True)
+mfp_dump_read(er, ew, 'U3_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
+```
+
+**Dumping 32+32 MB NOR Memory from Motorola KRZR K3**
+
+```python
+mfp_upload_binary_to_addr(er, ew, 'loaders/K3_RAMDLD_0320.ldr', 0x80000000, 0x80000038, True)
+mfp_dump_read(er, ew, 'K3_ROM_Dump_1.bin', 0xA0000000, 0xA1FFFFFF, 0x300)
+mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB5FFFFFF, 0x300)
+```
+
 ## Developers & Thanks
 
 - EXL, usernameak, kraze1984, dffn3, Vilko, Evy, motoprogger, b1er, dion, whoever
