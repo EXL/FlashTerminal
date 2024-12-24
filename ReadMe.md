@@ -89,6 +89,7 @@ These phones were dumped by the Flash Terminal tool.
 | CC75/Mosel   | Neptune LTE           | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | overglube                |
 | U3           | Neptune LTE2 irom0400 | 32 MiB (NOR)    | U3_RAMDLD_0CF0.ldr                            | fkcoder                  |
 | K3           | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
+| T280         | Patriot               | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
 
 ## Dumping Worksheet Parameters
 
@@ -163,7 +164,7 @@ mfp_dump_dump(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 mfp_dump_dump(er, ew, 'C550_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
 ```
 
-**Dumping 4 MB and 8 MB NOR Memory from Motorola V60/V60i, Motorola V66/V66i, Motorola V70 (+ IROM)**
+**Dumping 4 MB and 8 MB NOR Memory from Motorola V60/V60i, Motorola V66/V66i, Motorola V70, Motorola T280 (+ IROM)**
 
 ```python
 mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -317,7 +318,7 @@ mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB5FFFFFF, 0x300)
 - MotoFan.Ru developers
 - ROMphonix developers
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
-- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube
+- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f
 
 ## Useful Information and Resources
 
