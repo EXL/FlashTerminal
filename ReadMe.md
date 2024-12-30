@@ -60,7 +60,7 @@ These phones were dumped by the Flash Terminal tool.
 | E380         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | SGXVII                   |
 | V60          | Patriot               | 4 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
 | V66i         | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
-| V60i         | Patriot               | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | metalman87               |
+| V60i         | Patriot               | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | metalman87, MC4f         |
 | V70          | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | kostett                  |
 | T720i        | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | diokhann                 |
 | T722i        | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | Paschendale              |
