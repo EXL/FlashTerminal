@@ -90,6 +90,7 @@ These phones were dumped by the Flash Terminal tool.
 | U3           | Neptune LTE2 irom0400 | 32 MiB (NOR)    | U3_RAMDLD_0CF0.ldr                            | fkcoder                  |
 | K3           | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
 | T280         | Patriot               | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
+| T720         | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | regenfaellt              |
 
 ## Dumping Worksheet Parameters
 
@@ -318,7 +319,7 @@ mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB5FFFFFF, 0x300)
 - MotoFan.Ru developers
 - ROMphonix developers
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
-- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f
+- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
 
 ## Useful Information and Resources
 
