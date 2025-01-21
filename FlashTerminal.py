@@ -77,6 +77,8 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'p2k', 'desc': 'Motorola PCS V60 Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS EZX Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6009, 'mode': 'p2k', 'desc': 'Motorola PCS EZX Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x0005, 'mode': 'at', 'desc': 'Motorola PCS V120c Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x0001, 'mode': 'p2k', 'desc': 'Motorola PCS V120c Phone (P2K)'},
 	{'usb_vid': 0x1907, 'usb_pid': 0x0001, 'mode': 'at', 'desc': 'Elcoteq Mosel GSM Phone (AT)'},
 	{'usb_vid': 0x1907, 'usb_pid': 0x0002, 'mode': 'p2k', 'desc': 'Elcoteq Mosel GSM Phone (P2K)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0007, 'mode': 'at', 'desc': 'Siemens CC75 GSM Phone (AT)'},
@@ -136,8 +138,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr', 0x14010000, 0x14010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K1s_RAMDLD_0DC0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
@@ -174,11 +176,11 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
-	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00510000, 0x30) # 4 MiB + 1 MiB
+#	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00510000, 0x30) # 4 MiB + 1 MiB
 #	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
-#	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40400000, 0x30)
+	mfp_dump_sram(er, ew, 'V120c_ROM_Dump.bin', 0x40000000, 0x40410000, 0x30)
 #	mfp_dump_sram(er, ew, 'W315_ROM_Dump.bin', 0x00000000, 0x01000000, 0x30)
 #	mfp_dump_sram(er, ew, 'A760_AP_ROM_Dump.bin', 0x00000000, 0x02000000, 0x30)
 #	mfp_dump_sram(er, ew, 'A760_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
