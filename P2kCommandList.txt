@@ -1,1 +1,2 @@
+# This command fits for GSM/UMTS/TDMA/CDMA (Wally) Motorola P2K phones.
 0001000D00000000
