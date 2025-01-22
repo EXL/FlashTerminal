@@ -40,6 +40,7 @@ $ ./FlashTerminal.py -h       # Show help.
 
 These phones were dumped by the Flash Terminal tool.
 
+```
 | Phone        | SoC                   | Flash           | Loader                                        | Dumped by                |
 |--------------|-----------------------|-----------------|-----------------------------------------------|--------------------------|
 | A830         | Rainbow               | 16 MiB (NOR)    | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL, greyowls            |
@@ -63,7 +64,7 @@ These phones were dumped by the Flash Terminal tool.
 | V60i         | Patriot               | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | metalman87, MC4f         |
 | V70          | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | kostett                  |
 | T720i        | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | diokhann                 |
-| T722i        | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | Paschendale              |
+| T722i        | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | Paschendale, MC4f        |
 | V120c        | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | NextG50                  |
 | ic902        | MSM6800               | 128 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND.ldr        | EXL                      |
 | QA30         | MSM6575               | 256 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr   | EXL                      |
@@ -90,8 +91,10 @@ These phones were dumped by the Flash Terminal tool.
 | U3           | Neptune LTE2 irom0400 | 32 MiB (NOR)    | U3_RAMDLD_0CF0.ldr                            | fkcoder                  |
 | K3           | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
 | T280         | Patriot               | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
-| T720         | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | regenfaellt              |
+| T720         | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | regenfaellt, MC4f        |
 | C353t        | Patriot TDMA          | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
+| V60i(C)      | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | MC4f                     |
+```
 
 ## Dumping Worksheet Parameters
 
