@@ -140,7 +140,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr', 0x14010000, 0x14010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K1s_RAMDLD_0DC0.ldr', 0x03FC8000, 0x03FC8010, True)
@@ -178,7 +178,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
-	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
+#	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
 #	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
@@ -356,20 +356,20 @@ def p2k_cmd_execute(p2k_usb_device, ctrl_packet, size=None, trim_usb_packet=True
 	usb_additional_payload_size = 0x06
 
 	# Send control packet.
-	p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x06, ctrl_packet, timeout_write)
+	p2k_usb_device.ctrl_transfer(0x41, 0x02, 0x00, 0x08, ctrl_packet, timeout_write)
 	logging.debug(
 		f'>>> Send USB control packet '
-		f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x06) '
+		f'(bmRequestType=0x41, bmRequest=0x02, wValue=0x00, wIndex=0x08) '
 		f'to device...\n{hexdump(ctrl_packet)}'
 	)
 
 	# Stabilization.
 	retry = 0
 	while not retry:
-		result = p2k_usb_device.ctrl_transfer(0xC1, 0x00, 0x00, 0x06, 0x08, timeout_read)
+		result = p2k_usb_device.ctrl_transfer(0xC1, 0x00, 0x00, 0x08, 0x08, timeout_read)
 		logging.debug(
 			f'>>> Send USB control packet '
-			f'(bmRequestType=0xC1, bmRequest=0x00, wValue=0x00, wIndex=0x06, size=0x08) to device...'
+			f'(bmRequestType=0xC1, bmRequest=0x00, wValue=0x00, wIndex=0x08, size=0x08) to device...'
 			f'\nresult =\n{hexdump(result)}'
 		)
 		retry = int.from_bytes(result, 'little')
@@ -385,10 +385,10 @@ def p2k_cmd_execute(p2k_usb_device, ctrl_packet, size=None, trim_usb_packet=True
 		size = usb_packet_size + usb_additional_payload_size
 
 	# Read data.
-	result = p2k_usb_device.ctrl_transfer(0xC1, 0x01, 0x01, 0x06, size, timeout_read)
+	result = p2k_usb_device.ctrl_transfer(0xC1, 0x01, 0x01, 0x08, size, timeout_read)
 	logging.debug(
 		f'>>> Send USB control packet '
-		f'(bmRequestType=0xC1, bmRequest=0x01, wValue=0x01, wIndex=0x06, size=0x{size:08X}) to device...'
+		f'(bmRequestType=0xC1, bmRequest=0x01, wValue=0x01, wIndex=0x08, size=0x{size:08X}) to device...'
 		f'\nresult =\n{hexdump(result)}'
 	)
 	if trim_usb_packet:
