@@ -147,10 +147,10 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/U3_RAMDLD_0CF0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K3_RAMDLD_0320.ldr', 0x80000000, 0x80000038, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/LTE-Hitagi.ldr', 0x03FD0000, 0x03FD0010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/LTE-Hitagi.ldr', 0x03FD0000, 0x03FD0000)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
@@ -163,10 +163,10 @@ def worksheet(er, ew):
 
 	# LTE Hitagi 0.1 by muromec
 	# https://github.com/muromec/lte-hitagi
-	mfp_cmd(er, ew, 'RAMLDR')
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RAMLDR')
 	mfp_cmd(er, ew, 'HLP')
-	mfp_cmd(er, ew, 'ECHO')
+#	mfp_cmd(er, ew, 'RQVN')
+	mfp_cmd(er, ew, 'ECHO', '100'.encode())
 
 	# Dump SRAM and NOR flash.
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
