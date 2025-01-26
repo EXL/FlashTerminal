@@ -167,9 +167,9 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RAMLDR')
 	mfp_cmd(er, ew, 'HLP')
 	mfp_cmd(er, ew, 'ECHO', '100'.encode())
-#	mfp_binary_cmd(er, ew, b'C')
+	mfp_binary_cmd(er, ew, b'C')
 #	mfp_binary_cmd(er, ew, b'R' + 0x10000000.to_bytes(4, byteorder='big') + 0x00000800.to_bytes(4, byteorder='big'))
-	mfp_dump_dump(er, ew, 'E1_ROM_Dump.bin', 0x10000000, 0x12000000, 0x800)
+#	mfp_dump_dump(er, ew, 'E1_ROM_Dump.bin', 0x10000000, 0x12000000, 0x800)
 
 	# Dump SRAM and NOR flash.
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
