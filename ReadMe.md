@@ -5,7 +5,7 @@ A set of utilities and patched/hacked RAMDLD loaders (RAM downloaders) for dumpi
 
 ![Flash Terminal Screenshot on Ubuntu 22.04 LTS](images/Screenshot_FlashTerminal_Ubuntu_2204.png)
 
-Detailed user manual: [LPCwiki](https://lpcwiki.miraheze.org/wiki/Dumping_firmware_from_phones/Motorola#FlashTerminal)
+Detailed user manual (in English): [LPCwiki](https://lpcwiki.miraheze.org/wiki/Dumping_firmware_from_phones/Motorola#FlashTerminal)
 
 ## Dependencies
 
@@ -38,7 +38,7 @@ $ ./FlashTerminal.py -h       # Show help.
 
 ## Dumping Table
 
-These phones were dumped by the Flash Terminal tool.
+These phones were dumped by the Flash Terminal tool.s
 
 ```
 | Phone        | SoC                   | Flash           | Loader                                        | Dumped by                |
@@ -95,6 +95,21 @@ These phones were dumped by the Flash Terminal tool.
 | C353t        | Patriot TDMA          | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
 | V60i(C)      | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | MC4f                     |
 | V60t         | Patriot TDMA          | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
+| CC75/Mars    | Neptune LTE           | 32 MiB (NOR)    | LTE-Hitagi.ldr                                | Den K                    |
+```
+
+## Flashing Worksheet Parameters
+
+**Flashing 8 MB NOR Memory Dump to Motorola C350L**
+
+```python
+timeout_read = 500000
+timeout_write = 500000
+#	mfp_cmd(er, ew, 'RQHW')
+#	mfp_cmd(er, ew, 'RQVN')
+mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False
+mfp_cmd(er, ew, 'ERASE')
+mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 ```
 
 ## Dumping Worksheet Parameters
@@ -325,9 +340,11 @@ mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB5FFFFFF, 0x300)
 - ROMphonix developers
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 - SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
+- Den K
 
 ## Useful Information and Resources
 
 - https://github.com/dumpit3315/dumpit by dffn3
+- https://github.com/MotoFanRu/LTE-Hitagi by muromec
 - MotoFan.Ru forum about modding Motorola phones
 - ROMphonix Club Discord server
