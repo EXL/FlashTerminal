@@ -31,6 +31,7 @@ Developers and Thanks:
 	- ROMphonix developers
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
+	- Den K
 
 10-May-2024, Siberia
 '''
@@ -95,8 +96,8 @@ p2k_command_list = 'P2kCommandList.txt'
 delay_ack = 0.00
 delay_switch = 8.00
 delay_jump = 1.00
-timeout_read = 5000
-timeout_write = 5000
+timeout_read = 500000
+timeout_write = 500000
 buffer_write_size = 0x800
 buffer_read_size = 0x800
 
@@ -106,8 +107,8 @@ def worksheet(er, ew):
 	er, ew = usb_check_restart_phone(er, ew, '-r' in sys.argv)
 
 	# Various single commands.
-	mfp_cmd(er, ew, 'RQHW')
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQHW')
+#	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'POWER_DOWN')
@@ -135,7 +136,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A1000_BP_RAMDLD_0651_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
-#		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
+		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -147,7 +148,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/U3_RAMDLD_0CF0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K3_RAMDLD_0320.ldr', 0x80000000, 0x80000038, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/LTE-Hitagi.ldr', 0x03FD0000, 0x03FD0000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/LTE-Hitagi.ldr', 0x03FD0000, 0x03FD0000)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -165,9 +166,9 @@ def worksheet(er, ew):
 	# https://github.com/muromec/lte-hitagi
 	# https://github.com/MotoFanRu/LTE-Hitagi
 #	mfp_cmd(er, ew, 'RAMLDR')
-	mfp_cmd(er, ew, 'HLP')
-	mfp_cmd(er, ew, 'ECHO', '100'.encode())
-	mfp_binary_cmd(er, ew, b'C')
+#	mfp_cmd(er, ew, 'HLP')
+#	mfp_cmd(er, ew, 'ECHO', '100'.encode())
+#	mfp_binary_cmd(er, ew, b'C')
 #	mfp_binary_cmd(er, ew, b'R' + 0x10000000.to_bytes(4, byteorder='big') + 0x00000800.to_bytes(4, byteorder='big'))
 #	mfp_dump_dump(er, ew, 'E1_ROM_Dump.bin', 0x10000000, 0x12000000, 0x800)
 
@@ -230,6 +231,10 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'V3m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 #	mfp_dump_nand(er, ew, 'K1m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 #	mfp_dump_nand(er, ew, 'V325i_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
+
+	# Motorola C350L full 8 MiB ROM flashing!
+	mfp_cmd(er, ew, 'ERASE')
+	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 	if not '-2' in sys.argv:
