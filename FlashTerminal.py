@@ -110,8 +110,8 @@ def worksheet(er, ew):
 	er, ew = usb_check_restart_phone(er, ew, '-r' in sys.argv)
 
 	# Various single commands.
-	mfp_cmd(er, ew, 'RQHW')
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQHW')
+#	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'POWER_DOWN')
