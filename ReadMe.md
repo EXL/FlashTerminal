@@ -38,7 +38,7 @@ $ ./FlashTerminal.py -h       # Show help.
 
 ## Dumping Table
 
-These phones were dumped by the Flash Terminal tool.s
+These phones were dumped by the Flash Terminal tool:
 
 ```
 | Phone        | SoC                   | Flash           | Loader                                        | Dumped by                |
@@ -96,6 +96,7 @@ These phones were dumped by the Flash Terminal tool.s
 | V60i(C)      | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | MC4f                     |
 | V60t         | Patriot TDMA          | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
 | CC75/Mars    | Neptune LTE           | 32 MiB (NOR)    | LTE-Hitagi.ldr                                | Den K                    |
+| V3xx         | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
 ```
 
 ## Flashing Worksheet Parameters
