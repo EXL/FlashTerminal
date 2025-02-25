@@ -114,11 +114,11 @@ void handle_command_RQRC(UINT8 *data_ptr) {
 		// 0x0328 / NAND_FLASH_CFG1, 0 bit - ECC_DISABLE
 //		*((UINT32 *) 0x60000328) = *((UINT32 *) 0x60000328) & 0xFFE | 1;
 
-		*((UINT32 *) 0x60000300) = page << 9; // 0x0304 / NAND_FLASH_ADDR, 31:9 bits - NAND_FLASH_PAGE_ADDRESS
+		*((UINT32 *) 0x60000300) = page << 9; // 0x0300 / NAND_FLASH_ADDR, 31:9 bits - NAND_FLASH_PAGE_ADDRESS
 
 		watchdog_check_delay_326EB8();
 
-		*((UINT32 *) 0x60000304) = 1;         // 0x0300 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 001 - page_read
+		*((UINT32 *) 0x60000304) = 1;         // 0x0304 / NAND_FLASH_CMD, 2:0 bits - OP_CMD, 001 - page_read
 
 		watchdog_check_delay_326EB8();
 

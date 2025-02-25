@@ -65,7 +65,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6003, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6008, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart RAMDLD'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6023, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde'},
-	{'usb_vid': 0x22b8, 'usb_pid': 0x6403, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon'},
+	{'usb_vid': 0x22b8, 'usb_pid': 0x6403, 'mode': 'flash', 'desc': 'Motorola PCS Flash ArgonLV/SCM-A11'},
 	{'usb_vid': 0x22b8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
@@ -153,9 +153,12 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/U3_RAMDLD_0CF0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K3_RAMDLD_0320.ldr', 0x80000000, 0x80000038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/LTE-Hitagi.ldr', 0x03FD0000, 0x03FD0000)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101.ldr', 0x00800000, 0x00800078, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND.ldr', 0x00800000, 0x00800078, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND_WIDE.ldr', 0x00800000, 0x00800078, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-#	mfp_cmd(er, ew, 'RQVN')
+	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQSF')
 #	mfp_cmd(er, ew, 'RQRC', '00000000,00000000'.encode())
