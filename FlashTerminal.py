@@ -65,8 +65,9 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6003, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6008, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart RAMDLD'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6023, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde'},
-	{'usb_vid': 0x22b8, 'usb_pid': 0x6403, 'mode': 'flash', 'desc': 'Motorola PCS Flash ArgonLV/SCM-A11'},
-	{'usb_vid': 0x22b8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6403, 'mode': 'flash', 'desc': 'Motorola PCS Flash ArgonLV/SCM-A11'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0xBEEF, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde gen-blob'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
@@ -101,8 +102,8 @@ delay_switch = 8.00
 delay_jump = 1.00
 timeout_read = 5000
 timeout_write = 5000
-buffer_write_size = 0x800
-buffer_read_size = 0x800
+buffer_write_size = 0x2000
+buffer_read_size = 0x2000
 
 ## Worksheets ##########################################################################################################
 
@@ -158,7 +159,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND_WIDE.ldr', 0x00800000, 0x00800078, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE66_RAMDLD_0905.ldr', 0x90500000, 0x90500038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A910_BP_RAMDLD_0912.ldr', 0x03FC8000, 0x03FC8010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/A910i_BP_RAMDLD_0982.ldr', 0x03FC8000, 0x03FC8010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A910i_BP_RAMDLD_0982.ldr', 0x03FC8000, 0x03FC8010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -219,7 +220,9 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'U3_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'K3_ROM_Dump_1.bin', 0xA0000000, 0xA1FFFFFF, 0x300)
 #	mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB5FFFFFF, 0x300)
-	mfp_dump_read(er, ew, 'A910_BP_ROM_Dump.bin', 0x10000000, 0x10401000, 0x100)
+#	mfp_dump_read(er, ew, 'A910_BP_ROM_Dump.bin', 0x10000000, 0x10401000, 0x100)
+#	mfp_dump_rbin(er, ew, 'A910_AP_ROM_Dump.bin', 0x00000000, 0x04000000, 0x1000)
+	mfp_dump_rbin(er, ew, 'A910_AP_ROM_Dump.bin', 0x00000000, 0x01000000, 0x1000)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -254,6 +257,10 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A780g_AP_RAMDLD_0000.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
+
+		# EZX AP Set Flag (command-line arguments)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/head.bin', 0xA1000000)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/blob-a1200', 0xA0DE0000, 0xA0DE0000, ezx_ap=True)
 		pass
 	else:
 		# EZX BP
@@ -624,6 +631,28 @@ def mfp_dump_read(er, ew, file_path, start, end, step = 0x100):
 			result_data = mfp_cmd(er, ew, 'READ', f'{addr_s:08X},{step:04X}'.encode())
 			result_data = result_data[6:]   # Drop start marker and command.
 			result_data = result_data[2:]   # Drop size step.
+			result_data = result_data[:-1]  # Drop checksum.
+			result_data = result_data[:-1]  # Drop end marker.
+			file.write(result_data)
+
+			addr_s = addr_s + step
+			addr_e = addr_s + step
+			index += step
+
+def mfp_dump_rbin(er, ew, file_path, start, end, step = 0x1000):
+	addr_s = start
+	addr_e = start + step
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.time()
+		while addr_e <= end:
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (index % (step * 0x100) == 0):
+				time_start = progress(step, time_start, 0x100, index, file_path, addr_s, addr_e, end)
+			command_arg = f'{addr_s:08X}{step:04X}'.encode()
+			command_arg_chk = f'{addr_s:08X}{step:04X}{calculate_checksum(command_arg):02X}'.encode()
+			result_data = mfp_cmd(er, ew, 'RBIN', command_arg_chk)
+			result_data = result_data[6:]   # Drop start marker and command.
 			result_data = result_data[:-1]  # Drop checksum.
 			result_data = result_data[:-1]  # Drop end marker.
 			file.write(result_data)
