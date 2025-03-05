@@ -156,7 +156,9 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101.ldr', 0x00800000, 0x00800078, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND.ldr', 0x00800000, 0x00800078, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND_WIDE.ldr', 0x00800000, 0x00800078, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/VE66_RAMDLD_0905.ldr', 0x90500000, 0x90500038, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/VE66_RAMDLD_0905.ldr', 0x90500000, 0x90500038, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A910_BP_RAMDLD_0912.ldr', 0x03FC8000, 0x03FC8010, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/A910i_BP_RAMDLD_0982.ldr', 0x03FC8000, 0x03FC8010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
@@ -217,6 +219,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'U3_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'K3_ROM_Dump_1.bin', 0xA0000000, 0xA1FFFFFF, 0x300)
 #	mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB5FFFFFF, 0x300)
+	mfp_dump_read(er, ew, 'A910_BP_ROM_Dump.bin', 0x10000000, 0x10401000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
