@@ -3,7 +3,7 @@ Flash Terminal
 
 A set of utilities and patched/hacked RAMDLD loaders (RAM downloaders) for dumping SRAM, NAND, NOR, etc. memory chips data of Motorola phones and researching the Motorola Flash Protocol.
 
-![Flash Terminal Screenshot on Ubuntu 22.04 LTS](Screenshot_FlashTerminal_Ubuntu_2204_06-Mar-2025.png)
+![Flash Terminal Screenshot on Ubuntu 22.04 LTS](images/Screenshot_FlashTerminal_Ubuntu_2204_06-Mar-2025.png)
 
 Detailed user manual (in English): [LPCwiki](https://lpcwiki.miraheze.org/wiki/Dumping_firmware_from_phones/Motorola#FlashTerminal)
 
