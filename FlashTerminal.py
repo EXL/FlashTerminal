@@ -100,8 +100,8 @@ p2k_command_list = 'P2kCommandList.txt'
 delay_ack = 0.00
 delay_switch = 8.00
 delay_jump = 1.00
-timeout_read = 5000
-timeout_write = 5000
+timeout_read = 5000000
+timeout_write = 5000000
 buffer_write_size = 0x2000
 buffer_read_size = 0x2000
 
@@ -146,6 +146,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/T722i_RAMDLD_0380.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr', 0x14010000, 0x14010000)
@@ -160,7 +161,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE66_RAMDLD_0905.ldr', 0x90500000, 0x90500038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A910_BP_RAMDLD_0912.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A910i_BP_RAMDLD_0982.ldr', 0x03FC8000, 0x03FC8010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iG_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iG_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iS_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
@@ -225,8 +226,8 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'A910_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 #	mfp_dump_rbin(er, ew, 'A910_AP_ROM_Dump.bin', 0x00000000, 0x04000000, 0x1000)
 #	mfp_dump_rqrc(er, ew, 'M701iG_IROM_Dump.bin', 0x00000000, 0x00008000)
-	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_1.bin', 0xA0000000, 0xA2000000, 0x300)
-	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_2.bin', 0xB4000000, 0xB6000000, 0x300)
+#	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_1.bin', 0xA0000000, 0xA2000000, 0x300)
+#	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_2.bin', 0xB4000000, 0xB6000000, 0x300)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -252,8 +253,8 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'V325i_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 
 	# Motorola C350L full 8 MiB ROM flashing!
-#	mfp_cmd(er, ew, 'ERASE')
-#	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
+	mfp_cmd(er, ew, 'ERASE')
+	mfp_upload_binary_to_addr(er, ew, 'T722i_PATCHED_FIRMWARE.smg', 0x10010000, None)
 
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 	if not '-2' in sys.argv:
