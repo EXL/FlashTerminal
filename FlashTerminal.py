@@ -220,13 +220,13 @@ def worksheet(er, ew):
 #	mfp_dump_rqrc(er, ew, 'A1000_PDS_ROM_Dump.bin', 0x10010000, 0x10020000)
 #	mfp_dump_read(er, ew, 'L9_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 #	mfp_dump_read(er, ew, 'U3_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
-#	mfp_dump_read(er, ew, 'K3_ROM_Dump_1.bin', 0xA0000000, 0xA1FFFFFF, 0x300)
-#	mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB5FFFFFF, 0x300)
+#	mfp_dump_read(er, ew, 'K3_ROM_Dump_1.bin', 0xA0000000, 0xA2000000, 0x300)
+#	mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB6000000, 0x300)
 #	mfp_dump_read(er, ew, 'A910_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 #	mfp_dump_rbin(er, ew, 'A910_AP_ROM_Dump.bin', 0x00000000, 0x04000000, 0x1000)
 #	mfp_dump_rqrc(er, ew, 'M701iG_IROM_Dump.bin', 0x00000000, 0x00008000)
-	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_1.bin', 0xA0000000, 0xA1FFFFFF, 0x300)
-	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_2.bin', 0xB4000000, 0xB5FFFFFF, 0x300)
+	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_1.bin', 0xA0000000, 0xA2000000, 0x300)
+	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_2.bin', 0xB4000000, 0xB6000000, 0x300)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
