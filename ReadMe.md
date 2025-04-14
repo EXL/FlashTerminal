@@ -99,6 +99,7 @@ These phones were dumped by the Flash Terminal tool:
 | V3xx         | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
 | A910         | AP: Bulverde          | 64 MiB (NOR)    | gen-blob/blob-a1200                           | PUNK-398                 |
 | A910         | BP: Neptune LTE2      | 4 MiB (NOR)     | A910i_BP_RAMDLD_0982.ldr                      | PUNK-398                 |
+| M701iG       | Argon+                | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | WN3DL                    |
 ```
 
 ## Worksheet Examples
@@ -112,11 +113,12 @@ Please see [Worksheet.md](Worksheet.md) document.
 - ROMphonix developers
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 - SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
-- Den K
+- Den K, WN3DL
 
 ## Useful Information and Resources
 
 - https://github.com/dumpit3315/dumpit by dffn3
 - https://github.com/MotoFanRu/LTE-Hitagi by muromec
+- https://github.com/ktdumper/ktdumper by xyzz and Keitai Wiki Discord server
 - MotoFan.Ru forum about modding Motorola phones
 - ROMphonix Club Discord server
