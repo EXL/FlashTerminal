@@ -31,7 +31,7 @@ mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x0800
 mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 ```
 
-**Dumping BP 16 MB NOR Memory from Motorola A1000**
+**Dumping BP 16 MB NOR Memory from Motorola A1000 and Motorola FOMA M1000**
 
 ```python
 # ./FlashTerminal.py -l
