@@ -92,8 +92,7 @@ usb_devices = [
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'flash', 'desc': 'Siemens CC75 GSM Phone (Flash)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D34, 'mode': 'at', 'desc': 'Motorola PCS Rhodes Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x6408, 'mode': 'at', 'desc': 'Motorola PCS FOMA M702iG (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6408, 'mode': 'p2k', 'desc': 'Motorola PCS FOMA M702iG (AT)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
