@@ -92,6 +92,8 @@ usb_devices = [
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'flash', 'desc': 'Siemens CC75 GSM Phone (Flash)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D34, 'mode': 'at', 'desc': 'Motorola PCS Rhodes Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6408, 'mode': 'at', 'desc': 'Motorola PCS FOMA M702iG (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -226,7 +228,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB6000000, 0x300)
 #	mfp_dump_read(er, ew, 'A910_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 #	mfp_dump_rbin(er, ew, 'A910_AP_ROM_Dump.bin', 0x00000000, 0x04000000, 0x1000)
-	mfp_dump_rqrc(er, ew, 'M701iG_IROM_Dump.bin', 0x00000000, 0x00008000)
+	mfp_dump_read(er, ew, 'M701iG_IROM_Dump.bin', 0x00000000, 0x00008000)
 #	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_1.bin', 0xA0000000, 0xA2000000, 0x300)
 #	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_2.bin', 0xB4000000, 0xB6000000, 0x300)
 
@@ -278,6 +280,7 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 def worksheet_p2k(p2k_usb_device):
 #	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
 #	p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
+	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x00000000, 0x00010000, 0x800)
 #	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
 #	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
