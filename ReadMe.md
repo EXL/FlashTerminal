@@ -101,6 +101,7 @@ These phones were dumped by the Flash Terminal tool:
 | A910         | BP: Neptune LTE2      | 4 MiB (NOR)     | A910i_BP_RAMDLD_0982.ldr                      | PUNK-398                 |
 | M701iG       | Argon+                | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | WN3DL                    |
 | M1000        | BP: Rainbow POG       | 16 MiB (NOR)    | A1000_BP_RAMDLD_0651_RSA_Read.ldr             | PUNK-398                 |
+| M702iG       | Argon+                | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | PUNK-398                 |
 ```
 
 ## Worksheet Examples
