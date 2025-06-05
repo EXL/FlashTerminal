@@ -157,6 +157,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/U3_RAMDLD_0CF0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K3_RAMDLD_0320.ldr', 0x80000000, 0x80000038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/LTE-Hitagi.ldr', 0x03FD0000, 0x03FD0000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/LTE2-Hitagi.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101.ldr', 0x00800000, 0x00800078, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND.ldr', 0x00800000, 0x00800078, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND_WIDE.ldr', 0x00800000, 0x00800078, True)
