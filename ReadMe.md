@@ -57,8 +57,8 @@ These phones were dumped by the Flash Terminal tool:
 | C330         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | Ivan_Fox                 |
 | C350         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | diokhann                 |
 | C450         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | metalman87, ahsim2009    |
-| C550         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | ahsim2009                |
-| E380         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | SGXVII                   |
+| C550         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | ahsim2009, tfa8          |
+| E380         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | SGXVII, tfa8             |
 | V60          | Patriot               | 4 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox, NextG50        |
 | V66i         | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
 | V60i         | Patriot               | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | metalman87, MC4f         |
@@ -90,7 +90,7 @@ These phones were dumped by the Flash Terminal tool:
 | CC75/Mosel   | Neptune LTE           | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | overglube                |
 | U3           | Neptune LTE2 irom0400 | 32 MiB (NOR)    | U3_RAMDLD_0CF0.ldr                            | fkcoder                  |
 | K3           | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
-| T280         | Patriot               | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
+| T280         | Patriot               | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f, regenfaellt        |
 | T720         | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | regenfaellt, MC4f        |
 | C353t        | Patriot TDMA          | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
 | V60i(C)      | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | MC4f                     |
@@ -115,7 +115,7 @@ Please see [Worksheet.md](Worksheet.md) document.
 - ROMphonix developers
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 - SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
-- Den K, WN3DL
+- Den K, WN3DL, tfa8
 
 ## Useful Information and Resources
 

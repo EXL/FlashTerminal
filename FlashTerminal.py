@@ -31,7 +31,7 @@ Developers and Thanks:
 	- ROMphonix developers
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
-	- Den K, WN3DL
+	- Den K, WN3DL, tfa8
 
 10-May-2024, Siberia
 '''
@@ -146,7 +146,7 @@ def worksheet(er, ew):
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T722i_RAMDLD_0380.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
@@ -169,23 +169,11 @@ def worksheet(er, ew):
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
-#	mfp_cmd(er, ew, 'RQSN')
-#	mfp_cmd(er, ew, 'RQSF')
-#	mfp_cmd(er, ew, 'RQRC', '00000000,00000030'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
-#	mfp_cmd(er, ew, 'RQRC', '00000000,00000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
-	# LTE Hitagi 0.1 by muromec
-	# https://github.com/muromec/lte-hitagi
-	# https://github.com/MotoFanRu/LTE-Hitagi
-#	mfp_cmd(er, ew, 'RAMLDR')
-#	mfp_cmd(er, ew, 'HLP')
-#	mfp_cmd(er, ew, 'ECHO', '100'.encode())
-#	mfp_binary_cmd(er, ew, b'C')
-#	mfp_binary_cmd(er, ew, b'R' + 0x10000000.to_bytes(4, byteorder='big') + 0x00000800.to_bytes(4, byteorder='big'))
-#	mfp_dump_dump(er, ew, 'E1_ROM_Dump.bin', 0x10000000, 0x12000000, 0x800)
+	# Hitagi
 
 	# Dump SRAM and NOR flash.
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
@@ -196,15 +184,15 @@ def worksheet(er, ew):
 #	mfp_dump_dump(er, ew, 'E398_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_dump(er, ew, 'E398_IROM_Dump.bin', 0x00000000, 0x00200000, 0x100)
 #	mfp_dump_read(er, ew, 'L6_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
-#	mfp_dump_rqrc(er, ew, 'E1000_ROM_Dump.bin', 0x10010000, 0x10030000)
+#	mfp_dump_rqrc(er, ew, 'E1000_PDS_ROM_Dump.bin', 0x10010000, 0x10030000)
 #	mfp_dump_read(er, ew, 'V3x_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 #	mfp_dump_sram(er, ew, 'C350L_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350L_IROM_Dump.bin', 0x00000000, 0x00040000, 0x30)
 #	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
 #	mfp_dump_dump(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 #	mfp_dump_dump(er, ew, 'C550_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
-#	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400100, 0x30)
-	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+#	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
+#	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
 #	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
@@ -239,10 +227,10 @@ def worksheet(er, ew):
 #	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
 #	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
 #	mfp_binary_cmd(er, ew, b'\x41')
+#	mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00010000, 0x100)
 #	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
 #	mfp_dump_r(er, ew, 'C975_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_r(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
-#	mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00010000, 0x100)
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
@@ -279,7 +267,6 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 
 def worksheet_p2k(p2k_usb_device):
 #	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
-#	p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x10010000, 0x800)
 #	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
 #	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
