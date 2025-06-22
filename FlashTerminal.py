@@ -178,6 +178,8 @@ def worksheet(er, ew):
 	# Hitagi
 
 	mfp_cmd(er, ew, 'ERASE')
+#	mfp_cmd(er, ew, 'ERASE')
+#	mfp_cmd(er, ew, 'ERASE')
 	mfp_upload_binary_to_addr(er, ew, 'E1_2.bin', 0x10000000, None)
 
 #	mfp_dump_read(er, ew, 'L6_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
@@ -1049,13 +1051,13 @@ def progress(step, time_start, size, index, file_path, addr_s, addr_e, end, page
 	speed = (step * size) / (time_end - time_start) / 1024
 	if nand:
 		logging.info(
-			f'Dumped: {index:08}/{pages:08} pages | {index*512/1024:>8} KiB | 0x{index*512:08X}={index*512:010d} bytes | '
+			f'Ops: {index:08}/{pages:08} pages | {index*512/1024:>8} KiB | 0x{index*512:08X}={index*512:010d} bytes | '
 			f'0x{addr_s:08X}-0x{addr_e:08X}-0x{end:08X} | '
 			f'{speed:.2f} KiB/s\n512, 16 bytes => "{file_path}", "{insert_to_filename("_spare_area",file_path)}"'
 		)
 	else:
 		logging.info(
-			f'Dumped: {index/1024:>8} KiB | 0x{index:08X}={index:010d} bytes | '
+			f'Ops: {index/1024:>8} KiB | 0x{index:08X}={index:010d} bytes | '
 			f'0x{addr_s:08X}-0x{addr_e:08X}-0x{end:08X} | {speed:.2f} KiB/s => "{file_path}"'
 		)
 	return time.time()  # Reset time.
