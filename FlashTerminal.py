@@ -167,13 +167,20 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iG_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iS_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 
+		mfp_upload_binary_to_addr(er, ew, 'hitagi.ldr', 0x03FD0000, 0x03FD0000, True)
+
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
 	# Hitagi
+
+	mfp_cmd(er, ew, 'ERASE')
+	mfp_upload_binary_to_addr(er, ew, 'E1_2.bin', 0x10000000, None)
+
+#	mfp_dump_read(er, ew, 'L6_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 
 	# Dump SRAM and NOR flash.
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
@@ -759,15 +766,22 @@ def mfp_dump_byte(er, ew, file_path, start, end):
 def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None, ezx_ap = None, read_response = True):
 	address = start
 	logging.info(f'Uploading "{file_path}" to 0x{address:08X} with {buffer_write_size} bytes chunks...')
+	end = start + os.path.getsize(file_path)
 	with open(file_path, 'rb') as file:
+		index = 0
+		time_start = time.time()
 		while True:
 			chunk = file.read(buffer_write_size)
 			if not chunk:
 				break
-			logging.debug(f'Uploading {len(chunk)},0x{len(chunk):08X} bytes from "{file_path}" to 0x{address:08X}...')
+			step = len(chunk)
+			logging.debug(f'Uploading {step},0x{step:08X} bytes from "{file_path}" to 0x{address:08X}...')
+			if index > 0 and (index % (step * 0x10) == 0):
+				time_start = progress(step, time_start, 0x10, index, file_path, address, address + step, end)
 			mfp_addr(er, ew, address)
 			mfp_bin(er, ew, chunk)
-			address += len(chunk)
+			address += step
+			index += step
 	logging.info(f'Uploading "{file_path}" to 0x{address:08X} is done.')
 	if jump:
 		if rsrc:
