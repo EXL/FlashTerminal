@@ -103,7 +103,7 @@ delay_switch = 8.00
 delay_jump = 1.00
 timeout_read = 5000
 timeout_write = 5000
-buffer_write_size = 0x2000
+buffer_write_size = 0x40
 buffer_read_size = 0x2000
 
 ## Worksheets ##########################################################################################################
@@ -174,11 +174,11 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
 	# Hitagi Custom RAMDLD.
+	mfp_cmd(er, ew, 'ERASE')
+	mfp_cmd(er, ew, 'ERASE')
 #	mfp_cmd(er, ew, 'ERASE')
-#	mfp_cmd(er, ew, 'ERASE')
-#	mfp_cmd(er, ew, 'ERASE')
-#	mfp_upload_binary_to_addr(er, ew, 'FS.bin', 0x11380000, None)
-	mfp_dump_read(er, ew, 'READ5.bin', 0x11380000, 0x113F0000, 0x100)
+	mfp_upload_binary_to_addr(er, ew, 'FS.bin', 0x11380000, None)
+#	mfp_dump_read(er, ew, 'READ5.bin', 0x11380000, 0x113F0000, 0x100)
 
 	# Dump SRAM and NOR flash.
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
