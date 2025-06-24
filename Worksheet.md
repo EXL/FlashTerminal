@@ -15,6 +15,23 @@ mfp_cmd(er, ew, 'ERASE')
 mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 ```
 
+**Flashing Siemens CC75 on Spansion flash memory chip**
+
+```python
+buffer_write_size = 0x40
+
+mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_AMD_16.ldr', 0x03FD0000, 0x03FD0000, True)
+
+mfp_cmd(er, ew, 'ERASE')
+mfp_cmd(er, ew, 'ERASE')
+
+# Chunk.
+mfp_upload_binary_to_addr(er, ew, 'CC75_CG0.bin', 0x10080000, None)
+
+# Full 32MB Flash.
+mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
+```
+
 ## Dumping Worksheet Parameters
 
 **Dumping 32 MB NOR Memory from Motorola TRIPLETS-like phones**

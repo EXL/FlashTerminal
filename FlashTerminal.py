@@ -103,7 +103,7 @@ delay_switch = 8.00
 delay_jump = 1.00
 timeout_read = 5000
 timeout_write = 5000
-buffer_write_size = 0x40
+buffer_write_size = 0x2000
 buffer_read_size = 0x2000
 
 ## Worksheets ##########################################################################################################
@@ -168,17 +168,17 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iS_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-#	mfp_cmd(er, ew, 'RQVN')
+	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
 	# Hitagi Custom RAMDLD.
-	mfp_cmd(er, ew, 'ERASE')
-	mfp_cmd(er, ew, 'ERASE')
 #	mfp_cmd(er, ew, 'ERASE')
-	mfp_upload_binary_to_addr(er, ew, 'CG0.bin', 0x10080000, None)
-#	mfp_dump_read(er, ew, 'READ5.bin', 0x11380000, 0x113F0000, 0x100)
+#	mfp_cmd(er, ew, 'ERASE')
+#	mfp_cmd(er, ew, 'ERASE')
+#	mfp_upload_binary_to_addr(er, ew, 'WRITE.bin', 0x10000000, None)
+#	mfp_dump_read(er, ew, 'READ.bin', 0x10000000, 0x12000000, 0x100)
 
 	# Dump SRAM and NOR flash.
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
@@ -251,6 +251,14 @@ def worksheet(er, ew):
 	# Motorola C350L full 8 MiB ROM flashing!
 #	mfp_cmd(er, ew, 'ERASE')
 #	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
+
+	# Siemens CC75 on Spansion flash memory chip flashing!
+	buffer_write_size = 0x40
+	mfp_cmd(er, ew, 'ERASE')
+	mfp_cmd(er, ew, 'ERASE')
+	mfp_upload_binary_to_addr(er, ew, 'CC75_CG0.bin', 0x10080000, None)
+	mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
+
 
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 	if not '-2' in sys.argv:
