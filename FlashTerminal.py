@@ -259,7 +259,7 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'ERASE')
 	mfp_upload_binary_to_addr(er, ew, 'CC75_Chunk.bin', 0x100C0000, None)
 
-#	mfp_dump_read(er, ew, 'READ_1.bin', 0x10080000, 0x10300000, 0x100)
+	mfp_dump_read(er, ew, 'READ_2.bin', 0x10080000, 0x10300000, 0x100)
 
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_PBlocks.bin', 0x11FE0000, None)
 
