@@ -18,11 +18,8 @@ mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 **Flashing Siemens CC75 on Spansion flash memory chip**
 
 ```python
-buffer_write_size = 0x40
-
 mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_AMD_16.ldr', 0x03FD0000, 0x03FD0000, True)
 
-mfp_cmd(er, ew, 'ERASE')
 mfp_cmd(er, ew, 'ERASE')
 
 # Chunk.

@@ -95,7 +95,7 @@ These phones were dumped by the Flash Terminal tool:
 | C353t        | Patriot TDMA          | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
 | V60i(C)      | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | MC4f                     |
 | V60t         | Patriot TDMA          | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
-| CC75/Mars    | Neptune LTE           | 32 MiB (NOR)    | LTE-Hitagi.ldr                                | Den K                    |
+| CC75/Mars    | Neptune LTE           | 32 MiB (NOR)    | Hitagi_LTE1_AMD_16.ldr                        | Den K, ahsim2009         |
 | V3xx         | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
 | A910         | AP: Bulverde          | 64 MiB (NOR)    | gen-blob/blob-a1200                           | PUNK-398                 |
 | A910         | BP: Neptune LTE2      | 4 MiB (NOR)     | A910i_BP_RAMDLD_0982.ldr                      | PUNK-398                 |
