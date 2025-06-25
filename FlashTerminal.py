@@ -253,12 +253,12 @@ def worksheet(er, ew):
 #	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 
 	# Siemens CC75 on Spansion flash memory chip flashing!
-#	buffer_write_size = 0x40
-	mfp_cmd(er, ew, 'ERASE')
 #	mfp_cmd(er, ew, 'ERASE')
 #	mfp_cmd(er, ew, 'ERASE')
-	mfp_upload_binary_to_addr(er, ew, 'CC75_LF.bin', 0x10080000, None)
+#	mfp_cmd(er, ew, 'ERASE')
+#	mfp_upload_binary_to_addr(er, ew, 'CC75_LF.bin', 0x10080000, None)
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
+	mfp_dump_read(er, ew, 'L6_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 	if not '-2' in sys.argv:
