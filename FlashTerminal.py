@@ -172,10 +172,11 @@ def worksheet(er, ew):
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQHW')
-	mfp_cmd(er, ew, 'RQSN')
-	mfp_cmd(er, ew, 'RQFI')
-	mfp_cmd(er, ew, 'READ_OTP')
-	mfp_cmd(er, ew, 'RESTART')
+#	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQSN')
+#	mfp_cmd(er, ew, 'RQFI')
+#	mfp_cmd(er, ew, 'READ_OTP')
+#	mfp_cmd(er, ew, 'RESTART')
 #	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
@@ -260,12 +261,10 @@ def worksheet(er, ew):
 #	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 
 	# Siemens CC75 on Spansion flash memory chip flashing and reading!
+	mfp_cmd(er, ew, 'ERASE')
+	mfp_cmd(er, ew, 'ERASE')
 #	mfp_cmd(er, ew, 'ERASE')
-#	mfp_cmd(er, ew, 'ERASE')
-#	mfp_cmd(er, ew, 'ERASE')
-#	mfp_upload_binary_to_addr(er, ew, 'CC75_Chunk.bin', 0x100C0000, None)
-#	mfp_upload_binary_to_addr(er, ew, 'CC75_PDS.bin', 0x10010000, None)
-#	mfp_upload_binary_to_addr(er, ew, 'CC75_Old.bin', 0x10040000, None)
+	mfp_upload_binary_to_addr(er, ew, 'CC75_Mosel.bin', 0x10040000, None)
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
 #	mfp_dump_read(er, ew, 'READ_10.bin', 0x10080000, 0x10300000, 0x200)
 
