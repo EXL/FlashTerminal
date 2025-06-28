@@ -167,8 +167,14 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iG_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iS_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Intel_16.ldr', 0x03FD0000, 0x03FD0000, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A05.ldr', 0x03FD0000, 0x03FD0010, True)
+
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'READ_OTP')
+#	mfp_cmd(er, ew, 'RQFI')
+#	mfp_cmd(er, ew, 'RESTART')
 #	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
