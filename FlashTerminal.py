@@ -265,7 +265,7 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'ERASE')
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_LF.bin', 0x10080000, None)
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_PDS.bin', 0x10010000, None)
-	mfp_upload_binary_to_addr(er, ew, 'CC75_Mosel.bin', 0x10040000, None)
+	mfp_upload_binary_to_addr(er, ew, 'CC75_Old.bin', 0x10040000, None)
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
 #	mfp_dump_read(er, ew, 'CC75_ROM_Dump.bin', 0x10010000, 0x10100000, 0x200)
 
