@@ -156,8 +156,6 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/L72_RAMDLD_0C70.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/U3_RAMDLD_0CF0.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/K3_RAMDLD_0320.ldr', 0x80000000, 0x80000038, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Intel_16.ldr', 0x03FD0000, 0x03FD0000, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_AMD_16.ldr', 0x03FD0000, 0x03FD0000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101.ldr', 0x00800000, 0x00800078, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND.ldr', 0x00800000, 0x00800078, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/VE70_RAMDLD_0101_Patched_Dump_NAND_WIDE.ldr', 0x00800000, 0x00800078, True)
@@ -166,9 +164,11 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A910i_BP_RAMDLD_0982.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iG_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iS_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
-
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Intel_16.ldr', 0x03FD0000, 0x03FD0000, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A05.ldr', 0x03FD0000, 0x03FD0010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_AMD_16.ldr', 0x03FD0000, 0x03FD0010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Compact_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Compact_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQHW')
@@ -261,12 +261,11 @@ def worksheet(er, ew):
 #	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 
 	# Siemens CC75 on Spansion flash memory chip flashing and reading!
-	mfp_cmd(er, ew, 'ERASE')
-	mfp_cmd(er, ew, 'ERASE')
 #	mfp_cmd(er, ew, 'ERASE')
-	mfp_upload_binary_to_addr(er, ew, 'CC75_Mosel.bin', 0x10040000, None)
+#	mfp_cmd(er, ew, 'ERASE')
+#	mfp_cmd(er, ew, 'ERASE')
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
-#	mfp_dump_read(er, ew, 'READ_10.bin', 0x10080000, 0x10300000, 0x200)
+#	mfp_dump_read(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, 0x12000000, 0x200)
 
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 	if not '-2' in sys.argv:
