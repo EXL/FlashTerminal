@@ -142,7 +142,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V980_32M_RAMDLD_0636.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3x_RAMDLD_0682_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A1000_BP_RAMDLD_0651_RSA_Read.ldr', 0x08000000, 0x08000010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -171,7 +171,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Compact_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-#	mfp_cmd(er, ew, 'RQHW')
+	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQFI')
@@ -234,14 +234,14 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'V980_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
-	mfp_cmd(er, ew, 'RQHW')
-	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
-	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', None, False)
-	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
-	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
-	mfp_binary_cmd(er, ew, b'\x41')
-	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
-	mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00010000, 0x100)
+#	mfp_cmd(er, ew, 'RQHW')
+#	mfp_binary_cmd(er, ew, b'\x00\x00\x05\x70', False)
+#	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_1.bin', None, False)
+#	mfp_upload_raw_binary(er, ew, 'loaders/A835_Additional_Payload_2.bin')
+#	mfp_binary_cmd(er, ew, b'\x53\x00\x00\x00\x00\x00\x00\xA0\x00')
+#	mfp_binary_cmd(er, ew, b'\x41')
+#	mfp_dump_r(er, ew, 'A835_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
+#	mfp_dump_r(er, ew, 'A835_IROM_Dump.bin', 0x00000000, 0x00010000, 0x100)
 #	mfp_dump_r(er, ew, 'C975_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_r(er, ew, 'E1000_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 
