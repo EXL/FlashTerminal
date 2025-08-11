@@ -67,6 +67,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6023, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6403, 'mode': 'flash', 'desc': 'Motorola PCS Flash ArgonLV/SCM-A11'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6460, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon+'}, # M702iG
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6461, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon+'}, # M702iS
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0xBEEF, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde (gen-blob)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
