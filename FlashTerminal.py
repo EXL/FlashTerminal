@@ -31,7 +31,7 @@ Developers and Thanks:
 	- ROMphonix developers
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
-	- Den K, WN3DL, tfa8
+	- Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata
 
 10-May-2024, Siberia
 '''

@@ -41,68 +41,70 @@ $ ./FlashTerminal.py -h       # Show help.
 These phones were dumped by the Flash Terminal tool:
 
 ```
-| Phone        | SoC                   | Flash           | Loader                                        | Dumped by                |
-|--------------|-----------------------|-----------------|-----------------------------------------------|--------------------------|
-| A830         | Rainbow               | 16 MiB (NOR)    | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL, greyowls            |
-| U10          | Rainbow               | 16 MiB (NOR)    | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL                      |
-| A835         | Rainbow POG           | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
-| A845         | Rainbow POG           | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
-| C975         | Rainbow POG           | 32 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | diokhann, metalman87     |
-| V980         | Rainbow POG           | 32 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | metalman87               |
-| E1000        | Rainbow POG           | 64 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
-| E398         | Neptune LTE           | 32 MiB (NOR)    | E398_RAMLD_07B0_Hacked_Dump.ldr               | EXL                      |
-| V3x          | Rainbow POG           | 64 MiB (NOR)    | V3x_RAMDLD_0682_RSA_Read.ldr                  | EXL                      |
-| A1000        | BP: Rainbow POG       | 16 MiB (NOR)    | A1000_BP_RAMDLD_0651_RSA_Read.ldr             | PUNK-398, CrayZor        |
-| C350L        | Neptune ULS           | 8 MiB (NOR)     | C350L_RAMDLD_0000_Patched_Dump_NOR.ldr        | EXL                      |
-| C330         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | Ivan_Fox                 |
-| C350         | Neptune LT (LCA)      | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | diokhann                 |
-| C450         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | metalman87, ahsim2009    |
-| C550         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | ahsim2009, tfa8          |
-| E380         | Neptune LT (LCA)      | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | SGXVII, tfa8             |
-| V60          | Patriot               | 4 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox, NextG50        |
-| V66i         | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
-| V60i         | Patriot               | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | metalman87, MC4f         |
-| V70          | Patriot               | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | kostett                  |
-| T720i        | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | diokhann                 |
-| T722i        | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | Paschendale, MC4f        |
-| V120c        | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | NextG50                  |
-| ic902        | MSM6800               | 128 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND.ldr        | EXL                      |
-| QA30         | MSM6575               | 256 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr   | EXL                      |
-| V9m          | MSM6550               | 128 MiB (NAND)  | V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr         | EXL                      |
-| VE40         | MSM6800               | 128 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND.ldr        | EXL                      |
-| Z6m          | MSM6550               | 64 MiB (NAND)   | V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr         | EXL                      |
-| V3m          | MSM6500               | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
-| W755         | MSM6500               | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
-| E815         | MSM6500               | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
-| W385         | MSM6125               | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf, wavvy01            |
-| V325i        | MSM6100               | 64 MiB (NAND)   | V325i_RAMDLD_010A_Patched_Dump_NAND.ldr       | asdf                     |
-| V325xi       | MSM6100               | 64 MiB (NAND)   | V325i_RAMDLD_010A_Patched_Dump_NAND.ldr       | asdf                     |
-| K1m (K1mm)   | MSM6500               | 64 MiB (NAND)   | K1mm_RAMDLD_000D_Patched_Dump_NAND.ldr        | wavvy01                  |
-| V120e        | MSM5100               | 4+1 MiB (NOR)   | V120e_RAMDLD_0713_Patched_Dump_NOR.ldr        | metalman87               |
-| W315         | MSM6050               | 16 MiB (NOR)    | W315_RAMDLD_0106_Patched_Dump_NOR.ldr         | asdf                     |
-| A760         | AP: Dalhart           | 32 MiB (NOR)    | A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr      | EXL, PUNK-398            |
-| A760         | BP: Neptune LT (LCA)  | 4 MiB (NOR)     | A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr      | EXL, PUNK-398            |
-| A768i        | AP: Dalhart           | 32 MiB (NOR)    | A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr     | EXL                      |
-| A768i        | BP: Neptune LTE       | 4 MiB (NOR)     | A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr     | EXL                      |
-| A780DVB-H    | BP: Neptune LTE       | 4 MiB (NOR)     | A780g_BP_RAMDLD_08A0.ldr                      | ronalp                   |
-| L72/L9       | Neptune LTE2 irom0400 | 64 MiB (NOR)    | L72_RAMDLD_0C70.ldr                           | fkcoder                  |
-| K1s          | Neptune LTE2 irom0400 | 64 MiB (NOR)    | K1s_RAMDLD_0DC0.ldr                           | fkcoder                  |
-| CC75/Mosel   | Neptune LTE           | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | overglube                |
-| U3           | Neptune LTE2 irom0400 | 32 MiB (NOR)    | U3_RAMDLD_0CF0.ldr                            | fkcoder                  |
-| K3           | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
-| T280         | Patriot               | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f, regenfaellt        |
-| T720         | Patriot               | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | regenfaellt, MC4f        |
-| C353t        | Patriot TDMA          | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
-| V60i(C)      | Wally                 | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | MC4f                     |
-| V60t         | Patriot TDMA          | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
-| CC75/Mars    | Neptune LTE           | 32 MiB (NOR)    | Hitagi_LTE1_AMD_16.ldr                        | Den K, ahsim2009         |
-| V3xx         | ArgonLV               | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
-| A910         | AP: Bulverde          | 64 MiB (NOR)    | gen-blob/blob-a1200                           | PUNK-398                 |
-| A910         | BP: Neptune LTE2      | 4 MiB (NOR)     | A910i_BP_RAMDLD_0982.ldr                      | PUNK-398                 |
-| M701iG       | Argon+                | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | WN3DL                    |
-| M1000        | BP: Rainbow POG       | 16 MiB (NOR)    | A1000_BP_RAMDLD_0651_RSA_Read.ldr             | PUNK-398                 |
-| M702iG       | Argon+                | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | PUNK-398                 |
-| U15          | Rainbow POG           | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | ahsim2009                |
+| Phone        | SoC                         | Flash           | Loader                                        | Dumped by                |
+|--------------|-----------------------------|-----------------|-----------------------------------------------|--------------------------|
+| A830         | Rainbow                     | 16 MiB (NOR)    | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL, greyowls            |
+| U10          | Rainbow                     | 16 MiB (NOR)    | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL                      |
+| A835         | Rainbow POG                 | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
+| A845         | Rainbow POG                 | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
+| C975         | Rainbow POG                 | 32 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | diokhann, metalman87     |
+| V980         | Rainbow POG                 | 32 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | metalman87               |
+| E1000        | Rainbow POG                 | 64 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
+| E398         | Neptune LTE                 | 32 MiB (NOR)    | E398_RAMLD_07B0_Hacked_Dump.ldr               | EXL                      |
+| V3x          | Rainbow POG                 | 64 MiB (NOR)    | V3x_RAMDLD_0682_RSA_Read.ldr                  | EXL                      |
+| A1000        | BP: Rainbow POG             | 16 MiB (NOR)    | A1000_BP_RAMDLD_0651_RSA_Read.ldr             | PUNK-398, CrayZor        |
+| C350L        | Neptune ULS                 | 8 MiB (NOR)     | C350L_RAMDLD_0000_Patched_Dump_NOR.ldr        | EXL                      |
+| C330         | Neptune LT (LCA)            | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | Ivan_Fox                 |
+| C350         | Neptune LT (LCA)            | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | diokhann                 |
+| C450         | Neptune LT (LCA)            | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | metalman87, ahsim2009    |
+| C550         | Neptune LT (LCA)            | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | ahsim2009, tfa8          |
+| E380         | Neptune LT (LCA)            | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | SGXVII, tfa8             |
+| V60          | Patriot                     | 4 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox, NextG50        |
+| V66i         | Patriot                     | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
+| V60i         | Patriot                     | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | metalman87, MC4f         |
+| V70          | Patriot                     | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | kostett                  |
+| T720i        | Patriot                     | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | diokhann                 |
+| T722i        | Patriot                     | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | Paschendale, MC4f        |
+| V120c        | Wally                       | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | NextG50                  |
+| ic902        | MSM6800                     | 128 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND.ldr        | EXL                      |
+| QA30         | MSM6575                     | 256 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND_WIDE.ldr   | EXL                      |
+| V9m          | MSM6550                     | 128 MiB (NAND)  | V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr         | EXL                      |
+| VE40         | MSM6800                     | 128 MiB (NAND)  | QA30_RAMDLD_0206_Patched_Dump_NAND.ldr        | EXL                      |
+| Z6m          | MSM6550                     | 64 MiB (NAND)   | V9m_RAMDLD_01B5_Patched_Dump_NAND.ldr         | EXL                      |
+| V3m          | MSM6500                     | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
+| W755         | MSM6500                     | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
+| E815         | MSM6500                     | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
+| W385         | MSM6125                     | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf, wavvy01            |
+| V325i        | MSM6100                     | 64 MiB (NAND)   | V325i_RAMDLD_010A_Patched_Dump_NAND.ldr       | asdf                     |
+| V325xi       | MSM6100                     | 64 MiB (NAND)   | V325i_RAMDLD_010A_Patched_Dump_NAND.ldr       | asdf                     |
+| K1m (K1mm)   | MSM6500                     | 64 MiB (NAND)   | K1mm_RAMDLD_000D_Patched_Dump_NAND.ldr        | wavvy01                  |
+| V120e        | MSM5100                     | 4+1 MiB (NOR)   | V120e_RAMDLD_0713_Patched_Dump_NOR.ldr        | metalman87               |
+| W315         | MSM6050                     | 16 MiB (NOR)    | W315_RAMDLD_0106_Patched_Dump_NOR.ldr         | asdf                     |
+| A760         | AP: Dalhart                 | 32 MiB (NOR)    | A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr      | EXL, PUNK-398            |
+| A760         | BP: Neptune LT (LCA)        | 4 MiB (NOR)     | A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr      | EXL, PUNK-398            |
+| A768i        | AP: Dalhart                 | 32 MiB (NOR)    | A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr     | EXL                      |
+| A768i        | BP: Neptune LTE             | 4 MiB (NOR)     | A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr     | EXL                      |
+| A780DVB-H    | BP: Neptune LTE             | 4 MiB (NOR)     | A780g_BP_RAMDLD_08A0.ldr                      | ronalp                   |
+| L72/L9       | Neptune LTE2 irom0400       | 64 MiB (NOR)    | L72_RAMDLD_0C70.ldr                           | fkcoder                  |
+| K1s          | Neptune LTE2 irom0400       | 64 MiB (NOR)    | K1s_RAMDLD_0DC0.ldr                           | fkcoder                  |
+| CC75/Mosel   | Neptune LTE                 | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | overglube                |
+| U3           | Neptune LTE2 irom0400       | 32 MiB (NOR)    | U3_RAMDLD_0CF0.ldr                            | fkcoder                  |
+| K3           | ArgonLV                     | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
+| T280         | Patriot                     | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f, regenfaellt        |
+| T720         | Patriot                     | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | regenfaellt, MC4f        |
+| C353t        | Patriot TDMA                | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
+| V60i(C)      | Wally                       | 4 MiB (NOR)     | V120c_RAMDLD_0312_Patched_Dump_NOR.ldr        | MC4f                     |
+| V60t         | Patriot TDMA                | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | MC4f                     |
+| CC75/Mars    | Neptune LTE                 | 32 MiB (NOR)    | Hitagi_LTE1_AMD_16.ldr                        | Den K, ahsim2009         |
+| V3xx         | ArgonLV                     | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | fkcoder                  |
+| A910         | AP: Bulverde                | 64 MiB (NOR)    | gen-blob/blob-a1200                           | PUNK-398                 |
+| A910         | BP: Neptune LTE2            | 4 MiB (NOR)     | A910i_BP_RAMDLD_0982.ldr                      | PUNK-398                 |
+| M701iG       | Argon+                      | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | WN3DL                    |
+| M1000        | BP: Rainbow POG             | 16 MiB (NOR)    | A1000_BP_RAMDLD_0651_RSA_Read.ldr             | PUNK-398                 |
+| M702iG       | Argon+                      | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | PUNK-398                 |
+| U15          | Rainbow POG                 | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | ahsim2009                |
+| A1600        | BP: Neptune LTE2 irom0400   | 8 MiB (NOR)     | Hitagi_LTE2_Compact_Intel_16.ldr              | Neko-mata                |
+| CC75/Mars    | Neptune LTE                 | 32 MiB (NOR)    | Hitagi_LTE1_AMD_16.ldr                        | EINEX, BonfireCZ         |
 ```
 
 ## Worksheet Examples
@@ -116,7 +118,7 @@ Please see [Worksheet.md](Worksheet.md) document.
 - ROMphonix developers
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 - SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
-- Den K, WN3DL, tfa8
+- Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata
 
 ## Useful Information and Resources
 
