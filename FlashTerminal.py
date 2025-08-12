@@ -807,7 +807,7 @@ def mfp_upload_binary_to_addr(er, ew, file_path, start, jump = None, rsrc = None
 			mfp_bin(er, ew, chunk)
 			address += step
 			index += step
-	logging.info(f'Uploading "{file_path}" to 0x{address:08X} is done.')
+	logging.info(f'Uploading "{file_path}" to 0x{start:08X}-0x{address:08X} region is done.')
 	if jump:
 		if rsrc:
 			loader_file_size = os.path.getsize(file_path)
