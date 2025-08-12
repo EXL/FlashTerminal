@@ -31,7 +31,7 @@ Developers and Thanks:
 	- ROMphonix developers
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
-	- Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata
+	- Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata, LNRC (Unabandonware)
 
 10-May-2024, Siberia
 '''
@@ -237,7 +237,11 @@ def worksheet(er, ew):
 #	mfp_dump_rqrc(er, ew, 'M701iG_IROM_Dump_2.bin', 0x00404000, 0x00408000)
 #	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_1.bin', 0xA0000000, 0xA2000000, 0x300)
 #	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_2.bin', 0xB4000000, 0xB6000000, 0x300)
+#	mfp_dump_read(er, ew, 'M702iS_ROM_Dump_1.bin', 0xA0000000, 0xA0040000, 0x200) # Skip PDS.
+#	mfp_dump_read(er, ew, 'M702iS_ROM_Dump_2.bin', 0xA0080000, 0xA2000000, 0x200) # Skip PDS.
+#	mfp_dump_read(er, ew, 'M702iS_ROM_Dump_3.bin', 0xB4000000, 0xB6000000, 0x200)
 #	mfp_dump_read(er, ew, 'V980_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
+#	mfp_dump_read(er, ew, 'A1600_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -263,6 +267,8 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'V325i_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 
 	# Motorola C350L full 8 MiB ROM flashing!
+#	timeout_read = 600000   # 10 min.
+#	timeout_write = 600000  # 10 min.
 #	mfp_cmd(er, ew, 'ERASE')
 #	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 
