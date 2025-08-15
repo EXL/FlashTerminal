@@ -315,3 +315,12 @@ mfp_dump_read(er, ew, 'M702iS_ROM_Dump_1.bin', 0xA0000000, 0xA0040000, 0x200) # 
 mfp_dump_read(er, ew, 'M702iS_ROM_Dump_2.bin', 0xA0080000, 0xA2000000, 0x200) # Skip PDS.
 mfp_dump_read(er, ew, 'M702iS_ROM_Dump_3.bin', 0xB4000000, 0xB6000000, 0x200)
 ```
+
+### Dumping 8 MiB NOR Memory from Motorola V60t Color (+ IROM)
+
+```
+mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+#	mfp_cmd(er, ew, 'RQHW')
+mfp_dump_sram(er, ew, 'V60tc_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
+mfp_dump_sram(er, ew, 'V60tc_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
+```
