@@ -175,7 +175,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Compact_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-	mfp_cmd(er, ew, 'RQHW')
+#	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQFI')
