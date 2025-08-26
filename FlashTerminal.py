@@ -277,7 +277,8 @@ def worksheet(er, ew):
 	mfp_cmd(er, ew, 'ERASE')
 #	mfp_cmd(er, ew, 'ERASE')
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
-	mfp_upload_binary_to_addr(er, ew, 'CC75_B3_Buggy.bin', 0x10040000, None)
+	mfp_upload_binary_to_addr(er, ew, 'CC75_B3_PDS_Buggy.bin', 0x10010000, None)
+#	mfp_upload_binary_to_addr(er, ew, 'CC75_B3_Buggy.bin', 0x10040000, None)
 #	mfp_dump_read(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, 0x12000000, 0x200)
 
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
