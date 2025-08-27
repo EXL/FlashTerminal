@@ -102,8 +102,8 @@ p2k_command_list = 'P2kCommandList.txt'
 delay_ack = 0.00
 delay_switch = 8.00
 delay_jump = 1.00
-timeout_read = 5000
-timeout_write = 5000
+timeout_read = 900000
+timeout_write = 900000
 buffer_write_size = 0x2000
 buffer_read_size = 0x2000
 
