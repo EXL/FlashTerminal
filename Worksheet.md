@@ -273,6 +273,8 @@ mfp_dump_read(er, ew, 'L9_ROM_Dump.bin', 0x10000000, 0x14000000, 0x100)
 ### Dumping 32 MB NOR Memory from Siemens CC75 (Mars, Mosel) using MEMACS
 
 ```python
+timeout_read = 600000   # 10 min.
+timeout_write = 600000  # 10 min.
 p2k_do_memacs_dump(p2k_usb_device, 'CC75_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
 ```
 
