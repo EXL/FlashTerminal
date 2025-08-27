@@ -102,8 +102,8 @@ p2k_command_list = 'P2kCommandList.txt'
 delay_ack = 0.00
 delay_switch = 8.00
 delay_jump = 1.00
-timeout_read = 900000
-timeout_write = 900000
+timeout_read = 5000
+timeout_write = 5000
 buffer_write_size = 0x2000
 buffer_read_size = 0x2000
 
@@ -168,7 +168,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A910i_BP_RAMDLD_0982.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iG_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/M702iS_RAMDLD_0303.ldr', 0x80000000, 0x80000038, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_AMD_16.ldr', 0x03FD0000, 0x03FD0010, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_AMD_16.ldr', 0x03FD0000, 0x03FD0010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Compact_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
@@ -273,10 +273,11 @@ def worksheet(er, ew):
 #	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 
 	# Siemens CC75 on Spansion flash memory chip flashing and reading!
-#	mfp_cmd(er, ew, 'ERASE')
-#	mfp_cmd(er, ew, 'ERASE')
+	mfp_cmd(er, ew, 'ERASE')
+	mfp_cmd(er, ew, 'ERASE')
 #	mfp_cmd(er, ew, 'ERASE')
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
+	mfp_upload_binary_to_addr(er, ew, 'CC75_B3_Stable.bin', 0x10040000, None)
 #	mfp_dump_read(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, 0x12000000, 0x200)
 
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
@@ -298,7 +299,7 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 		pass
 
 def worksheet_p2k(p2k_usb_device):
-	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x11108000, 0x12000000, 0x800)
+#	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
 #	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
 #	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
