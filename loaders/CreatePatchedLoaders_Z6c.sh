@@ -5,7 +5,7 @@ ADS_TOOLCHAIN_BIN_DIR=/home/exl/Storage/Projects/Git/MotoFanRu/P2K-ELF-SDK-OLD/E
 
 # Compile dump NAND patch.
 ${ADS_TOOLCHAIN_BIN_DIR}/tcc -apcs /interwork -DFTR_V9M_MSM6550 -O2 ../Injection_RQRC_Dump_NAND.c -c -o patch_nand.o
-${ADS_TOOLCHAIN_BIN_DIR}/armlink -ro-base 0x0012C2D4 patch_nand.o ../syms/Z6c_RAMDLD_000D.sym -o patch_nand.elf
+${ADS_TOOLCHAIN_BIN_DIR}/armlink -ro-base 0x00127600 patch_nand.o ../syms/Z6c_RAMDLD_000D.sym -o patch_nand.elf
 ${ADS_TOOLCHAIN_BIN_DIR}/fromelf patch_nand.elf -bin -output patch_nand.bin
 
 # Insert patch to 0x00027600 addr, BL to it.
