@@ -174,8 +174,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Compact_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Compact_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -186,7 +186,6 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'READ_OTP')
 #	mfp_cmd(er, ew, 'RESTART')
 #	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
-	mfp_cmd(er, ew, 'RQRC', '00100000,00100800'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
 
@@ -262,7 +261,7 @@ def worksheet(er, ew):
 
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
-#	mfp_dump_nand(er, ew, 'Z6m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30)
+	mfp_dump_nand(er, ew, 'Z6m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30)
 #	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
 #	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
