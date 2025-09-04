@@ -262,7 +262,7 @@ def worksheet(er, ew):
 	# Dump NAND data (64 MiB / 128 MiB / 256 MiB) and spare area.
 	# Chunks are 528 bytes == 512 bytes is NAND page size + 16 bytes is NAND spare area.
 #	mfp_dump_nand(er, ew, 'Z6m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x30)
-	mfp_dump_nand(er, ew, 'Z6c_NAND_Dump_4.bin', 35300 + 28600 + 24000, int(0x04001000 / 512), 0x30)
+	mfp_dump_nand(er, ew, 'Z6c_NAND_Dump_5.bin', 35300 + 28600 + 24000 + 21200, int(0x04001000 / 512), 0x30)
 #	mfp_dump_nand(er, ew, 'V9m_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
 #	mfp_dump_nand(er, ew, 'VE40_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
 #	mfp_dump_nand(er, ew, 'ic902_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x10)
