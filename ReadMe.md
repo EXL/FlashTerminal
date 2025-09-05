@@ -109,6 +109,7 @@ These phones were dumped by the Flash Terminal tool:
 | M702iS            | Argon+                      | 32+32 MiB (NOR) | M702iS_RAMDLD_0303.ldr                        | LNRC (Unabandonware)     |
 | V60t Color        | Patriot TDMA                | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | vinnyboombottzz          |
 | CC75/Mars         | Neptune LTE                 | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | Daniel Linhart           |
+| Z6c               | MSM6550                     | 128 MiB (NAND)  | Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr         | PUNK-398                 |
 ```
 
 ## Worksheet Examples

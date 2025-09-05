@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
 ADS_TOOLCHAIN_BIN_DIR=/opt/arm/bin/
-ADS_TOOLCHAIN_BIN_DIR=/home/exl/Storage/Projects/Git/MotoFanRu/P2K-ELF-SDK-OLD/ELFKIT_EP1_Linux/bin/
 
 # Compile dump NAND patch.
 ${ADS_TOOLCHAIN_BIN_DIR}/tcc -apcs /interwork -DFTR_V9M_MSM6550 -O2 ../Injection_RQRC_Dump_NAND.c -c -o patch_nand.o

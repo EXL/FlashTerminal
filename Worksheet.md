@@ -177,6 +177,13 @@ mfp_dump_sram(er, ew, 'Z6m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 ```
 
+### Dumping 128 MB NAND Memory from Motorola ROKR Z6c
+
+```python
+mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
+mfp_dump_nand(er, ew, 'Z6c_NAND_Dump.bin', 0, int(0x08000000 / 512), 0x30)
+```
+
 ### Dumping 64 MB and 128 MB NAND Memory from Motorola RAZR2 V9m and Motorola ROKR Z6m
 
 ```python
