@@ -102,7 +102,7 @@ These phones were dumped by the Flash Terminal tool:
 | M701iG            | Argon+                      | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | WN3DL                    |
 | M1000             | BP: Rainbow POG             | 16 MiB (NOR)    | A1000_BP_RAMDLD_0651_RSA_Read.ldr             | PUNK-398                 |
 | M702iG            | Argon+                      | 32+32 MiB (NOR) | M702iG_RAMDLD_0303.ldr                        | PUNK-398                 |
-| U15               | Rainbow POG                 | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | ahsim2009                |
+| U15               | Rainbow POG                 | 16 MiB (NOR)    | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | ahsim2009, kostett       |
 | A1600             | BP: Neptune LTE2 irom0400   | 4 MiB (NOR)     | Hitagi_LTE2_Compact_Intel_16.ldr              | Neko-mata                |
 | CC75/Mars         | Neptune LTE                 | 32 MiB (NOR)    | Hitagi_LTE1_AMD_16.ldr                        | EINEX, BonfireCZ         |
 | V9/Emerald2100    | ArgonLV                     | 64 MiB (NOR)    | V9_RAMDLD_R263313_05F4.ldr                    | Neko-mata                |
@@ -110,6 +110,7 @@ These phones were dumped by the Flash Terminal tool:
 | V60t Color        | Patriot TDMA                | 8 MiB (NOR)     | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | vinnyboombottzz          |
 | CC75/Mars         | Neptune LTE                 | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | Daniel Linhart           |
 | Z6c               | MSM6550                     | 128 MiB (NAND)  | Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr         | PUNK-398                 |
+| V66 Japanese      | Patriot                     | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | LNRC (Unabandonware)     |
 ```
 
 ## Worksheet Examples
