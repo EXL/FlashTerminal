@@ -179,8 +179,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A20_Patched_Dump_NOR.ldr', 0x03FD0000, 0x03FD0010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/M704i_RAMDLD_04C1_Patched_Dump_NOR_IROM1.ldr', 0x03FD0000, 0x03FD0010, True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/M704i_RAMDLD_04C1_Patched_Dump_NOR_IROM2.ldr', 0x03FD0000, 0x03FD0010, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/M704i_RAMDLD_04C1_Patched_Dump_NOR_IROM1.ldr', 0x80000000, 0x80000038, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/M704i_RAMDLD_04C1_Patched_Dump_NOR_IROM2.ldr', 0x80000000, 0x80000038, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 #	mfp_cmd(er, ew, 'RQHW')
