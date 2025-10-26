@@ -178,7 +178,9 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Compact_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A20_Patched_Dump_NOR.ldr', 0x03FD0000, 0x03FD0010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A20_Patched_Dump_NOR.ldr', 0x03FD0000, 0x03FD0010, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/M704i_RAMDLD_04C1_Patched_Dump_NOR_IROM1.ldr', 0x03FD0000, 0x03FD0010, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/M704i_RAMDLD_04C1_Patched_Dump_NOR_IROM2.ldr', 0x03FD0000, 0x03FD0010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -200,7 +202,6 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'READ.bin', 0x10000000, 0x12000000, 0x100)
 
 	# Dump SRAM and NOR flash.
-	mfp_dump_rqhw(er, ew, 'E.bin', 0x00000000, 0x00040000)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x00004000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
@@ -251,6 +252,8 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'M702iS_ROM_Dump_3.bin', 0xB4000000, 0xB6000000, 0x200)
 #	mfp_dump_read(er, ew, 'V980_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'A1600_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
+	mfp_dump_rqhw(er, ew, 'M704i_IROM0.bin', 0x00000000, 0x00004000)
+#	mfp_dump_rqhw(er, ew, 'M704i_IROM1.bin', 0x00404000, 0x00408000)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
