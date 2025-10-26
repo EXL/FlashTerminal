@@ -178,6 +178,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Compact_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A20_Patched_Dump_NOR.ldr', 0x03FD0000, 0x03FD0010, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -199,6 +200,8 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'READ.bin', 0x10000000, 0x12000000, 0x100)
 
 	# Dump SRAM and NOR flash.
+	mfp_dump_rqhw(er, ew, 'E.bin', 0x00000000, 0x00040000)
+#	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x00004000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x04000000, 0x30)
 #	mfp_dump_sram(er, ew, 'V9m_SRAM_Dump.bin', 0x00000000, 0x08000000, 0x30)
 #	mfp_dump_sram(er, ew, 'MSM_IRAM_Dump.bin', 0xFFFF0000, 0xFFFFFFFF, 0x10)
@@ -306,7 +309,6 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 
 def worksheet_p2k(p2k_usb_device):
 #	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
-	p2k_do_memacs_dump(p2k_usb_device, 'ARGON_MEMACS.bin', 0x00000000, 0x00004000, 0x100)
 #	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
 #	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
@@ -599,6 +601,29 @@ def calculate_checksum(data):
 	for byte in data:
 		checksum = (checksum + byte) % 256
 	return checksum
+
+def mfp_dump_rqhw(er, ew, file_path, start, end, step = 0x10):
+	logging.warning(f'Please check that "{start:08X}" address is defined in RDL patch source code!')
+	logging.warning(f'Step "{step:02X}" should be same as defined in RDL patch source code!')
+	addr_s = start
+	addr_e = start + step
+	with open(file_path, 'wb') as file:
+		index = 0
+		time_start = time.time()
+		while addr_e <= end:
+			if addr_e > end:
+				addr_e = end
+			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
+			if index > 0 and (index % (step * 0x100) == 0):
+				time_start = progress(step, time_start, 0x100, index, file_path, addr_s, addr_e, end)
+			result_data = mfp_cmd(er, ew, 'RQHW')
+			result_data = result_data[6:]   # Drop start marker and command.
+			result_data = result_data[:-1]  # Drop end marker.
+			file.write(bytearray.fromhex(result_data.decode()))
+
+			addr_s = addr_s + step
+			addr_e = addr_s + step
+			index += step
 
 def mfp_dump_rqrc(er, ew, file_path, start, end, step = 0x01):
 	addr_s = start
