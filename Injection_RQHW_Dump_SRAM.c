@@ -25,7 +25,7 @@ extern void handle_command_RQHW(UINT8 *data_ptr) {
 	UINT8 *data_start_ptr, *data_end_ptr;
 
 	UINT32 start_addr = (START_ADDR);
-
+#if 0
 	data_start_ptr = (UINT8 *) (start_addr + (*nulled_4bytes_addr_in_ram_rw));
 	data_end_ptr   = (UINT8 *) (data_start_ptr + BYTES_STEP);
 
@@ -35,6 +35,11 @@ extern void handle_command_RQHW(UINT8 *data_ptr) {
 		data_start_ptr++;
 		response_ptr += 2;
 	}
+#endif
+
+	response[0] = 'O';
+	response[1] = 'K';
+	response[2] = '\0';
 
 	*nulled_4bytes_addr_in_ram_rw += BYTES_STEP;
 
