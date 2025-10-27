@@ -1,4 +1,3 @@
-#define ADDR_CMD_ADDR_SIZE             (8)
 #define MAX_RESPONSE_DATA_SIZE        (95)
 #define BYTES_STEP                  (0x10)
 
