@@ -3,7 +3,7 @@
 ADS_TOOLCHAIN_BIN_DIR=/home/exl/Storage/Projects/Git/MotoFanRu/P2K-ELF-SDK-OLD/ELFKIT_EP1_Linux/bin
 
 # Compile dump SRAM patch.
-${ADS_TOOLCHAIN_BIN_DIR}/tcc -bigend -apcs /interwork -O2 -DSTART_ADDR=0x80000000 -DNULLED_4BYTES_ADDR=0x80002360 ../Injection_RQHW_Dump_SRAM.c -c -o patch_nor_1.o
+${ADS_TOOLCHAIN_BIN_DIR}/tcc -bigend -apcs /interwork -O2 -DSTART_ADDR=0x80000000 -DNULLED_4BYTES_ADDR=0x80002364 ../Injection_RQHW_Dump_SRAM.c -c -o patch_nor_1.o
 ${ADS_TOOLCHAIN_BIN_DIR}/armlink -ro-base 0x80002068 patch_nor_1.o ../syms/Z9_RAMDLD_0500.sym -o patch_nor_1.elf
 ${ADS_TOOLCHAIN_BIN_DIR}/fromelf patch_nor_1.elf -bin -output patch_nor_1.bin
 
