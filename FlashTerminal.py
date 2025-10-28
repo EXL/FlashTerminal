@@ -68,8 +68,8 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6023, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6403, 'mode': 'flash', 'desc': 'Motorola PCS Flash ArgonLV/SCM-A11'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6460, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon+'}, # M702iG
-	{'usb_vid': 0x22B8, 'usb_pid': 0x6461, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon+'}, # M702iS
-	{'usb_vid': 0x22B8, 'usb_pid': 0x6463, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon'}, # M704i
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6461, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon?'}, # M702iS
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6463, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon?'}, # M704i
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0xBEEF, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde (gen-blob)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
@@ -179,7 +179,6 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A20_Patched_Dump_NOR.ldr', 0x03FD0000, 0x03FD0010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/Z9_RAMDLD_0500_Patched_Dump_NOR_IROM.ldr', 0x80000000, 0x80000038, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -251,7 +250,6 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'M702iS_ROM_Dump_3.bin', 0xB4000000, 0xB6000000, 0x200)
 #	mfp_dump_read(er, ew, 'V980_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'A1600_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
-	mfp_dump_rqhw(er, ew, 'Z9_DUMP.bin', 0x80000000, 0x80004000)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
