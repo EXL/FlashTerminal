@@ -150,7 +150,7 @@ def worksheet(er, ew):
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Blank.ldr', 0x01FD0000, 0x1000, False)
-		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
+#		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -252,7 +252,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'M702iS_ROM_Dump_3.bin', 0xB4000000, 0xB6000000, 0x200)
 #	mfp_dump_read(er, ew, 'V980_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'A1600_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
-	mfp_dump_rqhw(er, ew, 'E380_ROM_Dump.bin', 0x10000000, 0x11000000, 'RQSN')
+#	mfp_dump_rqhw(er, ew, 'E380_ROM_Dump.bin', 0x10000000, 0x11000000, 'RQSN')
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
