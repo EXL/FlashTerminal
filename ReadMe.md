@@ -1,5 +1,4 @@
-Flash Terminal
-==============
+# Flash Terminal
 
 A set of utilities and patched/hacked RAMDLD loaders (RAM downloaders) for dumping SRAM, NAND, NOR, etc. memory chips data of Motorola phones and researching the Motorola Flash Protocol.
 
@@ -58,7 +57,7 @@ These phones were dumped by the Flash Terminal tool:
 | C350              | Neptune LT (LCA)            | 8 MiB (NOR)     | E380_RAMDLD_0910_Hacked_Dump.ldr              | diokhann                 |
 | C450              | Neptune LT (LCA)            | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | metalman87, ahsim2009    |
 | C550              | Neptune LT (LCA)            | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | ahsim2009, tfa8          |
-| E380              | Neptune LT (LCA)            | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | SGXVII, tfa8             |
+| E380              | Neptune LT (LCA)            | 16 MiB (NOR)    | E380_RAMDLD_0910_Hacked_Dump.ldr              | SGXVII, tfa8, EXL        |
 | V60               | Patriot                     | 4 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox, NextG50        |
 | V66i              | Patriot                     | 8 MiB (NOR)     | V60_RAMDLD_0355_Patched_Dump_NOR.ldr          | Ivan_Fox                 |
 | V60i              | Patriot                     | 8 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | metalman87, MC4f         |

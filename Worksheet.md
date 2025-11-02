@@ -1,5 +1,4 @@
-Worksheet Examples
-==================
+# Worksheet Examples
 
 ## Flashing Worksheet Parameters
 
@@ -10,9 +9,30 @@ timeout_read = 600000   # 10 min.
 timeout_write = 600000  # 10 min.
 #	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQVN')
-mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False
+mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 mfp_cmd(er, ew, 'ERASE')
 mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
+```
+
+### Flashing 16 MB NOR Memory Dump to Motorola C450, E380, C550
+
+```python
+timeout_read = 600000   # 10 min.
+timeout_write = 600000  # 10 min.
+
+# Flash Neptune LCA/LT.
+mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
+
+# Blank Neptune LCA/LT.
+mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
+
+mfp_cmd(er, ew, 'ERASE')
+
+# Flash Neptune LCA/LT.
+mfp_upload_binary_to_addr(er, ew, 'C550_ROM_Dump_16M.bin', 0x00000000, None)
+
+# Blank Neptune LCA/LT.
+mfp_upload_binary_to_addr(er, ew, 'C550_ROM_Dump_16M.bin', 0x10000000, None)
 ```
 
 ### Flashing and dumping Siemens CC75 on Spansion flash NOR memory chip

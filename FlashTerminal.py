@@ -149,6 +149,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
+#		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Blank.ldr', 0x01FD0000, 0x1000, False)
+		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -250,6 +252,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'M702iS_ROM_Dump_3.bin', 0xB4000000, 0xB6000000, 0x200)
 #	mfp_dump_read(er, ew, 'V980_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
 #	mfp_dump_read(er, ew, 'A1600_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
+	mfp_dump_rqhw(er, ew, 'E380_ROM_Dump.bin', 0x10000000, 0x11000000, 'RQSN')
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -601,7 +604,7 @@ def calculate_checksum(data):
 		checksum = (checksum + byte) % 256
 	return checksum
 
-def mfp_dump_rqhw(er, ew, file_path, start, end, step = 0x10):
+def mfp_dump_rqhw(er, ew, file_path, start, end, command = 'RQHW', step = 0x10):
 	logging.warning(f'Please check that "{start:08X}" address is defined in RDL patch source code!')
 	logging.warning(f'Step "{step:02X}" should be same as defined in RDL patch source code!')
 	addr_s = start
@@ -615,7 +618,7 @@ def mfp_dump_rqhw(er, ew, file_path, start, end, step = 0x10):
 			logging.debug(f'Dumping 0x{addr_s:08X}-0x{addr_e:08X} bytes to "{file_path}"...')
 			if index > 0 and (index % (step * 0x100) == 0):
 				time_start = progress(step, time_start, 0x100, index, file_path, addr_s, addr_e, end)
-			result_data = mfp_cmd(er, ew, 'RQHW')
+			result_data = mfp_cmd(er, ew, command)
 			result_data = result_data[6:]   # Drop start marker and command.
 			result_data = result_data[:-1]  # Drop end marker.
 			file.write(bytearray.fromhex(result_data.decode()))
