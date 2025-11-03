@@ -110,6 +110,8 @@ These phones were dumped by the Flash Terminal tool:
 | CC75/Mars         | Neptune LTE                 | 32 MiB (NOR)    | P2K/TCMD/TCI MEMACS                           | Daniel Linhart           |
 | Z6c               | MSM6550                     | 128 MiB (NAND)  | Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr         | PUNK-398                 |
 | V66 Japanese      | Patriot                     | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | LNRC (Unabandonware)     |
+| V3i               | Neptune LTE2                | 48 MiB (NOR)    | V3e_RAMDLD_0A40.ldr                           | EXL                      |
+| A630              | Neptune LTE                 | 32 MiB (NOR)    | E398_RAMDLD_07B0_Hacked_Dump.ldr              | EXL                      |
 ```
 
 ## Worksheet Examples
