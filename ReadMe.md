@@ -112,6 +112,7 @@ These phones were dumped by the Flash Terminal tool:
 | V66 Japanese      | Patriot                     | 4 MiB (NOR)     | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | LNRC (Unabandonware)     |
 | V3i               | Neptune LTE2                | 48 MiB (NOR)    | V3e_RAMDLD_0A40.ldr                           | EXL                      |
 | A630              | Neptune LTE                 | 32 MiB (NOR)    | E398_RAMDLD_07B0_Hacked_Dump.ldr              | EXL                      |
+| V710              | MSM6100                     | 32 MiB (NOR)    | V710_RAMDLD_0807_Patched_Dump_NOR.ldr         | EXL                      |
 ```
 
 ## Worksheet Examples
