@@ -72,6 +72,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6463, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon?'}, # M704i
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0xBEEF, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde (gen-blob)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x405F, 'mode': 'flash', 'desc': 'Motorola PCS Flash ESPOO/HELSINKI Z8/Z10'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
@@ -257,6 +258,7 @@ def worksheet(er, ew):
 #	mfp_dump_rqhw(er, ew, 'E380_ROM_Dump.bin', 0x10000000, 0x11000000, 'RQSN')
 #	mfp_dump_read(er, ew, 'V3i_ROM_Dump.bin', 0x10000000, 0x13000000, 0x100)
 #	mfp_dump_rqhw(er, ew, 'V710_ROM_Dump.bin', 0x00000000, 0x02000000, 'RQSN')
+#	mfp_dump_read(er, ew, 'Z10_ROM_Dump.bin', 0xA0000000, 0xA2000000, 0x200)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
@@ -282,9 +284,7 @@ def worksheet(er, ew):
 #	mfp_dump_nand(er, ew, 'K1m_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 #	mfp_dump_nand(er, ew, 'V325i_NAND_Dump.bin', 0, int(0x04000000 / 512), 0x10, 1, 0x64000000)
 
-	# Motorola C350L full 8 MiB ROM flashing!
-#	timeout_read = 600000   # 10 min.
-#	timeout_write = 600000  # 10 min.
+	# Motorola C350L full 8 MiB ROM flashing! Please set timeout_read/timeout_write to 600000 (10 min)!
 #	mfp_cmd(er, ew, 'ERASE')
 #	mfp_upload_binary_to_addr(er, ew, 'С350L_ROM_Dump_8M.bin', 0x10000000, None)
 

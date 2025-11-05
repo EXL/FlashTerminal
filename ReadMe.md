@@ -113,6 +113,9 @@ These phones were dumped by the Flash Terminal tool:
 | V3i               | Neptune LTE2                | 48 MiB (NOR)    | V3e_RAMDLD_0A40.ldr                           | EXL                      |
 | A630              | Neptune LTE                 | 32 MiB (NOR)    | E398_RAMDLD_07B0_Hacked_Dump.ldr              | EXL                      |
 | V710              | MSM6100                     | 32 MiB (NOR)    | V710_RAMDLD_0807_Patched_Dump_NOR.ldr         | EXL                      |
+| Z10               | BP: ArgonLV                 | 32 MiB (NOR)    | No Loader, just READ with `-2` argument       | EXL                      |
+| E725 London       | MSM6500                     | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | EXL                      |
+| V1100 Rocket      | ArgonLV                     | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | EXL                      |
 ```
 
 ## Worksheet Examples
