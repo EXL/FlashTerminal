@@ -239,10 +239,10 @@ mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr
 mfp_dump_sram(er, ew, 'W315_ROM_Dump.bin', 0x00000000, 0x01000000, 0x30)
 ```
 
-### Dumping AP and BP NOR Memories from Motorola A760, A768i, A780 (+ IROM)
+### Dumping AP and BP NOR Memories from Motorola A760, A768, A768i, A728, A780, E680 (+ IROM)
 
 ```python
-# AP Part
+# AP Part (A760/A768), (A728/A768i)
 mfp_upload_binary_to_addr(er, ew, 'loaders/A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 
@@ -251,7 +251,7 @@ mfp_dump_sram(er, ew, 'A760_AP_ROM_Dump.bin', 0x00000000, 0x02000000, 0x30)
 sudo ./FlashTerminal.py -l
 sudo ./FlashTerminal.py
 
-# BP Part
+# BP Part (A760/A768), (A728/A768i/A780/E680)
 mfp_upload_binary_to_addr(er, ew, 'loaders/A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
 mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr', 0x12000000, 0x12000010)
 mfp_upload_binary_to_addr(er, ew, 'loaders/A780g_BP_RAMDLD_08A0.ldr', 0x03FD0000, 0x03FD0010)
@@ -259,19 +259,20 @@ mfp_upload_binary_to_addr(er, ew, 'loaders/A780g_BP_RAMDLD_08A0.ldr', 0x03FD0000
 mfp_dump_sram(er, ew, 'A760_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 mfp_dump_sram(er, ew, 'A760_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 
-mfp_dump_read(er, ew, 'A768i_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x100)
-mfp_dump_read(er, ew, 'A768i_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
-mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
+mfp_dump_read(er, ew, 'A768i_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x400)
+mfp_dump_read(er, ew, 'A768i_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x400)
+mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x400)
 
 sudo ./FlashTerminal.py -l
 sudo ./FlashTerminal.py -l -2
 ```
 
-### Dumping AP and BP NOR Memories from Motorola E895, A910, A910i, ROKR E2, MING A1200, MING A1600 (+ IROM)
+### Dumping AP and BP NOR Memories from Motorola A780, E680, E895, A910, A910i, ROKR E2, MING A1200, MING A1600 (+ IROM)
 
 ```python
 # AP Part
 mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/head.bin', 0xA1000000)
+mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/blob-a780', 0xA0DE0000, 0xA0DE0000, ezx_ap=True)
 mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/blob-a1200', 0xA0DE0000, 0xA0DE0000, ezx_ap=True)
 
 mfp_dump_rbin(er, ew, 'A910_AP_ROM_Dump.bin', 0x00000000, 0x04000000, 0x1000)

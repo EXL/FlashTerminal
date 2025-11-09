@@ -116,6 +116,10 @@ These phones were dumped by the Flash Terminal tool:
 | Z10               | BP: ArgonLV                 | 32 MiB (NOR)    | No Loader, just READ with `-2` argument       | EXL                      |
 | E725 London       | MSM6500                     | 64 MiB (NAND)   | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | EXL                      |
 | V1100 Rocket      | ArgonLV                     | 32+32 MiB (NOR) | K3_RAMDLD_0320.ldr                            | EXL                      |
+| A768              | AP: Dalhart                 | 32 MiB (NOR)    | A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr      | EXL                      |
+| A768              | BP: Neptune LT (LCA)        | 4 MiB (NOR)     | A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr      | EXL                      |
+| A780              | AP: Bulverde                | 32 MiB (NOR)    | gen-blob/blob-a780                            | EXL                      |
+| A780              | BP: Neptune LTE             | 4 MiB (NOR)     | A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr     | EXL                      |
 ```
 
 ## Worksheet Examples

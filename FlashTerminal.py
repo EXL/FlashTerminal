@@ -233,9 +233,10 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'A760_AP_ROM_Dump.bin', 0x00000000, 0x02000000, 0x30)
 #	mfp_dump_sram(er, ew, 'A760_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'A760_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
-#	mfp_dump_read(er, ew, 'A768i_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x100)
-#	mfp_dump_read(er, ew, 'A768i_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
-#	mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
+#	mfp_dump_read(er, ew, 'A768i_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x400)
+#	mfp_dump_read(er, ew, 'A768i_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x400)
+#	mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x00000000, 0x00400800, 0x400)
+#	mfp_dump_read(er, ew, 'A780_BP_IROM_Dump.bin', 0x10000000, 0x10400800, 0x400)
 #	mfp_dump_read(er, ew, 'A1000_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
 #	mfp_dump_rqrc(er, ew, 'A1000_PDS_ROM_Dump.bin', 0x10010000, 0x10020000)
 #	mfp_dump_read(er, ew, 'V3re_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
@@ -300,10 +301,10 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 		# EZX AP
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/A780g_AP_RAMDLD_0000.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 
 		# EZX AP Set Flag (command-line arguments)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/head.bin', 0xA1000000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/blob-a780', 0xA0DE0000, 0xA0DE0000, ezx_ap=True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/blob-a1200', 0xA0DE0000, 0xA0DE0000, ezx_ap=True)
 		pass
 	else:
