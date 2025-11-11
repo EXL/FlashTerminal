@@ -120,6 +120,8 @@ These phones were dumped by the Flash Terminal tool:
 | A768              | BP: Neptune LT (LCA)        | 4 MiB (NOR)     | A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr      | EXL                      |
 | A780              | AP: Bulverde                | 32 MiB (NOR)    | gen-blob/blob-a780                            | EXL                      |
 | A780              | BP: Neptune LTE             | 4 MiB (NOR)     | A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr     | EXL                      |
+| E680g             | AP: Bulverde                | 32 MiB (NOR)    | gen-blob/blob-a780                            | EXL                      |
+| E680g             | BP: Neptune LTE             | 4 MiB (NOR)     | E680i_BP_RAMDLD_08A0.ldr                      | EXL                      |
 ```
 
 ## Worksheet Examples
