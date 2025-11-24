@@ -1,0 +1,3 @@
+#<SYMDEFS>#symdef-file
+
+0x03FA13C6 T parser_send_packet
