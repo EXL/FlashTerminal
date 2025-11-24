@@ -180,12 +180,12 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Compact_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Compact_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTS1_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A20_Patched_Dump_NOR.ldr', 0x03FD0000, 0x03FD0010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3e_RAMDLD_0A40.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V710_RAMDLD_0807_Patched_Dump_NOR.ldr', 0x10020000, 0x10020000, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920.ldr', 0x03FA0000, 0x03FA0010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQHW')
