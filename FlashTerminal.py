@@ -60,6 +60,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rainbow/Rainbow POG'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4903, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTE/LTE2/LTE2 irom0400'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3803, 'mode': 'flash', 'desc': 'Motorola PCS Flash LT'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4803, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTS'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5803, 'mode': 'flash', 'desc': 'Motorola PCS Flash ULS'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'flash', 'desc': 'Motorola PCS Flash Patriot'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x0001, 'mode': 'flash', 'desc': 'Motorola PCS Flash Wally'},
@@ -179,6 +180,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_Compact_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE2_Compact_Intel_16.ldr', 0x03FC8000, 0x03FC8010, True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTS1_Intel_16.ldr', 0x03FD0000, 0x03FD0010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr', 0x00100000, 0x00100000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E1_RAMDLD_0A20_Patched_Dump_NOR.ldr', 0x03FD0000, 0x03FD0010, True)
@@ -186,8 +188,8 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V710_RAMDLD_0807_Patched_Dump_NOR.ldr', 0x10020000, 0x10020000, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
-#	mfp_cmd(er, ew, 'RQHW')
-#	mfp_cmd(er, ew, 'RQSW')
+	mfp_cmd(er, ew, 'RQHW')
+	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQFI')
