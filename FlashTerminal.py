@@ -186,7 +186,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3e_RAMDLD_0A40.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V710_RAMDLD_0807_Patched_Dump_NOR.ldr', 0x10020000, 0x10020000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920.ldr', 0x03FA0000, 0x03FA0010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr', 0x03FA0000, 0x03FA0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr', 0x03FA0000, 0x03FA0010)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQHW')
@@ -263,7 +263,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'V3i_ROM_Dump.bin', 0x10000000, 0x13000000, 0x100)
 #	mfp_dump_rqhw(er, ew, 'V710_ROM_Dump.bin', 0x00000000, 0x02000000, 'RQSN')
 #	mfp_dump_read(er, ew, 'Z10_ROM_Dump.bin', 0xA0000000, 0xA2000000, 0x200)
-	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10800000, 'RQSN')
+#	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10800000, 'RQSN')
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
