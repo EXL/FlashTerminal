@@ -187,6 +187,9 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V710_RAMDLD_0807_Patched_Dump_NOR.ldr', 0x10020000, 0x10020000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920.ldr', 0x03FA0000, 0x03FA0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr', 0x03FA0000, 0x03FA0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000.ldr', 0x00150000, 0x00150000, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND.ldr', 0x00150000, 0x00150000, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND_WIDE.ldr', 0x00150000, 0x00150000, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQHW')
