@@ -155,7 +155,6 @@ def worksheet(er, ew):
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_LTE1_AMD_16.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T722i_RAMDLD_0380.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
@@ -195,7 +194,7 @@ def worksheet(er, ew):
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQSW')
-	mfp_cmd(er, ew, 'RQVN')
+#	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
 #	mfp_cmd(er, ew, 'RQFI')
 #	mfp_cmd(er, ew, 'READ_OTP')
@@ -268,6 +267,7 @@ def worksheet(er, ew):
 #	mfp_dump_rqhw(er, ew, 'V710_ROM_Dump.bin', 0x00000000, 0x02000000, 'RQSN')
 #	mfp_dump_read(er, ew, 'Z10_ROM_Dump.bin', 0xA0000000, 0xA2000000, 0x200)
 #	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10800000, 'RQSN')
+	mfp_dump_rqrc(er, ew, 'T722i_DUMP.bin', 0x10000000, 0x10010000)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
