@@ -267,7 +267,6 @@ def worksheet(er, ew):
 #	mfp_dump_rqhw(er, ew, 'V710_ROM_Dump.bin', 0x00000000, 0x02000000, 'RQSN')
 #	mfp_dump_read(er, ew, 'Z10_ROM_Dump.bin', 0xA0000000, 0xA2000000, 0x200)
 #	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10800000, 'RQSN')
-	mfp_dump_rqrc(er, ew, 'T722i_DUMP.bin', 0x10010000, 0x10012000)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
