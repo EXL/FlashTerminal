@@ -32,7 +32,7 @@ Developers and Thanks:
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
 	- Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata, LNRC (Unabandonware), vinnyboombottzz
-	- Daniel Linhart
+	- Daniel Linhart, xkonstantin
 
 10-May-2024, Siberia
 '''
