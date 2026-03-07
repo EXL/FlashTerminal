@@ -40,8 +40,8 @@ $ ./FlashTerminal.py -h       # Show help.
 These phones were dumped by the Flash Terminal tool:
 
 ```
-| Phone             | SoC                         | Flash           | Loader                                        | Dumped by                |
-|-------------------|-----------------------------|-----------------|-----------------------------------------------|--------------------------|
+| Phone             | SoC                         | Flash                         | Loader                                        | Dumped by                |
+|-------------------|-----------------------------|-------------------------------|-----------------------------------------------|--------------------------|
 | A830              | Rainbow                     | 16 MiB (NOR)                  | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL, greyowls            |
 | U10               | Rainbow                     | 16 MiB (NOR)                  | A830_RAMDLD_0520_Patched_Dump_NOR.ldr         | EXL                      |
 | A835              | Rainbow POG                 | 16 MiB (NOR)                  | A835_RAMDLD_0612_Hacked_RSA_Read.ldr          | PUNK-398                 |
@@ -125,7 +125,7 @@ These phones were dumped by the Flash Terminal tool:
 | C350LTS           | Neptune LTS                 | 8 MiB (NOR)                   | C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr      | PUNK-398                 |
 | V60t Color        | Patriot TDMA                | 8 MiB (NOR)                   | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | xkonstantin              |
 | PEBL U5 (Proto)   | MSM6125                     | 64 MiB (NAND)                 | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
-| A45               | OMAP V1030                  | 64 MiB (NOR) + 64 MiB (NAND)  | A45_RAMDLD_02B0.ldr                           | fkcoder                  |
+| A45 Cubo          | OMAP V1030                  | 64 MiB (NOR) + 64 MiB (NAND)  | A45_RAMDLD_02B0.ldr                           | fkcoder                  |
 ```
 
 ## Worksheet Examples
