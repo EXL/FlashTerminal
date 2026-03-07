@@ -74,6 +74,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0xBEEF, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde (gen-blob)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x405F, 'mode': 'flash', 'desc': 'Motorola PCS Flash ESPOO/HELSINKI Z8/Z10'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x41B3, 'mode': 'flash', 'desc': 'Motorola PCS Flash TI NEPTUNE'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
@@ -190,6 +191,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000.ldr', 0x00150000, 0x00150000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND.ldr', 0x00150000, 0x00150000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND_WIDE.ldr', 0x00150000, 0x00150000, True)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/A45_RAMDLD_02B0.ldr', 0x10000000, 0x10000000, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
 	mfp_cmd(er, ew, 'RQHW')
@@ -267,6 +269,8 @@ def worksheet(er, ew):
 #	mfp_dump_rqhw(er, ew, 'V710_ROM_Dump.bin', 0x00000000, 0x02000000, 'RQSN')
 #	mfp_dump_read(er, ew, 'Z10_ROM_Dump.bin', 0xA0000000, 0xA2000000, 0x200)
 #	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10800000, 'RQSN')
+#	mfp_dump_read(er, ew, 'A45_NOR_Dump.bin', 0x0C000000, 0x0FFFFFFF, 0x100)
+#	mfp_dump_read(er, ew, 'A45_NAND_Dump.bin', 0x04000000, 0x07FFFFFF, 0x100)
 
 	# Motorola A835/A845 dumping tricks.
 #	mfp_cmd(er, ew, 'RQHW')
