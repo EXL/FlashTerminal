@@ -124,8 +124,9 @@ These phones were dumped by the Flash Terminal tool:
 | E680g             | BP: Neptune LTE             | 4 MiB (NOR)                   | E680i_BP_RAMDLD_08A0.ldr                      | EXL                      |
 | C350LTS           | Neptune LTS                 | 8 MiB (NOR)                   | C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr      | PUNK-398                 |
 | V60t Color        | Patriot TDMA                | 8 MiB (NOR)                   | T720_RAMDLD_0370_Patched_Dump_NOR.ldr         | xkonstantin              |
-| PEBL U5 (Proto)   | MSM6125                     | 64 MiB (NAND)                 | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf                     |
+| PEBL U5 (Proto)   | MSM6125                     | 64 MiB (NAND)                 | V3m_RAMDLD_010C_Patched_Dump_NAND.ldr         | asdf, PUNK-398           |
 | A45 Cubo          | OMAP V1030                  | 64 MiB (NOR) + 64 MiB (NAND)  | A45_RAMDLD_02B0.ldr                           | fkcoder                  |
+| Ve maxx (Proto)   | MSM6550                     | 128 MiB (NAND)                | Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr         | PUNK-398                 |
 ```
 
 ## Worksheet Examples
