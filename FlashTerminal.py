@@ -191,6 +191,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000.ldr', 0x00150000, 0x00150000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND.ldr', 0x00150000, 0x00150000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND_WIDE.ldr', 0x00150000, 0x00150000, True)
+#		mfp_uls_upload(er, ew, 'loaders/Hitagi_LTS1_Intel_16.ldr', 0x03FD0010, 0x1000, False)
 		mfp_upload_binary_to_addr(er, ew, 'loaders/A45_RAMDLD_02B0.ldr', 0x10000000, 0x10000000, True)
 
 	# Commands executed on Bootloader or RAMDLD (if loaded) side.
