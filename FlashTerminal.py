@@ -108,8 +108,8 @@ p2k_command_list = 'P2kCommandList.txt'
 delay_ack = 0.00
 delay_switch = 8.00
 delay_jump = 1.00
-timeout_read = 60000
-timeout_write = 60000
+timeout_read = 5000
+timeout_write = 5000
 buffer_write_size = 0x2000
 buffer_read_size = 0x2000
 
@@ -119,7 +119,7 @@ def worksheet(er, ew):
 	er, ew = usb_check_restart_phone(er, ew, '-r' in sys.argv)
 
 	# Various single commands.
-#	mfp_cmd(er, ew, 'RQHW')
+	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQSN')
@@ -152,7 +152,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump_8M.ldr', 0x01FD0000, 0x01FD0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump_8M.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Blank.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -195,14 +195,8 @@ def worksheet(er, ew):
 #		mfp_uls_upload(er, ew, 'loaders/Hitagi_LTS1_Intel_16.ldr', 0x03FD0010, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A45_RAMDLD_02B0.ldr', 0x10000000, 0x10000000, True)
 
-
-	### C350 flashing
-	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
-#	mfp_cmd(er, ew, 'ERASE')
-#	mfp_upload_binary_to_addr(er, ew, '1.bin', 0x00000000, None)
-
 # Commands executed on Bootloader or RAMDLD (if loaded) side.
-#	mfp_cmd(er, ew, 'RQHW')
+	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
