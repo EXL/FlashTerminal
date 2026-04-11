@@ -360,9 +360,20 @@ mfp_dump_sram(er, ew, 'V60tc_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 
 ### Dumping 16 MiB NOR Memory from Motorola E390 Proto (+ IROM)
 
-```
+```python
 mfp_uls_upload(er, ew, 'loaders/Hitagi_LTS1_Intel_16.ldr', 0x03FD0010, 0x1000, False)
 
 mfp_dump_read(er, ew, 'E390_ROM_Dump.bin', 0x10000000, 0x11000000, 0x200)
 mfp_dump_read(er, ew, 'E390_IROM_Dump.bin', 0x10000000, 0x00400000, 0x200)
+```
+
+### Flashing 16 MiB NOR Memory to Motorola E390 Proto
+
+```python
+mfp_uls_upload(er, ew, 'loaders/Hitagi_LTS1_Intel_16.ldr', 0x03FD0010, 0x1000, False)
+
+mfp_cmd(er, ew, 'ERASE')
+
+mfp_upload_binary_to_addr(er, ew, 'E390_ROM_Dump.bin', 0x10000000, None)
+mfp_upload_binary_to_addr(er, ew, 'E390_ROM_Dump_Chunk.bin', 0x10008000, None)
 ```
