@@ -99,6 +99,8 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D34, 'mode': 'at', 'desc': 'Motorola PCS Rhodes Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x640B, 'mode': 'at', 'desc': 'Motorola PCS FOMA M704i (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4802, 'mode': 'flash', 'desc': 'Motorola PCS LTS (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4801, 'mode': 'flash', 'desc': 'Motorola PCS LTS (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -108,8 +110,8 @@ p2k_command_list = 'P2kCommandList.txt'
 delay_ack = 0.00
 delay_switch = 8.00
 delay_jump = 1.00
-timeout_read = 5000
-timeout_write = 5000
+timeout_read = 50000
+timeout_write = 50000
 buffer_write_size = 0x2000
 buffer_read_size = 0x2000
 
@@ -332,7 +334,7 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 		pass
 
 def worksheet_p2k(p2k_usb_device):
-#	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
+	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x10801000, 0x800)
 #	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
 #	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
