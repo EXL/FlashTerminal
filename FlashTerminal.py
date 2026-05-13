@@ -32,7 +32,7 @@ Developers and Thanks:
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
 	- Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata, LNRC (Unabandonware), vinnyboombottzz
-	- Daniel Linhart, xkonstantin
+	- Daniel Linhart, xkonstantin, lafanaticadelasgraficas
 
 10-May-2024, Siberia
 '''
@@ -57,8 +57,8 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2A63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6500/MSM6800'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2B23, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6550'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2C63, 'mode': 'flash', 'desc': 'Motorola PCS Flash MSM6575/MSM6800'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rainbow/Rainbow POG'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x4903, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTE/LTE2/LTE2 irom0400'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1801, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rainbow/Rainbow PoG'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4903, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTE/LTE2/LTE2 ROM4'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3803, 'mode': 'flash', 'desc': 'Motorola PCS Flash LT'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4803, 'mode': 'flash', 'desc': 'Motorola PCS Flash LTS'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x5803, 'mode': 'flash', 'desc': 'Motorola PCS Flash ULS'},
@@ -73,34 +73,34 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6463, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon?'}, # M704i
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0xBEEF, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde (gen-blob)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x405F, 'mode': 'flash', 'desc': 'Motorola PCS Flash ESPOO/HELSINKI Z8/Z10'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x41B3, 'mode': 'flash', 'desc': 'Motorola PCS Flash TI NEPTUNE'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 GSM Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 GSM Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens Phone U10 (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1C01, 'mode': 'p2k', 'desc': 'Motorola PCS Siemens Phone U10 (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x405F, 'mode': 'flash', 'desc': 'Motorola PCS Flash Espoo/Helsinki Z8/Z10'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x41B3, 'mode': 'flash', 'desc': 'Motorola PCS Flash TI Neptune'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3002, 'mode': 'at', 'desc': 'Motorola PCS A835/E1000 UMTS Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3001, 'mode': 'p2k', 'desc': 'Motorola PCS A835/E1000 UMTS Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1C02, 'mode': 'at', 'desc': 'Motorola PCS Siemens UMTS Phone U10 (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1C01, 'mode': 'p2k', 'desc': 'Motorola PCS Siemens UMTS Phone U10 (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4902, 'mode': 'at', 'desc': 'Motorola PCS Triplet GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x4901, 'mode': 'p2k', 'desc': 'Motorola PCS Triplet GSM Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x5802, 'mode': 'at', 'desc': 'Motorola PCS C350L Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x5801, 'mode': 'p2k', 'desc': 'Motorola PCS C350L Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1005, 'mode': 'at', 'desc': 'Motorola PCS V60 Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'p2k', 'desc': 'Motorola PCS V60 Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS EZX Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x6009, 'mode': 'p2k', 'desc': 'Motorola PCS EZX Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x0005, 'mode': 'at', 'desc': 'Motorola PCS V120c Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x0001, 'mode': 'p2k', 'desc': 'Motorola PCS V120c Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2822, 'mode': 'at', 'desc': 'Motorola PCS V120e Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2821, 'mode': 'p2k', 'desc': 'Motorola PCS V120e Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x5802, 'mode': 'at', 'desc': 'Motorola PCS C350L GSM Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x5801, 'mode': 'p2k', 'desc': 'Motorola PCS C350L GSM Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4802, 'mode': 'at', 'desc': 'Motorola PCS C350LTS GSM Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x4801, 'mode': 'p2k', 'desc': 'Motorola PCS C350LTS GSM Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1005, 'mode': 'at', 'desc': 'Motorola PCS V60 GSM Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x1001, 'mode': 'p2k', 'desc': 'Motorola PCS V60 GSM Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS EZX GSM Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6009, 'mode': 'p2k', 'desc': 'Motorola PCS EZX GSM Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x0005, 'mode': 'at', 'desc': 'Motorola PCS V120c CDMA Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x0001, 'mode': 'p2k', 'desc': 'Motorola PCS V120c CDMA Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2822, 'mode': 'at', 'desc': 'Motorola PCS V120e CDMA Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2821, 'mode': 'p2k', 'desc': 'Motorola PCS V120e CDMA Phone (P2K)'},
 	{'usb_vid': 0x1907, 'usb_pid': 0x0001, 'mode': 'at', 'desc': 'Elcoteq Mosel GSM Phone (AT)'},
 	{'usb_vid': 0x1907, 'usb_pid': 0x0002, 'mode': 'p2k', 'desc': 'Elcoteq Mosel GSM Phone (P2K)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0007, 'mode': 'at', 'desc': 'Siemens CC75 GSM Phone (AT)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'p2k', 'desc': 'Siemens CC75 GSM Phone (P2K)'},
 	{'usb_vid': 0x11F5, 'usb_pid': 0x0008, 'mode': 'flash', 'desc': 'Siemens CC75 GSM Phone (Flash)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2D34, 'mode': 'at', 'desc': 'Motorola PCS Rhodes Phone (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes Phone (P2K)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x640B, 'mode': 'at', 'desc': 'Motorola PCS FOMA M704i (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x4802, 'mode': 'flash', 'desc': 'Motorola PCS LTS (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x4801, 'mode': 'flash', 'desc': 'Motorola PCS LTS (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2D34, 'mode': 'at', 'desc': 'Motorola PCS Rhodes GSM Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes GSM Phone (P2K)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x640B, 'mode': 'at', 'desc': 'Motorola PCS DoCoMo FOMA UMTS M704i (AT)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
@@ -110,8 +110,8 @@ p2k_command_list = 'P2kCommandList.txt'
 delay_ack = 0.00
 delay_switch = 8.00
 delay_jump = 1.00
-timeout_read = 50000
-timeout_write = 50000
+timeout_read = 5000
+timeout_write = 5000
 buffer_write_size = 0x2000
 buffer_read_size = 0x2000
 
@@ -121,7 +121,7 @@ def worksheet(er, ew):
 	er, ew = usb_check_restart_phone(er, ew, '-r' in sys.argv)
 
 	# Various single commands.
-	mfp_cmd(er, ew, 'RQHW')
+#	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQSN')
@@ -190,7 +190,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3e_RAMDLD_0A40.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V710_RAMDLD_0807_Patched_Dump_NOR.ldr', 0x10020000, 0x10020000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920.ldr', 0x03FA0000, 0x03FA0010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr', 0x03FA0000, 0x03FA0010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr', 0x03FA0000, 0x03FA0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000.ldr', 0x00150000, 0x00150000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND.ldr', 0x00150000, 0x00150000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND_WIDE.ldr', 0x00150000, 0x00150000, True)
@@ -199,7 +199,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_ARGON_Intel_16.ldr', 0x80000000, 0x80000038, True)
 
 # Commands executed on Bootloader or RAMDLD (if loaded) side.
-	mfp_cmd(er, ew, 'RQHW')
+# 	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
@@ -209,6 +209,8 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'RQRC', '10000000,10000400'.encode())
 #	mfp_cmd(er, ew, 'RQRC', '60000000,60000010,00000000'.encode())
 #	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
+#	mfp_cmd(er, ew, 'DUMP', '10000000'.encode())
+#	mfp_cmd(er, ew, 'JUMP', '03FD0010AE'.encode())
 
 	# Hitagi Custom RAMDLD.
 #	mfp_cmd(er, ew, 'ERASE')
@@ -273,7 +275,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'V3i_ROM_Dump.bin', 0x10000000, 0x13000000, 0x100)
 #	mfp_dump_rqhw(er, ew, 'V710_ROM_Dump.bin', 0x00000000, 0x02000000, 'RQSN')
 #	mfp_dump_read(er, ew, 'Z10_ROM_Dump.bin', 0xA0000000, 0xA2000000, 0x200)
-#	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10800000, 'RQSN')
+	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10801000, 'RQSN')
 #	mfp_dump_read(er, ew, 'A45_NOR_Dump.bin', 0x0C000000, 0x0FFFFFFF, 0x100)
 #	mfp_dump_read(er, ew, 'A45_NAND_Dump.bin', 0x04000000, 0x07FFFFFF, 0x100)
 
@@ -334,7 +336,7 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 		pass
 
 def worksheet_p2k(p2k_usb_device):
-	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x10801000, 0x800)
+#	p2k_do_memacs_dump(p2k_usb_device, 'E398_MEMACS_DUMP.bin', 0x10000000, 0x12000000, 0x800)
 #	p2k_do_info_dump(p2k_usb_device, 'E398_P2KINFO_DUMP.txt')
 #	p2k_do_dump_files(p2k_usb_device, 'a')
 	return True
