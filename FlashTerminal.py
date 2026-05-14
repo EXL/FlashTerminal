@@ -68,9 +68,9 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6008, 'mode': 'flash', 'desc': 'Motorola PCS Flash Dalhart RAMDLD'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6023, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x6403, 'mode': 'flash', 'desc': 'Motorola PCS Flash ArgonLV/SCM-A11'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x6460, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon+'}, # M702iG
-	{'usb_vid': 0x22B8, 'usb_pid': 0x6461, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon?'}, # M702iS
-	{'usb_vid': 0x22B8, 'usb_pid': 0x6463, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon?'}, # M704i
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6460, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon+'},  # M702iG
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6461, 'mode': 'flash', 'desc': 'Motorola PCS Flash Argon+'},  # M702iS
+	{'usb_vid': 0x22B8, 'usb_pid': 0x6463, 'mode': 'flash', 'desc': 'Motorola PCS Flash ArgonLV'}, # M704i
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D33, 'mode': 'flash', 'desc': 'Motorola PCS Flash Rhodes'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0xBEEF, 'mode': 'flash', 'desc': 'Motorola PCS Flash Bulverde (gen-blob)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x405F, 'mode': 'flash', 'desc': 'Motorola PCS Flash Espoo/Helsinki Z8/Z10'},
@@ -275,7 +275,8 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'V3i_ROM_Dump.bin', 0x10000000, 0x13000000, 0x100)
 #	mfp_dump_rqhw(er, ew, 'V710_ROM_Dump.bin', 0x00000000, 0x02000000, 'RQSN')
 #	mfp_dump_read(er, ew, 'Z10_ROM_Dump.bin', 0xA0000000, 0xA2000000, 0x200)
-	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10801000, 'RQSN')
+#	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10800000, 'RQSN')
+	mfp_dump_rqhw(er, ew, 'AR_C350LTS_IROM_Dump.bin', 0x00000000, 0x00200000, 'RQSN')
 #	mfp_dump_read(er, ew, 'A45_NOR_Dump.bin', 0x0C000000, 0x0FFFFFFF, 0x100)
 #	mfp_dump_read(er, ew, 'A45_NAND_Dump.bin', 0x04000000, 0x07FFFFFF, 0x100)
 
