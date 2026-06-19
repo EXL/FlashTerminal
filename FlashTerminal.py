@@ -199,7 +199,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/Hitagi_ARGON_Intel_16.ldr', 0x80000000, 0x80000038, True)
 
 # Commands executed on Bootloader or RAMDLD (if loaded) side.
-# 	mfp_cmd(er, ew, 'RQHW')
+	mfp_cmd(er, ew, 'RQHW')
 #	mfp_cmd(er, ew, 'RQSW')
 #	mfp_cmd(er, ew, 'RQVN')
 #	mfp_cmd(er, ew, 'RQSN')
@@ -250,8 +250,8 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'A760_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_read(er, ew, 'A768i_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x400)
 #	mfp_dump_read(er, ew, 'A768i_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x400)
-#	mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x00000000, 0x00400800, 0x400)
-	mfp_dump_read(er, ew, 'A780_BP_IROM_Dump.bin', 0x10000000, 0x10400800, 0x400)
+	mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x00000000, 0x00400800, 0x400)
+#	mfp_dump_read(er, ew, 'A780_BP_IROM_Dump.bin', 0x10000000, 0x10400800, 0x400)
 #	mfp_dump_read(er, ew, 'A1000_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
 #	mfp_dump_rqrc(er, ew, 'A1000_PDS_ROM_Dump.bin', 0x10010000, 0x10020000)
 #	mfp_dump_read(er, ew, 'V3re_ROM_Dump.bin', 0x10000000, 0x12000000, 0x100)
