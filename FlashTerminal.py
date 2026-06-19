@@ -321,7 +321,7 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A760_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_AP_RAMDLD_0000_Patched_Dump_NOR.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A780g_AP_RAMDLD_0000.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/E680i_AP_RAMDLD_0000.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/E680i_AP_RAMDLD_0000.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 
 		# EZX AP Set Flag (command-line arguments)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/head.bin', 0xA1000000)
