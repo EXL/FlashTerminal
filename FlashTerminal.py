@@ -32,7 +32,7 @@ Developers and Thanks:
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
 	- Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata, LNRC (Unabandonware), vinnyboombottzz
-	- Daniel Linhart, xkonstantin, lafanaticadelasgraficas
+	- Daniel Linhart, xkonstantin, Val6
 
 10-May-2024, Siberia
 '''
@@ -158,7 +158,7 @@ def worksheet(er, ew):
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Blank.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T722i_RAMDLD_0380.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
@@ -190,7 +190,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3e_RAMDLD_0A40.ldr', 0x03FC8000, 0x03FC8010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V710_RAMDLD_0807_Patched_Dump_NOR.ldr', 0x10020000, 0x10020000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920.ldr', 0x03FA0000, 0x03FA0010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr', 0x03FA0000, 0x03FA0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/C350LTS_RAMDLD_0920_Patched_Dump_NOR.ldr', 0x03FA0000, 0x03FA0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000.ldr', 0x00150000, 0x00150000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND.ldr', 0x00150000, 0x00150000, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/RHODES_RAMDLD_0000_Patched_Dump_NAND_WIDE.ldr', 0x00150000, 0x00150000, True)
@@ -236,7 +236,7 @@ def worksheet(er, ew):
 #	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
 #	mfp_dump_dump(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 #	mfp_dump_dump(er, ew, 'C550_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
-#	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
+	mfp_dump_sram(er, ew, 'V60_ROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
@@ -276,7 +276,7 @@ def worksheet(er, ew):
 #	mfp_dump_rqhw(er, ew, 'V710_ROM_Dump.bin', 0x00000000, 0x02000000, 'RQSN')
 #	mfp_dump_read(er, ew, 'Z10_ROM_Dump.bin', 0xA0000000, 0xA2000000, 0x200)
 #	mfp_dump_rqhw(er, ew, 'C350LTS_ROM_Dump.bin', 0x10000000, 0x10800000, 'RQSN')
-	mfp_dump_rqhw(er, ew, 'AR_C350LTS_IROM_Dump.bin', 0x00000000, 0x00200000, 'RQSN')
+#	mfp_dump_rqhw(er, ew, 'C350LTS_IROM_Dump.bin', 0x00000000, 0x00200000, 'RQSN')
 #	mfp_dump_read(er, ew, 'A45_NOR_Dump.bin', 0x0C000000, 0x0FFFFFFF, 0x100)
 #	mfp_dump_read(er, ew, 'A45_NAND_Dump.bin', 0x04000000, 0x07FFFFFF, 0x100)
 
