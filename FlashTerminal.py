@@ -161,7 +161,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T722i_RAMDLD_0380.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr', 0x14010000, 0x14010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3re_RAMDLD_0CC1.ldr', 0x03FC8000, 0x03FC8010, True)
@@ -239,7 +239,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump_2.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
-	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
+#	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
 #	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
@@ -250,7 +250,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'A760_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_read(er, ew, 'A768i_BP_ROM_Dump.bin', 0x00000000, 0x00400000, 0x400)
 #	mfp_dump_read(er, ew, 'A768i_BP_IROM_Dump.bin', 0x10000000, 0x10400000, 0x400)
-#	mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x00000000, 0x00400800, 0x400)
+	mfp_dump_read(er, ew, 'A780_BP_ROM_Dump.bin', 0x00000000, 0x00400800, 0x400)
 #	mfp_dump_read(er, ew, 'A780_BP_IROM_Dump.bin', 0x10000000, 0x10400800, 0x400)
 #	mfp_dump_read(er, ew, 'A1000_ROM_Dump.bin', 0x10000000, 0x11000000, 0x100)
 #	mfp_dump_rqrc(er, ew, 'A1000_PDS_ROM_Dump.bin', 0x10010000, 0x10020000)
@@ -333,7 +333,7 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A760_BP_RAMDLD_0372_Patched_Dump_NOR.ldr', 0x11060000, 0x11060010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr', 0x12000000, 0x12000010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A780g_BP_RAMDLD_08A0.ldr', 0x03FD0000, 0x03FD0010)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/E680i_BP_RAMDLD_08A0.ldr', 0x03FD0000, 0x03FD0010)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/E680i_BP_RAMDLD_08A0.ldr', 0x03FD0000, 0x03FD0010)
 		pass
 
 def worksheet_p2k(p2k_usb_device):
