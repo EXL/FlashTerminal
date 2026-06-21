@@ -128,6 +128,9 @@ These phones were dumped by the Flash Terminal tool:
 | A45 Cubo          | OMAP V1030                  | 64 MiB (NOR) + 64 MiB (NAND)  | A45_RAMDLD_02B0.ldr                           | fkcoder                  |
 | Ve maxx (Proto)   | MSM6550                     | 128 MiB (NAND)                | Z6c_RAMDLD_000D_Patched_Dump_NAND.ldr         | PUNK-398                 |
 | E390 (Proto)      | Neptune LTS                 | 16 (NOR)                      | Hitagi_LTS1_Intel_16.ldr                      | PUNK-398, fkcoder        |
+| E680 (E686)       | AP: Bulverde                | 32 MiB (NOR)                  | gen-blob/blob-a780                            | PUNK-398                 |
+| E680 (E686)       | BP: Neptune LTE             | 4 MiB (NOR)                   | A768i_BP_RAMDLD_0731_Patched_Dump_NOR.ldr     | PUNK-398                 |
+| V120t             | Patriot TDMA                | 4 MiB (NOR)                   | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | realmaxjedi              |
 ```
 
 ## Worksheet Examples
@@ -142,12 +145,12 @@ Please see [Worksheet.md](Worksheet.md) document.
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 - SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
 - Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata, LNRC (Unabandonware), vinnyboombottzz
-- Daniel Linhart, xkonstantin, Val6
+- Daniel Linhart, xkonstantin, Val6, realmaxjedi
 
 ## Useful Information and Resources
 
 - https://github.com/dumpit3315/dumpit by dffn3
-- https://github.com/MotoFanRu/LTE-Hitagi by muromec
+- https://github.com/MotoFanRu/LTE-Hitagi by MotoFan.Ru developers & muromec
 - https://github.com/ktdumper/ktdumper by xyzz and Keitai Wiki Discord server
 - MotoFan.Ru forum about modding Motorola phones
 - ROMphonix Club Discord server
