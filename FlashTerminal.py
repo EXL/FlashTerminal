@@ -161,7 +161,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60i_RAMDLD_1007_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T720_RAMDLD_0370_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/T722i_RAMDLD_0380.ldr', 0x11010000, 0x11010010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/V120e_RAMDLD_0713_Patched_Dump_NOR.ldr', 0x01010000, 0x01010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V120c_RAMDLD_0312_Patched_Dump_NOR.ldr', 0x41008000, 0x41008010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/W315_RAMDLD_0106_Patched_Dump_NOR.ldr', 0x14010000, 0x14010000)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V3re_RAMDLD_0CC1.ldr', 0x03FC8000, 0x03FC8010, True)
@@ -239,7 +239,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump_2.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V70_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
-	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
+#	mfp_dump_sram(er, ew, 'V120e_ROM_Dump.bin', 0x00000000, 0x00500000, 0x30) # 4 MiB + 1 MiB
 #	mfp_dump_sram(er, ew, 'T720_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
 #	mfp_dump_sram(er, ew, 'T720_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'V120c_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)
@@ -261,7 +261,7 @@ def worksheet(er, ew):
 #	mfp_dump_read(er, ew, 'K3_ROM_Dump_2.bin', 0xB4000000, 0xB6000000, 0x300)
 #	mfp_dump_read(er, ew, 'V9_ROM_Dump.bin', 0xA0000000, 0xA4000000, 0x200)
 #	mfp_dump_read(er, ew, 'A910_BP_ROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
-#	mfp_dump_rbin(er, ew, 'A910_AP_ROM_Dump.bin', 0x00000000, 0x04000000, 0x1000)
+	mfp_dump_rbin(er, ew, 'A910_AP_ROM_Dump.bin', 0x00000000, 0x04000000, 0x1000)
 #	mfp_dump_rqrc(er, ew, 'M701iG_IROM_Dump_1.bin', 0x00000000, 0x00004000)
 #	mfp_dump_rqrc(er, ew, 'M701iG_IROM_Dump_2.bin', 0x00404000, 0x00408000)
 #	mfp_dump_read(er, ew, 'M701iG_ROM_Dump_1.bin', 0xA0000000, 0xA2000000, 0x300)
@@ -324,8 +324,8 @@ def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E680i_AP_RAMDLD_0000.ldr', 0xA0200000, 0xA0200000, ezx_ap=True)
 
 		# EZX AP Set Flag (command-line arguments)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/head.bin', 0xA1000000)
-#		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/blob-a780', 0xA0DE0000, 0xA0DE0000, ezx_ap=True)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/head.bin', 0xA1000000)
+		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/blob-a780', 0xA0DE0000, 0xA0DE0000, ezx_ap=True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/gen-blob/blob-a1200', 0xA0DE0000, 0xA0DE0000, ezx_ap=True)
 		pass
 	else:
