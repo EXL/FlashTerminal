@@ -101,6 +101,8 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D34, 'mode': 'at', 'desc': 'Motorola PCS Rhodes GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x640B, 'mode': 'at', 'desc': 'Motorola PCS DoCoMo FOMA UMTS M704i (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS C450/C550/E380 GSM Phone (AT)'},
+	{'usb_vid': 0x22B8, 'usb_pid': 0x3801, 'mode': 'p2k', 'desc': 'Motorola PCS C450/C550/E380 GSM Phone (P2K)'},
 ]
 modem_speed = 115200
 modem_device = '/dev/ttyACM0'
