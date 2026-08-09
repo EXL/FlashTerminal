@@ -32,7 +32,7 @@ Developers and Thanks:
 	- PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 	- SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
 	- Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata, LNRC (Unabandonware), vinnyboombottzz
-	- Daniel Linhart, xkonstantin, Val6, realmaxjedi, Bs0Dd
+	- Daniel Linhart, xkonstantin, Val6, realmaxjedi, Bs0Dd, katakawa
 
 10-May-2024, Siberia
 '''
@@ -101,7 +101,7 @@ usb_devices = [
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D34, 'mode': 'at', 'desc': 'Motorola PCS Rhodes GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x2D31, 'mode': 'p2k', 'desc': 'Motorola PCS Rhodes GSM Phone (P2K)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x640B, 'mode': 'at', 'desc': 'Motorola PCS DoCoMo FOMA UMTS M704i (AT)'},
-	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS C450/C550/E380 GSM Phone (AT)'},
+#	{'usb_vid': 0x22B8, 'usb_pid': 0x3802, 'mode': 'at', 'desc': 'Motorola PCS C450/C550/E380 GSM Phone (AT)'},
 	{'usb_vid': 0x22B8, 'usb_pid': 0x3801, 'mode': 'p2k', 'desc': 'Motorola PCS C450/C550/E380 GSM Phone (P2K)'},
 ]
 modem_speed = 115200
@@ -155,7 +155,7 @@ def worksheet(er, ew):
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A1000_BP_RAMDLD_0651_RSA_Read.ldr', 0x08000000, 0x08000010, True)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/A835_RAMDLD_0612_Hacked_RSA_Read.ldr', 0x08000000, 0x08018818)
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump_8M.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Blank.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
@@ -236,7 +236,7 @@ def worksheet(er, ew):
 #	mfp_dump_sram(er, ew, 'C350L_ROM_Dump.bin', 0x10000000, 0x10800000, 0x30)
 #	mfp_dump_sram(er, ew, 'C350L_IROM_Dump.bin', 0x00000000, 0x00040000, 0x30)
 #	mfp_dump_dump(er, ew, 'C350_ROM_Dump.bin', 0x00000000, 0x00800000, 0x100)
-	mfp_dump_dump(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
+#	mfp_dump_dump(er, ew, 'C350_IROM_Dump.bin', 0x10000000, 0x10400000, 0x100)
 #	mfp_dump_dump(er, ew, 'C550_ROM_Dump.bin', 0x00000000, 0x01000000, 0x100)
 #	mfp_dump_sram(er, ew, 'V60_ROM_Dump_2.bin', 0x10000000, 0x10400000, 0x30)
 #	mfp_dump_sram(er, ew, 'V60_IROM_Dump.bin', 0x00000000, 0x00400000, 0x30)

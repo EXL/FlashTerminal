@@ -133,6 +133,7 @@ These phones were dumped by the Flash Terminal tool:
 | V120t             | Patriot TDMA                | 4 MiB (NOR)                   | V60i_RAMDLD_1007_Patched_Dump_NOR.ldr         | realmaxjedi              |
 | A780              | AP: Bulverde                | 32 MiB (NOR)                  | gen-blob/blob-a780                            | Bs0Dd                    |
 | A780              | BP: Neptune LTE             | 4 MiB (NOR)                   | A780g_BP_RAMDLD_08A0.ldr                      | Bs0Dd                    |
+| C375              | Neptune LT (LCA)            | 16 MiB (NOR)                  | E380_RAMDLD_0910_Hacked_Dump.ldr              | katakawa                 |
 ```
 
 ## Worksheet Examples
@@ -147,7 +148,7 @@ Please see [Worksheet.md](Worksheet.md) document.
 - PUNK-398, asdf, wavvy01, diokhann, metalman87, ahsim2009, greyowls, Ivan_Fox, kostett
 - SGXVII, NextG50, ronalp, CrayZor, Paschendale, fkcoder, overglube, MC4f, regenfaellt
 - Den K, WN3DL, tfa8, EINEX, BonfireCZ, Neko-mata, LNRC (Unabandonware), vinnyboombottzz
-- Daniel Linhart, xkonstantin, Val6, realmaxjedi, Bs0Dd
+- Daniel Linhart, xkonstantin, Val6, realmaxjedi, Bs0Dd, katakawa
 
 ## Useful Information and Resources
 
