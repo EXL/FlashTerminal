@@ -112,8 +112,8 @@ p2k_command_list = 'P2kCommandList.txt'
 delay_ack = 0.00
 delay_switch = 8.00
 delay_jump = 1.00
-timeout_read = 600000
-timeout_write = 600000
+timeout_read = 5000
+timeout_write = 5000
 buffer_write_size = 0x2000
 buffer_read_size = 0x2000
 
@@ -157,7 +157,7 @@ def worksheet(er, ew):
 #		mfp_uls_upload(er, ew, 'loaders/C350L_RAMDLD_0000_Patched_Dump_NOR.ldr', 0x12000000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump_8M.ldr', 0x01FD0000, 0x01FD0010)
-		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump_8M_Head.ldr', 0x01FD0000, 0x01FD0010)
+#		mfp_upload_binary_to_addr(er, ew, 'loaders/E380_RAMDLD_0910_Hacked_Dump_8M_Head.ldr', 0x01FD0000, 0x01FD0010)
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Blank.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_uls_upload(er, ew, 'loaders/E380_RAMDLD_Hacked_RQHW.ldr', 0x01FD0000, 0x1000, False)
 #		mfp_upload_binary_to_addr(er, ew, 'loaders/V60_RAMDLD_0355_Patched_Dump_NOR.ldr', 0x11010000, 0x11010010)
@@ -317,9 +317,6 @@ def worksheet(er, ew):
 #	mfp_cmd(er, ew, 'ERASE')
 #	mfp_upload_binary_to_addr(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, None)
 #	mfp_dump_read(er, ew, 'CC75_ROM_Dump.bin', 0x10000000, 0x12000000, 0x200)
-
-	mfp_cmd(er, ew, 'ERASE')
-	mfp_upload_binary_to_addr(er, ew, 'C350.bin', 0x00020000, None)
 
 def check_and_load_ezx_ap_bp_ramdlds(er, ew):
 	if not '-2' in sys.argv:
